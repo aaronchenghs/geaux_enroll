@@ -47,6 +47,12 @@ To lint the code, run:
 
 ## Project Structuring Rules
 
+### React
+
+- React components should be functional, not class (see usage)
+
+---
+
 ### Styling
 
 - This project utilizes CSS modules.
@@ -55,6 +61,10 @@ To lint the code, run:
   import styles from "./[filename].module.scss";
   ```
   This ensures modularity of classNames.
+- When referencing classNames, use them modularly:
+  ```typescript
+   <div className={styles.{yourClassName}}></div>
+  ```
 
 ### Components
 
