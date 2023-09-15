@@ -19,18 +19,18 @@ Ensure you have `npm` installed.
 
 1. Navigate to the repository directory:
 
-   ```bash
+   ```
    cd path/to/repository
    ```
 
 2. Install the required dependencies:
 
-   ```bash
+   ```
    npm install
    ```
 
 3. Start the project:
-   ```bash
+   ```
    npm start
    ```
 
@@ -40,9 +40,10 @@ ESLint rules and prettier configurations are set up for this project.
 
 To lint the code, run:
 
-```bash
-npm run lint
-```
+````
+ npm run lint
+ ```
+````
 
 ## Project Structuring Rules
 
@@ -68,6 +69,6 @@ npm run lint
 - This project leverages the Redux Toolkit.
 - Global states should be separated into slices by category, if needed in the future. Refer to the codebase for usage examples.
 
-```
+---
 
-```
+Good luck with your project, Wireframe Wizards!
