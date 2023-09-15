@@ -65,6 +65,22 @@ To lint the code, run:
   ```typescript
    <div className={styles.{yourClassName}}></div>
   ```
+- Non-global styling should be encapsulated using SCSS nesting:
+  ```SCSS
+   .HomePage{
+      display: flex;
+      .HomePage-button{
+         color: red;
+      }
+      .HomePage-whatever{
+         color: blue;
+         .something-insideOfWhatever{
+            color: green;
+         }
+      }
+   }
+  ```
+- For color consistency, theme colors should be defined in App.css and exported.
 
 ### Components
 
