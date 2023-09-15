@@ -70,5 +70,3 @@ To lint the code, run:
 - Global states should be separated into slices by category, if needed in the future. Refer to the codebase for usage examples.
 
 ---
-
-Good luck with your project, Wireframe Wizards!
