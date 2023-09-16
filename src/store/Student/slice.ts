@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Student } from "../../models/student";
 
-interface StudentState {
-  name: string;
-}
-
-const INITIAL_STATE: StudentState = {
-  name: "aaron",
+const INITIAL_STATE: Student = {
+  id: "",
+  firstName: "",
+  lastName: "",
+  majors: [],
+  minors: [],
+  gpa: 0,
+  completedCourses: [],
 };
 
 const slice = createSlice({
@@ -13,7 +16,7 @@ const slice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     changeName(state, action: PayloadAction<string>) {
-      state.name = action.payload;
+      state.firstName = action.payload;
     },
   },
   extraReducers: () => {},

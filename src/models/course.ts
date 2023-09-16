@@ -1,44 +1,58 @@
 export interface Course {
+  id: string;
   title: string;
   course: CourseAbbreviation;
+  creditHours: number;
+}
+
+export interface SemesterCourse extends Course {
   section: number;
   instructor: Instructor;
-  creditHours: number;
 
   enrollmentCount: number;
   enrollmentLimit: number;
 
-  timeSlot?: CourseTime;
+  timeSlot?: Times;
   location?: CourseLocation;
-  specialEnrollment?: SpecialEnrollment;
-  courseType?: CourseType;
+  specialEnrollment?: SpecialEnrollments;
+  courseType?: CourseTypes;
+}
+
+export interface DegreeCourse extends Course {
+  passWithC: boolean;
+}
+
+export interface CompletedCourse extends DegreeCourse {
+  grade: Grades;
 }
 
 export interface CourseAbbreviation {
   department: Departments;
-  number: string;
+  courseNumber: string;
 }
 
-export interface TimeSlot {
-  semester: Session;
-  days: Weekday[];
-  startTime: CourseTime;
-  endTime: CourseTime;
+export interface CourseTimeSlot {
+  semester: Sessions;
+  days: Weekdays[];
+  startTime: Times;
+  endTime: Times;
 }
 
 export interface Instructor {
+  id: string;
+  email: string;
   firstName: string;
   lastName: string;
 }
 
 export interface CourseLocation {
-  building: Building;
+  building: Buildings;
   roomNumber: string;
 }
 
 // enumerations, some of this is data we would get if we had a backend
 
-export enum Weekday {
+export enum Weekdays {
   MONDAY = "Mon",
   TUESDAY = "Tues",
   WEDNESDAY = "Wed",
@@ -48,39 +62,39 @@ export enum Weekday {
   SUNDAY = "Sun",
 }
 
-export enum CourseTime {
-  SEVENAM = "7:00 AM",
-  SEVENTHIRTYAM = "7:30 AM",
-  EIGHTAM = "8:00 AM",
-  EIGHTTHIRTYAM = "8:30 AM",
-  NINEAM = "9:00 AM",
-  NINETHIRTYAM = "9:30 AM",
-  TENAM = "10:00 AM",
-  TENTHIRTYAM = "10:30 AM",
-  ELEVENAM = "11:00 AM",
-  ELEVENTHIRTYAM = "11:30 AM",
-  TWELVEPM = "12:00 PM",
-  TWELVETHIRTYPM = "12:30 PM",
-  ONEPM = "1:00 PM",
-  ONETHIRTYPM = "1:30 PM",
-  TWOPM = "2:00 PM",
-  TWOTHIRTYPM = "2:30 PM",
-  THREEPM = "3:00 PM",
-  THREETHIRTYPM = "3:30 PM",
-  FOURPM = "4:00 PM",
-  FOURTHIRTYPM = "4:30 PM",
-  FIVEPM = "5:00 PM",
-  FIVETHIRTYPM = "5:30 PM",
-  SIXPM = "6:00 PM",
-  SIXTHIRTYPM = "6:30 PM",
-  SEVENPM = "7:00 PM",
-  SEVENTHIRTYPM = "7:30 PM",
-  EIGHTPM = "8:00 PM",
-  EIGHTTHIRTYPM = "8:30 PM",
-  NINEPM = "9:00 PM",
-  NINETHIRTYPM = "9:30 PM",
-  TENPM = "10:00 PM",
-  TENTHIRTYPM = "10:30 PM",
+export enum Times {
+  AM_7 = "7:00 AM",
+  AM_7_30 = "7:30 AM",
+  AM_8 = "8:00 AM",
+  AM_8_30 = "8:30 AM",
+  AM_9 = "9:00 AM",
+  AM_9_30 = "9:30 AM",
+  AM_10 = "10:00 AM",
+  AM_10_30 = "10:30 AM",
+  AM_11 = "11:00 AM",
+  AM_11_30 = "11:30 AM",
+  PM_12 = "12:00 PM",
+  PM_12_30 = "12:30 PM",
+  PM_1 = "1:00 PM",
+  PM_1_30 = "1:30 PM",
+  PM_2 = "2:00 PM",
+  PM_2_30 = "2:30 PM",
+  PM_3 = "3:00 PM",
+  PM_3_30 = "3:30 PM",
+  PM_4 = "4:00 PM",
+  PM_4_30 = "4:30 PM",
+  PM_5 = "5:00 PM",
+  PM_5_30 = "5:30 PM",
+  PM_6 = "6:00 PM",
+  PM_6_30 = "6:30 PM",
+  PM_7 = "7:00 PM",
+  PM_7_30 = "7:30 PM",
+  PM_8 = "8:00 PM",
+  PM_8_30 = "8:30 PM",
+  PM_9 = "9:00 PM",
+  PM_9_30 = "9:30 PM",
+  PM_10 = "10:00 PM",
+  PM_10_30 = "10:30 PM",
 }
 
 export enum Departments {
@@ -96,14 +110,14 @@ export enum Departments {
   PHIL = "PHIL",
 }
 
-export enum SpecialEnrollment {
+export enum SpecialEnrollments {
   PERMISSION_OF_DEPARTMENT = "Permission of department",
   CI_WRITTEN_TECH = "CI written tech",
   WEB_BASED = "100% Web-Based",
   HYBRID = "Hybrid",
 }
 
-export enum Building {
+export enum Buildings {
   PFT = "Patrick F. Taylor",
   LOCKETT = "Lockett",
   HIMES = "Himes",
@@ -121,14 +135,22 @@ export enum Building {
   BEC = "Business Education Complex",
 }
 
-export enum CourseType {
+export enum CourseTypes {
   LAB = "Lab",
   RES = "Res",
 }
 
-export enum Session {
+export enum Sessions {
   FALL = "Fall",
   SPRING = "Spring",
   WINTER = "Winter",
   SUMMER = "Summer",
+}
+
+export enum Grades {
+  A = "A",
+  B = "B",
+  C = "C",
+  D = "D",
+  F = "F",
 }

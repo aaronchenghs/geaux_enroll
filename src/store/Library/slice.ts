@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Course } from "../../models/course";
+import { SemesterCourse } from "../../models/course";
 
 interface LibraryState {
-  courses: Course[];
+  courses: SemesterCourse[];
 }
 
 const INITIAL_STATE: LibraryState = {
