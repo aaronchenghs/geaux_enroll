@@ -1,5 +1,7 @@
 :root {
   --white: #fff;
+
+  --topBarHeight: 6vh;
 }
 
 .App {
@@ -8,25 +10,19 @@
   flex-direction: column;
   justify-content: center;
   overflow: overlay;
+  height: 100%;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
-/* Track */
 ::-webkit-scrollbar-track {
   background: var(--white);
 }
-
-/* Handle */
 ::-webkit-scrollbar-thumb {
   background: #555;
   border-radius: 3px;
 }
-
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
 }

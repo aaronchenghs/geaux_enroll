@@ -1,0 +1,14 @@
+.TopBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background-color: rgb(169, 209, 238);
+
+  width: 100%;
+  height: var(--topBarHeight);
+  max-height: 75px;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
