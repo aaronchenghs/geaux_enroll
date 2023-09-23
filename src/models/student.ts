@@ -1,4 +1,4 @@
-import { CompletedCourse, Departments } from "./course";
+import {Course, Department } from "./course";
 
 export interface Student {
   id: string;
@@ -7,13 +7,13 @@ export interface Student {
   lastName: string;
 
   majors: Major[];
-  minors: Departments[];
+  minors: Department[];
 
   gpa: number;
-  completedCourses: CompletedCourse[];
+  completedCourses: Course[];
 }
 
 export interface Major {
-  department: Departments;
+  department: Department;
   concentration?: string;
 }

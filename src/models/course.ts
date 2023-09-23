@@ -1,103 +1,120 @@
-export interface Course {
-  id: string;
-  title: string;
-  course: CourseAbbreviation;
-  creditHours: number;
+import { Section } from "./section";
+
+export class Course{
+  name: string;
+
+  code: number;
+  department: Department;
+
+  description: string | null;
+  prereqs : Course[];
+  courseType : CourseType[] | null;
+
+  grade: Grade | null;
+  private _section: Section | null;
+
+  constructor( name: string, code: number, department:Department, description: string, prereqs : Course[] | null = null, courseType : CourseType[] | null = null, grade: Grade | null = null, section: Section | null = null){
+    this.name = name;
+
+    this.code = code;
+    this.department = department;
+
+    this.description = description;
+    this.prereqs = prereqs != null ? prereqs : [];
+    this.courseType = courseType;
+
+    this.grade = grade;
+    this._section = section;
+  }
+
+  get section(): Section | null{
+    return this._section;
+  }
+
+  set section(input){
+    this._section = input;
+  }
+
+  get courseAbreviation() : string{
+    return this.department.toUpperCase() + " " +  this.code.toString();
+  }
+
+  // Returns true if the grade awarded is sufficent to pass the course
+  didPass() : boolean{
+    return this.grade != null && this.grade != Grade.F;
+  }
+  
+  hasPrereqs() : boolean{
+    return this.prereqs.length > 0;
+  }
+
+  equals(other : Course) : boolean {
+    return this.code == other.code;
+  }
+
+  arePrereqsMeetBy(completedCourses: Course[]){
+    if  (this.hasPrereqs() == false) return true;
+
+    this.prereqs.forEach(
+      (prereq:Course) => {
+        var reqAchived : boolean = completedCourses.find((canidateCourse)=>{
+          return canidateCourse.equals(prereq) && canidateCourse.didPass();
+        }) != undefined;
+        
+        if (reqAchived == false){
+          return false;
+        }});
+
+    return true;
+  }
 }
 
-export interface SemesterCourse extends Course {
-  section: number;
-  instructor: Instructor;
-
-  enrollmentCount: number;
-  enrollmentLimit: number;
-
-  timeSlot?: Times;
-  location?: CourseLocation;
-  specialEnrollment?: SpecialEnrollments;
-  courseType?: CourseTypes;
+// Course you have to get a C or higher in
+export class CoreCourse extends Course{
+  didPass(): boolean {
+      return this.grade != null && this.grade in [Grade.A,Grade.B,Grade.C];
+  }
 }
 
-export interface DegreeCourse extends Course {
-  passWithC: boolean;
+// Course where you have a few options - like Physical Science
+export class CatagoryCourse extends Course{
+  options : Course[];
+  optionTaken : Course | null;
+
+  constructor(name: string, code: number, department:Department, description: string, prereqs : Course[] | null = null, courseType : CourseType[] | null = null, grade: Grade | null = null, section: Section | null = null, options : Course[], optionTaken : Course | null){
+    super(name,code,department,description,prereqs,courseType, grade, section);
+    this.options = options;
+    this.optionTaken = optionTaken;
+    if (this.optionTaken != null){
+      this.optionTaken.section = section;
+    }
+
+  }
+
+  get section() : Section | null{
+    if (this.optionTaken == null) return null;
+
+    return this.optionTaken.section;
+  }
+
+  // Updates both what course option was taken and the section information of that course
+  set section(input){
+    if (input == null) this.optionTaken = null;
+    
+    else {
+      // If section input corresponds to a valid option
+      if (this.options.find((option)=>{
+        return option.equals(input.course)
+      })){
+        this.optionTaken = input.course;
+      } else{
+        throw new Error("Section added to CatagoryCourse not from a course that fufills the catagory")
+      }
+    }
+  }
 }
 
-export interface CompletedCourse extends DegreeCourse {
-  grade: Grades;
-}
-
-export interface CourseAbbreviation {
-  department: Departments;
-  courseNumber: string;
-}
-
-export interface CourseTimeSlot {
-  semester: Sessions;
-  days: Weekdays[];
-  startTime: Times;
-  endTime: Times;
-}
-
-export interface Instructor {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-}
-
-export interface CourseLocation {
-  building: Buildings;
-  roomNumber: string;
-}
-
-// enumerations, some of this is data we would get if we had a backend
-
-export enum Weekdays {
-  MONDAY = "Mon",
-  TUESDAY = "Tues",
-  WEDNESDAY = "Wed",
-  THURSDAY = "Thur",
-  FRIDAY = "Fri",
-  SATURDAY = "Sat",
-  SUNDAY = "Sun",
-}
-
-export enum Times {
-  AM_7 = "7:00 AM",
-  AM_7_30 = "7:30 AM",
-  AM_8 = "8:00 AM",
-  AM_8_30 = "8:30 AM",
-  AM_9 = "9:00 AM",
-  AM_9_30 = "9:30 AM",
-  AM_10 = "10:00 AM",
-  AM_10_30 = "10:30 AM",
-  AM_11 = "11:00 AM",
-  AM_11_30 = "11:30 AM",
-  PM_12 = "12:00 PM",
-  PM_12_30 = "12:30 PM",
-  PM_1 = "1:00 PM",
-  PM_1_30 = "1:30 PM",
-  PM_2 = "2:00 PM",
-  PM_2_30 = "2:30 PM",
-  PM_3 = "3:00 PM",
-  PM_3_30 = "3:30 PM",
-  PM_4 = "4:00 PM",
-  PM_4_30 = "4:30 PM",
-  PM_5 = "5:00 PM",
-  PM_5_30 = "5:30 PM",
-  PM_6 = "6:00 PM",
-  PM_6_30 = "6:30 PM",
-  PM_7 = "7:00 PM",
-  PM_7_30 = "7:30 PM",
-  PM_8 = "8:00 PM",
-  PM_8_30 = "8:30 PM",
-  PM_9 = "9:00 PM",
-  PM_9_30 = "9:30 PM",
-  PM_10 = "10:00 PM",
-  PM_10_30 = "10:30 PM",
-}
-
-export enum Departments {
+export enum Department {
   CS = "CS",
   MATH = "MATH",
   BIOL = "BIOL",
@@ -110,44 +127,12 @@ export enum Departments {
   PHIL = "PHIL",
 }
 
-export enum SpecialEnrollments {
-  PERMISSION_OF_DEPARTMENT = "Permission of department",
-  CI_WRITTEN_TECH = "CI written tech",
-  WEB_BASED = "100% Web-Based",
-  HYBRID = "Hybrid",
-}
-
-export enum Buildings {
-  PFT = "Patrick F. Taylor",
-  LOCKETT = "Lockett",
-  HIMES = "Himes",
-  TUREAUD = "Tureaud",
-  WILLIAMS = "Williams",
-  WHITE = "White",
-  COATES = "Coates",
-  MILLER = "Miller",
-  WOODIN = "Woodin",
-  ALLEN = "Allen",
-  MUSIC = "School of Music",
-  MDA = "M&DA Building",
-  BAND = "Band Hall",
-  NICHOLSON = "Nicholson",
-  BEC = "Business Education Complex",
-}
-
-export enum CourseTypes {
+export enum CourseType {
   LAB = "Lab",
   RES = "Res",
 }
 
-export enum Sessions {
-  FALL = "Fall",
-  SPRING = "Spring",
-  WINTER = "Winter",
-  SUMMER = "Summer",
-}
-
-export enum Grades {
+export enum Grade {
   A = "A",
   B = "B",
   C = "C",
