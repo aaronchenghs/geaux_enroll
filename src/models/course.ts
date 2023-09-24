@@ -8,7 +8,7 @@ export class Course {
 
   description: string | null;
   prereqs: Course[];
-  courseType: CourseType[] | null;
+  courseType: CourseType[];
 
   grade: Grade | null;
   private _section: Section | null;
@@ -17,9 +17,9 @@ export class Course {
     name: string,
     code: number,
     department: Department,
-    description: string,
+    description: string | null,
     prereqs: Course[] | null = null,
-    courseType: CourseType[] | null = null,
+    courseType: CourseType[] = [],
     grade: Grade | null = null,
     section: Section | null = null,
   ) {
@@ -97,7 +97,7 @@ export class CatagoryCourse extends Course {
     department: Department,
     description: string,
     prereqs: Course[] | null = null,
-    courseType: CourseType[] | null = null,
+    courseType: CourseType[] = [],
     grade: Grade | null = null,
     section: Section | null = null,
     options: Course[],
@@ -145,6 +145,78 @@ export class CatagoryCourse extends Course {
     }
   }
 }
+
+export class CourseFactory{
+  private _name: string | undefined;
+
+  private _code: number | undefined;
+  private _department: Department | undefined;
+
+  private _description: string | null | undefined;
+  private _prereqs : Course[] | undefined;
+  private _courseType : CourseType[] | undefined;
+
+  private _grade: Grade | null | undefined;
+  private _section: Section | null | undefined;
+
+  private _isCore : boolean = false;
+
+  createCourse() : Course {
+    // Ensure it is a valid course
+    if (!this.hasRequiredFields()) throw Error("Attempted to create course missing key details");
+    // Change undefined values into default values
+    this.setUndefinedToDefault();
+
+    return new Course(this._name!,this._code!,this._department!, this._description ?? "",this._prereqs,this._courseType, this._grade, this._section);
+  }
+
+  private hasRequiredFields() : boolean{
+    return this._name != undefined && this._code != undefined && this._department != undefined;
+  }
+
+  private setUndefinedToDefault(){
+    if (this._description == undefined) this._description = null;
+    if (this._prereqs == undefined) this._prereqs = [];
+    if (this._courseType == undefined) this._courseType = [];
+    if (this._grade == undefined) this._grade = null;
+    if (this._section == undefined) this._section = null;
+  }
+
+  set name(name : string){
+    this._name = name;
+  }
+
+  set code(code : number){
+    this._code = code;
+  }
+
+  set isCoreCourse(isCore : boolean){
+    this._isCore = isCore
+  }
+
+  set department(dept : Department){
+    this._department = dept;
+  }
+  
+  set prereqs(prereqs : Course[] | null){
+    if (prereqs != null) this.prereqs = prereqs;
+    else prereqs = []
+  }
+
+  set courseType(type : CourseType[] | null){
+    if (type != null) this._courseType = type;
+    else this._courseType = [];
+  }
+
+  set grade(grade : Grade | null){
+    this._grade = grade;
+  }
+
+  set section(section : Section | null){
+    this._section = null;
+  }
+}
+
 
 export enum Department {
   CS = "CS",
