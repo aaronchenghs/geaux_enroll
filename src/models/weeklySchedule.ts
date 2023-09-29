@@ -8,18 +8,19 @@ export enum Day {
   SUNDAY = "Sun",
 }
 
-export class WeeklySchedule{
-  public days : TimeSlot[] = Array(7);
+export class WeeklySchedule {
+  public days: TimeSlot[] = Array(7);
 
-  public setDaySchedule(day : Day, schedule: TimeSlot){
+  public setDaySchedule(day: Day, schedule: TimeSlot): void {
     this.days[WeeklySchedule._dayIndices.get(day)!] = schedule;
   }
 
-  private static _dayIndices : Map<Day, number> = WeeklySchedule.initDayToIndexMap();
+  private static _dayIndices: Map<Day, number> =
+    WeeklySchedule.initDayToIndexMap();
 
-  static initDayToIndexMap() : Map<Day,number>{
-    var output = new Map<Day,number>();
-    
+  static initDayToIndexMap(): Map<Day, number> {
+    const output = new Map<Day, number>();
+
     output.set(Day.MONDAY, 0);
     output.set(Day.TUESDAY, 1);
     output.set(Day.WEDNESDAY, 2);
@@ -30,11 +31,10 @@ export class WeeklySchedule{
 
     return output;
   }
-
 }
 
 // Non-Mutable class, dont modify it after creation because who knows where it is referenced
-export class TimeSlot{
+export class TimeSlot {
   // Number type is a 64 bit floating point number
   // However, when doing bitwise comparison it is converted to a 32 bit number
   // Being fancy here because I am expecting to do a ton of comparisons to see if two timeslots confilict or not
@@ -47,85 +47,100 @@ export class TimeSlot{
 
   // Input time in 24 hour notation with "-" between
   // %d:%d-%d:%d
-  constructor(time : string, morningBlock : number | null = null, middayBlock  : number | null = null, nightBlock  : number | null = null){
-    if(morningBlock != null && middayBlock != null && nightBlock != null){
+  constructor(
+    time: string,
+    morningBlock: number | null = null,
+    middayBlock: number | null = null,
+    nightBlock: number | null = null,
+  ) {
+    if (morningBlock != null && middayBlock != null && nightBlock != null) {
       this.morningBlock = morningBlock;
       this.middayBlock = middayBlock;
       this.nightBlock = nightBlock;
     } else {
-      let temp = time.split("-");
+      const temp = time.split("-");
 
-      let start = temp[0].split(":");
-      let end = temp[1].split(":");
-  
-      let startHour = parseInt(start[0]);
-      let startMin = parseInt(start[1]);
-  
-      let endHour = parseInt(end[0]);
-      let endMin = parseInt(end[1]);
-  
+      const start = temp[0].split(":");
+      const end = temp[1].split(":");
+
+      const startHour = parseInt(start[0]);
+      const startMin = parseInt(start[1]);
+
+      const endHour = parseInt(end[0]);
+      const endMin = parseInt(end[1]);
+
       // Convert to an index 0-96
-  
-      let startIndex = startHour * 4 + Math.floor(startMin / 15);
-      let endIndex = endHour * 4 + Math.floor(endMin / 15);
-  
-      let startBitStream = TimeSlot.getBrokenUpStream(startIndex);
-      let endBitStream = TimeSlot.getBrokenUpStream(endIndex);
-  
+
+      const startIndex = startHour * 4 + Math.floor(startMin / 15);
+      const endIndex = endHour * 4 + Math.floor(endMin / 15);
+
+      const startBitStream = TimeSlot.getBrokenUpStream(startIndex);
+      const endBitStream = TimeSlot.getBrokenUpStream(endIndex);
+
       this.morningBlock = startBitStream.morning ^ endBitStream.morning;
       this.middayBlock = startBitStream.midday ^ endBitStream.midday;
       this.nightBlock = startBitStream.night ^ endBitStream.night;
     }
   }
 
-  union(other : TimeSlot){
-    return new TimeSlot("", this.morningBlock | other.morningBlock, this.middayBlock | other.middayBlock, this.nightBlock | other.nightBlock);
+  union(other: TimeSlot): TimeSlot {
+    return new TimeSlot(
+      "",
+      this.morningBlock | other.morningBlock,
+      this.middayBlock | other.middayBlock,
+      this.nightBlock | other.nightBlock,
+    );
   }
 
   // This function is the whole reason to do the conversion into ints
-  collidesWith(other : TimeSlot): boolean{
-    return (this.morningBlock & other.morningBlock) + (this.middayBlock & other.middayBlock) + (this.nightBlock & other.nightBlock) != 0; 
+  collidesWith(other: TimeSlot): boolean {
+    return (
+      (this.morningBlock & other.morningBlock) +
+        (this.middayBlock & other.middayBlock) +
+        (this.nightBlock & other.nightBlock) !=
+      0
+    );
   }
 
   static ALL_ONES = TimeSlot.getOnesStreamOfLength(32);
 
   // I hate this function but it is needed because there are no longs so i need to break my bits down into three ints
-  static getBrokenUpStream(indexToStartOnes : number){
-        let stream = {morning : 0, midday : 0, night: 0}
-        
-        // Starts in morning
-        if(indexToStartOnes < 32){
-          let bitsToChange = 32 - indexToStartOnes;
-    
-          stream.morning = TimeSlot.getOnesStreamOfLength(bitsToChange);
-          stream.midday = TimeSlot.ALL_ONES;
-          stream.night = TimeSlot.ALL_ONES; 
-        } 
-        // Starts in midday
-        else if (indexToStartOnes >= 32 && indexToStartOnes < 64){
-          let bitsToChange = 32 - (indexToStartOnes - 32);
-    
-          stream.morning = 0;
-          stream.midday = TimeSlot.getOnesStreamOfLength(bitsToChange)
-          stream.night = TimeSlot.ALL_ONES;
-    
-        } 
-        // Starts in evening
-        else if (indexToStartOnes >= 64){
-          let bitsToChange = 32 - (indexToStartOnes - 64);
-    
-          stream.morning = 0;
-          stream.midday = 0;
-          stream.night = TimeSlot.getOnesStreamOfLength(bitsToChange);
-        }
+  static getBrokenUpStream(indexToStartOnes: number): {
+    morning: number;
+    midday: number;
+    night: number;
+  } {
+    const stream = { morning: 0, midday: 0, night: 0 };
 
-        return stream;
+    // Starts in morning
+    if (indexToStartOnes < 32) {
+      const bitsToChange = 32 - indexToStartOnes;
+
+      stream.morning = TimeSlot.getOnesStreamOfLength(bitsToChange);
+      stream.midday = TimeSlot.ALL_ONES;
+      stream.night = TimeSlot.ALL_ONES;
+    }
+    // Starts in midday
+    else if (indexToStartOnes >= 32 && indexToStartOnes < 64) {
+      const bitsToChange = 32 - (indexToStartOnes - 32);
+
+      stream.morning = 0;
+      stream.midday = TimeSlot.getOnesStreamOfLength(bitsToChange);
+      stream.night = TimeSlot.ALL_ONES;
+    }
+    // Starts in evening
+    else if (indexToStartOnes >= 64) {
+      const bitsToChange = 32 - (indexToStartOnes - 64);
+
+      stream.morning = 0;
+      stream.midday = 0;
+      stream.night = TimeSlot.getOnesStreamOfLength(bitsToChange);
+    }
+
+    return stream;
   }
 
-  static getOnesStreamOfLength(length : number) : number{
+  static getOnesStreamOfLength(length: number): number {
     return 2 ** length - 1;
   }
 }
-
-
-
