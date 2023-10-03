@@ -159,7 +159,12 @@ export class CourseFactory{
   private _grade: Grade | null | undefined;
   private _section: Section | null | undefined;
 
+  // Support CoreCourse
   private _isCore : boolean = false;
+
+  // Support CatagoryCourse
+  private _options : Course[] | null = null;
+  private _optionTaken : Course | null = null; 
 
   createCourse() : Course {
     // Ensure it is a valid course
@@ -167,11 +172,27 @@ export class CourseFactory{
     // Change undefined values into default values
     this.setUndefinedToDefault();
 
-    return new Course(this._name!,this._code!,this._department!, this._description ?? "",this._prereqs,this._courseType, this._grade, this._section);
+    if(this.isCoreCorse()){
+      return new CoreCourse(this._name!,this._code!,this._department!,this._description!, this._prereqs!, this._courseType!, this._grade!,this._section!)
+    }
+
+    if(this.isCatagoryCorse()){
+      return new CatagoryCourse(this._name!,this._code!,this._department!,this._description!, this._prereqs!,this._courseType!,this._grade!,this._section!,this._options!,this._optionTaken!);
+    }
+
+    return new Course(this._name!,this._code!,this._department!, this._description ?? null,this._prereqs,this._courseType, this._grade, this._section);
   }
 
   private hasRequiredFields() : boolean{
     return this._name != undefined && this._code != undefined && this._department != undefined;
+  }
+
+  private isCoreCorse(){
+    return this._isCore;
+  }
+
+  private isCatagoryCorse(){
+    return this._options != null;
   }
 
   private setUndefinedToDefault(){
@@ -180,6 +201,15 @@ export class CourseFactory{
     if (this._courseType == undefined) this._courseType = [];
     if (this._grade == undefined) this._grade = null;
     if (this._section == undefined) this._section = null;
+  }
+
+  set isCore(isCore : boolean){
+    this._isCore = isCore;
+  }
+
+  setOptions(options : Course[], optionTaken : Course | null){
+    this._options = options;
+    this._optionTaken = optionTaken;
   }
 
   set name(name : string){
