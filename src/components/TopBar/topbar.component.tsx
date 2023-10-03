@@ -5,13 +5,15 @@ import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { View, changeView } from "../../store/App/slice";
 import { AppState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const TopBar = (): JSX.Element => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const $view = useSelector((state: AppState) => state.app.view);
 
   const handleIconClick = (): void => {
-    console.log("Icon clicked!");
+    navigate("/schedule");
     dispatch(changeView(View.Schedule));
   };
 
