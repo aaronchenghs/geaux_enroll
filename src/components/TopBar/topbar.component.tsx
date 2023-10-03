@@ -13,8 +13,10 @@ const TopBar = (): JSX.Element => {
   const $view = useSelector((state: AppState) => state.app.view);
 
   const handleIconClick = (): void => {
-    navigate("/schedule");
-    dispatch(changeView(View.Schedule));
+    navigate($view === View.Schedule ? "/" : "/schedule");
+    dispatch(
+      changeView($view === View.Schedule ? View.Flowchart : View.Schedule),
+    );
   };
 
   return (
