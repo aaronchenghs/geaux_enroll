@@ -71,7 +71,7 @@ test("Create Course w/ Factory - Minimal",()=>{
     expect(course.code).toEqual(code);
     expect(course.name).toEqual(name);
     expect(course.department).toEqual(department);
-    expect(course.description).toEqual("");
+    expect(course.description).toBeNull();
     expect(course.prereqs).toEqual([]);
     expect(course.courseType).toEqual([]);
     expect(course.arePrereqsMeetBy([])).toBeTruthy();
@@ -100,7 +100,7 @@ test("Create Course w/ Factory - Maximal",()=>{
     expect(course.code).toEqual(code);
     expect(course.name).toEqual(name);
     expect(course.department).toEqual(department);
-    expect(course.description).toEqual("");
+    expect(course.description).toBeNull();
     expect(course.prereqs).toEqual([]);
     expect(course.courseType).toEqual([CourseType.LAB]);
     expect(course.arePrereqsMeetBy([])).toBeTruthy();
