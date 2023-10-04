@@ -1,4 +1,4 @@
-import { Node } from "reactflow";
+import { Node } from "react-flow-renderer";
 import { Course } from "../../models/course";
 
 export const buildCourseNode = (): Node => {
