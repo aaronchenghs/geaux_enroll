@@ -1,4 +1,10 @@
 .Flowchart {
-  display: flex;
-  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.Node {
+  width: 100px;
+  height: 100px;
+  background-color: red;
 }
