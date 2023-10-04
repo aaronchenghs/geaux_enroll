@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "./flowchart.module.scss";
 import { useSelector } from "react-redux";
-import { AppState } from "../../store/store";
+import { AppState } from "../../../../store/store";
 
 import { buildCourseNode } from "./flowchart.utils";
 import ReactFlow, { Background, Controls } from "react-flow-renderer";

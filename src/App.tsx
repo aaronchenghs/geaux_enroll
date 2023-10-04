@@ -1,22 +1,17 @@
 import React from "react";
 import "./App.scss";
-import { Route, Routes } from "react-router-dom";
-import FlowChart from "./components/Flowchart/flowchart.component";
-import Schedule from "./components/Schedule/schedule.component";
-import TopBar from "./components/TopBar/topbar.component";
-import BottomBar from "./components/BottomBar/bottombar.component";
+import { Route, Routes, Navigate } from "react-router-dom";
+import DegreeView from "./pages/DegreeView/degree-view.component";
+import SemesterView from "./pages/SemesterView/semester-view.component";
 
 const App = (): JSX.Element => {
   return (
     <div className="App">
-      <TopBar />
-      <div className="focusedContent">
-        <Routes>
-          <Route path="/" element={<FlowChart />} index />
-          <Route path="schedule" element={<Schedule />} />
-        </Routes>
-      </div>
-      <BottomBar />
+      <Routes>
+        <Route path="/" element={<Navigate replace to="/degree" />} />
+        <Route path="/degree" element={<DegreeView />} />
+        <Route path="/semester" element={<SemesterView />} />
+      </Routes>
     </div>
   );
 };
