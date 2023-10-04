@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { View, changeView } from "../../../../store/App/slice";
 import { AppState } from "../../../../store/store";
 import { useNavigate } from "react-router-dom";
+import { dummy_courses, setCoursesToSchedule } from "../../../SemesterView/semester-slice";
 
 const TopBar = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const TopBar = (): JSX.Element => {
   const $view = useSelector((state: AppState) => state.app.view);
 
   const handleIconClick = (): void => {
+    dispatch(setCoursesToSchedule(dummy_courses))
     navigate("/semester");
   };
 

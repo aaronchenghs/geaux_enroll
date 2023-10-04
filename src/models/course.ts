@@ -187,15 +187,15 @@ export class CourseFactory{
     return this._name != undefined && this._code != undefined && this._department != undefined;
   }
 
-  private isCoreCorse(){
+  private isCoreCorse() : boolean{
     return this._isCore;
   }
 
-  private isCatagoryCorse(){
+  private isCatagoryCorse() : boolean{
     return this._options != null;
   }
 
-  private setUndefinedToDefault(){
+  private setUndefinedToDefault() : void{
     if (this._description == undefined) this._description = null;
     if (this._prereqs == undefined) this._prereqs = [];
     if (this._courseType == undefined) this._courseType = [];
@@ -207,7 +207,7 @@ export class CourseFactory{
     this._isCore = isCore;
   }
 
-  setOptions(options : Course[], optionTaken : Course | null){
+  setOptions(options : Course[], optionTaken : Course | null) : void{
     this._options = options;
     this._optionTaken = optionTaken;
   }

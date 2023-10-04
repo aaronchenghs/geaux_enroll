@@ -12,7 +12,7 @@ const TopBar = (): JSX.Element => {
 
   return (
     <div className={styles.TopBar}>
-      This is top bar of the degree flowchart
+      This is top bar of the semester view
       <Button onClick={handleIconClick}>{FlowChartIcon}</Button>
     </div>
   );
