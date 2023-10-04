@@ -146,56 +146,90 @@ export class CatagoryCourse extends Course {
   }
 }
 
-export class CourseFactory{
+export class CourseFactory {
   private _name: string | undefined;
 
   private _code: number | undefined;
   private _department: Department | undefined;
 
   private _description: string | null | undefined;
-  private _prereqs : Course[] | undefined;
-  private _courseType : CourseType[] | undefined;
+  private _prereqs: Course[] | undefined;
+  private _courseType: CourseType[] | undefined;
 
   private _grade: Grade | null | undefined;
   private _section: Section | null | undefined;
 
   // Support CoreCourse
-  private _isCore : boolean = false;
+  private _isCore: boolean = false;
 
   // Support CatagoryCourse
-  private _options : Course[] | null = null;
-  private _optionTaken : Course | null = null; 
+  private _options: Course[] | null = null;
+  private _optionTaken: Course | null = null;
 
-  createCourse() : Course {
+  createCourse(): Course {
     // Ensure it is a valid course
-    if (!this.hasRequiredFields()) throw Error("Attempted to create course missing key details");
+    if (!this.hasRequiredFields())
+      throw Error("Attempted to create course missing key details");
     // Change undefined values into default values
     this.setUndefinedToDefault();
 
-    if(this.isCoreCorse()){
-      return new CoreCourse(this._name!,this._code!,this._department!,this._description!, this._prereqs!, this._courseType!, this._grade!,this._section!)
+    if (this.isCoreCorse()) {
+      return new CoreCourse(
+        this._name!,
+        this._code!,
+        this._department!,
+        this._description!,
+        this._prereqs!,
+        this._courseType!,
+        this._grade!,
+        this._section!,
+      );
     }
 
-    if(this.isCatagoryCorse()){
-      return new CatagoryCourse(this._name!,this._code!,this._department!,this._description!, this._prereqs!,this._courseType!,this._grade!,this._section!,this._options!,this._optionTaken!);
+    if (this.isCatagoryCorse()) {
+      return new CatagoryCourse(
+        this._name!,
+        this._code!,
+        this._department!,
+        this._description!,
+        this._prereqs!,
+        this._courseType!,
+        this._grade!,
+        this._section!,
+        this._options!,
+        this._optionTaken!,
+      );
     }
 
-    return new Course(this._name!,this._code!,this._department!, this._description ?? null,this._prereqs,this._courseType, this._grade, this._section);
+    return new Course(
+      this._name!,
+      this._code!,
+      this._department!,
+      this._description ?? null,
+      this._prereqs,
+      this._courseType,
+      this._grade,
+      this._section,
+    );
   }
 
-  private hasRequiredFields() : boolean{
-    return this._name != undefined && this._code != undefined && this._department != undefined;
+  private hasRequiredFields(): boolean {
+    return (
+      this._name != undefined &&
+      this._code != undefined &&
+      this._department != undefined
+    );
   }
 
-  private isCoreCorse() : boolean{
+  private isCoreCorse(): boolean {
     return this._isCore;
   }
 
-  private isCatagoryCorse() : boolean{
+  private isCatagoryCorse(): boolean {
     return this._options != null;
   }
 
-  private setUndefinedToDefault() : void{
+  private setUndefinedToDefault(): void {
     if (this._description == undefined) this._description = null;
     if (this._prereqs == undefined) this._prereqs = [];
     if (this._courseType == undefined) this._courseType = [];
@@ -203,50 +237,49 @@ export class CourseFactory{
     if (this._section == undefined) this._section = null;
   }
 
-  set isCore(isCore : boolean){
+  set isCore(isCore: boolean) {
     this._isCore = isCore;
   }
 
-  setOptions(options : Course[], optionTaken : Course | null) : void{
+  setOptions(options: Course[], optionTaken: Course | null): void {
     this._options = options;
     this._optionTaken = optionTaken;
   }
 
-  set name(name : string){
+  set name(name: string) {
     this._name = name;
   }
 
-  set code(code : number){
+  set code(code: number) {
     this._code = code;
   }
 
-  set isCoreCourse(isCore : boolean){
-    this._isCore = isCore
+  set isCoreCourse(isCore: boolean) {
+    this._isCore = isCore;
   }
 
-  set department(dept : Department){
+  set department(dept: Department) {
     this._department = dept;
   }
-  
-  set prereqs(prereqs : Course[] | null){
+
+  set prereqs(prereqs: Course[] | null) {
     if (prereqs != null) this.prereqs = prereqs;
-    else prereqs = []
+    else prereqs = [];
   }
 
-  set courseType(type : CourseType[] | null){
+  set courseType(type: CourseType[] | null) {
     if (type != null) this._courseType = type;
     else this._courseType = [];
   }
 
-  set grade(grade : Grade | null){
+  set grade(grade: Grade | null) {
     this._grade = grade;
   }
 
-  set section(section : Section | null){
+  set section(section: Section | null) {
     this._section = null;
   }
 }
-
 
 export enum Department {
   CS = "CS",
