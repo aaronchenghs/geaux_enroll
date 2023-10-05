@@ -4,7 +4,7 @@ import styles from "./bottombar.module.scss";
 const BottomBar = (): JSX.Element => {
   return (
     <Fragment>
-      <div className={styles.BottomBar}>This is the BottomBar</div>
+      <div className={styles.BottomBar}></div>
     </Fragment>
   );
 };

@@ -1,6 +1,12 @@
 :root {
   --white: #fff;
-  --primary: #b8d1ff;
+  --primaryColor: #2e5eaa;
+  --backgroundColor: #a5c8e4;
+  --textColor: #394b59;
+  --headerColor: #1c3d6c;
+  --surfaceColor: #f4f6f8;
+  --accentColor: #ffd166;
+  --offWhite: #e9eef4;
 
   --focusedHeight: 87%;
   --topBarHeight: calc((100% - var(--focusedHeight)) / 2);
@@ -13,8 +19,9 @@
   justify-content: space-between;
   overflow: overlay;
   height: 100vh;
-  background-color: var(--primary);
+  background-color: var(--backgroundColor);
   font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
 
   .focusedContent {
     background-color: var(--white);

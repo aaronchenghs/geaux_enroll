@@ -1,0 +1,10 @@
+.progressBarContainer {
+  display: flex;
+  height: 20px;
+  width: 100%;
+  border: 1px solid black;
+}
+
+.progressBarSegment {
+  transition: flex 0.3s ease;
+}

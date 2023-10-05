@@ -1,0 +1,52 @@
+.TopBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  height: 10%;
+  width: 100%;
+  height: var(--topBarHeight);
+
+  box-shadow: inset 0px -2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--headerColor);
+
+  .topBarContent {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    width: 99%;
+  }
+
+  .specialContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+
+  .navButton {
+    border: 3px solid var(--primaryColor);
+    border-radius: 50px;
+    transition:
+      background-color 0.3s,
+      border-color 0.3s,
+      transform 0.2s;
+    background-color: var(--backgroundColor);
+    color: var(--primaryColor);
+
+    &:hover {
+      background-color: var(--primaryColor);
+      border-color: var(--surfaceColor);
+      color: var(--surfaceColor);
+    }
+
+    &:active {
+      transform: scale(0.95);
+      background-color: var(--headerColor);
+      color: var(--accentColor);
+    }
+  }
+}

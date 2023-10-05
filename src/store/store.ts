@@ -3,7 +3,7 @@ import { reducer as studentReducer } from "./Student/slice";
 import { reducer as libraryReducer } from "./Library/slice";
 import { reducer as editReducer } from "./Edit/slice";
 import { reducer as appReducer } from "./App/slice";
-import { semester_reducer } from "../pages/SemesterView/semester-slice";
+import { semester_reducer } from "./Semester/semester-slice";
 
 const store = configureStore({
   reducer: {

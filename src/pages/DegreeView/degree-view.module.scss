@@ -1,0 +1,18 @@
+.DegreeView {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+
+  transition: transform 0.35s ease-in-out;
+  background-color: var(--offWhite);
+
+  &.slideIn {
+    transform: translateX(0%);
+  }
+
+  &.slideOut {
+    transform: translateX(-100%);
+  }
+}

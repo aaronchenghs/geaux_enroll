@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export enum View {
   Schedule,
-  Flowchart,
+  Degree,
 }
 
 interface AppState {
@@ -10,7 +10,7 @@ interface AppState {
 }
 
 const INITIAL_STATE: AppState = {
-  view: View.Flowchart,
+  view: View.Degree,
 };
 
 const slice = createSlice({
