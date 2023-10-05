@@ -5,7 +5,9 @@ import styles from "./degreetopbarcontent.module.scss";
 
 const DegreeTopBarContent = (): JSX.Element => {
   return (
-    <Fragment>{/* <SegmentedProgressBar segments={[]} max={0} /> */}</Fragment>
+    <Fragment>
+      {/* <SegmentedProgressBar segments={[]} max={0} /> */}Degree Top Bar
+    </Fragment>
   );
 };
 
