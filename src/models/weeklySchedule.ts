@@ -11,7 +11,7 @@ export enum Day {
 export class WeeklySchedule {
   public days: TimeSlot[] = Array(7);
 
-  public setDaySchedule(day: Day, schedule: TimeSlot): void {
+  public addTimeSlot(day: Day, schedule: TimeSlot): void {
     this.days[WeeklySchedule._dayIndices.get(day)!] = schedule;
   }
 

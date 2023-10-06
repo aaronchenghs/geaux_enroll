@@ -1,4 +1,4 @@
-import { TimeSlot } from "./weeklySchedule";
+import { Day, TimeSlot, WeeklySchedule } from "./weeklySchedule";
 
 test("timeslot from three ints", () => {
   const test = new TimeSlot("", 100, 200, 300);
@@ -249,4 +249,24 @@ test("Collides With - Doesn't Collide Night", () => {
   const test2 = new TimeSlot(string2);
 
   expect(test1.collidesWith(test2)).toBe(false);
+});
+
+test("Weekly Schedule Creation", () => {
+  const string1 = "12:00-13:30";
+
+  const timeslot = new TimeSlot(string1);
+
+  const weeklySchedule = new WeeklySchedule();
+
+  weeklySchedule.addTimeSlot(Day.MONDAY, timeslot);
+  weeklySchedule.addTimeSlot(Day.WEDNESDAY, timeslot);
+  weeklySchedule.addTimeSlot(Day.FRIDAY, timeslot);
+
+  expect(weeklySchedule.days[0].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[1]).toBeUndefined;
+  expect(weeklySchedule.days[2].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[3]).toBeUndefined;
+  expect(weeklySchedule.days[4].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[5]).toBeUndefined;
+  expect(weeklySchedule.days[6]).toBeUndefined;
 });
