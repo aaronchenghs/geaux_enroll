@@ -251,6 +251,27 @@ test("Collides With - Doesn't Collide Night", () => {
   expect(test1.collidesWith(test2)).toBe(false);
 });
 
+test("Union and Disunion", () => {
+  const string1 = "1:00-3:00";
+  const string2 = "2:30-4:00";
+
+  const string3 = "2:30-3:00";
+
+  const earlyTimeSlot = new TimeSlot(string1);
+  const lateTimeSlot = new TimeSlot(string2);
+
+  expect(earlyTimeSlot.collidesWith(lateTimeSlot)).toBeTruthy();
+
+  const disunionTimeSlot = earlyTimeSlot.disunion(lateTimeSlot);
+
+  expect(disunionTimeSlot.collidesWith(lateTimeSlot)).toBeFalsy();
+  expect(disunionTimeSlot.collidesWith(earlyTimeSlot)).toBeTruthy();
+
+  const unionTimeSlot = new TimeSlot(string3);
+  expect(unionTimeSlot.collidesWith(disunionTimeSlot)).toBeFalsy();
+  expect(disunionTimeSlot.collidesWith(unionTimeSlot)).toBeFalsy();
+});
+
 test("Weekly Schedule Creation", () => {
   const string1 = "12:00-13:30";
 
@@ -267,6 +288,49 @@ test("Weekly Schedule Creation", () => {
   expect(weeklySchedule.days[2].collidesWith(timeslot)).toBeTruthy();
   expect(weeklySchedule.days[3]).toBeUndefined;
   expect(weeklySchedule.days[4].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[5]).toBeUndefined;
+  expect(weeklySchedule.days[6]).toBeUndefined;
+});
+
+test("Union of Schedules", () => {
+  const string1 = "12:00-13:30";
+
+  const timeslot = new TimeSlot(string1);
+
+  const weeklySchedule = new WeeklySchedule();
+
+  weeklySchedule.addTimeSlot(Day.MONDAY, timeslot);
+  weeklySchedule.addTimeSlot(Day.WEDNESDAY, timeslot);
+  weeklySchedule.addTimeSlot(Day.THURSDAY, timeslot);
+  weeklySchedule.addTimeSlot(Day.FRIDAY, timeslot);
+
+  const string2 = "16:00-17:30";
+  const timeslot2 = new TimeSlot(string2);
+
+  const weeklySchedule2 = new WeeklySchedule();
+
+  weeklySchedule2.addTimeSlot(Day.MONDAY, timeslot2);
+  weeklySchedule2.addTimeSlot(Day.TUESDAY, timeslot2);
+  weeklySchedule2.addTimeSlot(Day.WEDNESDAY, timeslot2);
+  weeklySchedule2.addTimeSlot(Day.FRIDAY, timeslot2);
+
+  weeklySchedule.union(weeklySchedule2);
+
+  expect(weeklySchedule.days[0].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[0].collidesWith(timeslot2)).toBeTruthy();
+
+  expect(weeklySchedule.days[1].collidesWith(timeslot)).toBeFalsy();
+  expect(weeklySchedule.days[1].collidesWith(timeslot2)).toBeTruthy();
+
+  expect(weeklySchedule.days[2].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[2].collidesWith(timeslot2)).toBeTruthy();
+
+  expect(weeklySchedule.days[3].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[3].collidesWith(timeslot2)).toBeFalsy();
+
+  expect(weeklySchedule.days[4].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[4].collidesWith(timeslot2)).toBeTruthy();
+
   expect(weeklySchedule.days[5]).toBeUndefined;
   expect(weeklySchedule.days[6]).toBeUndefined;
 });

@@ -15,6 +15,32 @@ export class WeeklySchedule {
     this.days[WeeklySchedule._dayIndices.get(day)!] = schedule;
   }
 
+  // Mutates the state of weekly schedule
+  public union(other: WeeklySchedule): WeeklySchedule {
+    for (let i = 0; i < 7; i++) {
+      // If there are both then union and update this
+      if (this.days[i] && other.days[i]) {
+        this.days[i] = this.days[i].union(other.days[i]);
+      }
+      // If there is only other, set this to other's
+      else if (other.days[i]) {
+        // This is very unsafe if someone decides to modify and existing timeslot object (please don't)
+        this.days[i] = other.days[i];
+      }
+    }
+    return this;
+  }
+
+  // Mutates the state of weekly schedule
+  public disunion(other: WeeklySchedule): WeeklySchedule {
+    for (let i = 0; i < 7; i++) {
+      if (this.days[i]) {
+        this.days[i] = this.days[i].disunion(other.days[i]);
+      }
+    }
+    return this;
+  }
+
   private static _dayIndices: Map<Day, number> =
     WeeklySchedule.initDayToIndexMap();
 
@@ -89,6 +115,15 @@ export class TimeSlot {
       this.morningBlock | other.morningBlock,
       this.middayBlock | other.middayBlock,
       this.nightBlock | other.nightBlock,
+    );
+  }
+
+  disunion(other: TimeSlot): TimeSlot {
+    return new TimeSlot(
+      "",
+      (this.morningBlock & other.morningBlock) ^ this.morningBlock,
+      (this.middayBlock & other.middayBlock) ^ this.middayBlock,
+      (this.nightBlock & other.nightBlock) ^ this.nightBlock,
     );
   }
 
