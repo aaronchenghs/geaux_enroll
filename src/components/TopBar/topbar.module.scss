@@ -11,6 +11,8 @@
   box-shadow: inset 0px -2px 5px rgba(0, 0, 0, 0.1);
   background-color: var(--headerColor);
 
+  z-index: 20;
+
   .topBarContent {
     display: flex;
     flex-direction: row-reverse;
@@ -44,6 +46,8 @@
       transform 0.2s;
     background-color: var(--backgroundColor);
     color: var(--primaryColor);
+
+    height: 90%;
 
     &:hover {
       background-color: var(--primaryColor);

@@ -7,6 +7,8 @@
 
   transition: transform 0.35s ease-in-out;
   background-color: var(--offWhite);
+  position: relative;
+  z-index: 1;
 
   &.slideIn {
     transform: translateX(0%);

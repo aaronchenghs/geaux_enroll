@@ -26,7 +26,7 @@ const SegmentedProgressBar = ({ segments }: Props): JSX.Element => {
   ): void => {
     const rect = e.currentTarget.getBoundingClientRect();
     setTooltip(segment.tooltip);
-    setTooltipPos({ x: rect.x + rect.width / 2, y: rect.bottom });
+    setTooltipPos({ x: rect.x - 4, y: rect.bottom });
   };
 
   const hideTooltip = (): void => {
@@ -35,35 +35,36 @@ const SegmentedProgressBar = ({ segments }: Props): JSX.Element => {
   };
 
   return (
-    <div
-      className={styles.progressBarContainer}
-      style={{ position: "relative" }}
-    >
-      {segments.map((segment, index) => (
-        <div
-          key={index}
-          className={styles.progressBarSegment}
-          style={
-            {
-              flexBasis: `${segment.value}%`,
-              backgroundColor: segment.color,
-              "--darkenedColor": darkenColor(segment.color, 30),
-            } as React.CSSProperties
-          }
-          onMouseOver={(e): void => showTooltip(e, segment)}
-          onMouseOut={hideTooltip}
-        ></div>
-      ))}
-
-      {tooltip && tooltipPos && (
-        <div
-          className={styles.tooltip}
-          style={{ left: `${tooltipPos.x}px`, top: `${tooltipPos.y}px` }}
-        >
-          {tooltip}
-        </div>
-      )}
-    </div>
+    <>
+      <div className={styles.progressBarContainer}>
+        {segments.map((segment, index) => (
+          <div
+            key={index}
+            className={styles.progressBarSegment}
+            style={
+              {
+                flexBasis: `${segment.value}%`,
+                backgroundColor: segment.color,
+                "--darkenedColor": darkenColor(segment.color, 30),
+              } as React.CSSProperties
+            }
+            onMouseOver={(e): void => showTooltip(e, segment)}
+            onMouseOut={hideTooltip}
+          ></div>
+        ))}
+        {tooltip && tooltipPos && (
+          <div
+            className={styles.tooltip}
+            style={{
+              left: `${tooltipPos.x.toPrecision(2)}px`,
+              top: `${tooltipPos.y.toPrecision(2)}px`,
+            }}
+          >
+            {tooltip}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@
   width: 100%;
   border: 2px solid black;
   border-radius: 5px;
-
+  position: "relative";
   background-color: var(--offWhite);
 }
 
@@ -15,19 +15,14 @@
   &:hover {
     border: 2px solid var(--darkenedColor);
   }
-
-  .tooltip {
-    display: none;
-    position: absolute;
-    padding: 8px;
-    background-color: #333;
-    color: #fff;
-    border-radius: 4px;
-    white-space: nowrap;
-    font-size: 14px;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-  }
+}
+.tooltip {
+  position: absolute;
+  padding: 8px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 14px;
+  z-index: 100;
 }
