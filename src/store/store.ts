@@ -4,6 +4,7 @@ import { reducer as libraryReducer } from "./Library/slice";
 import { reducer as editReducer } from "./Edit/slice";
 import { reducer as appReducer } from "./App/slice";
 import { semester_reducer } from "./Semester/semester-slice";
+import { reducer as degreeReducer } from "./Degree/degree-slice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     edit: editReducer,
     app: appReducer,
     semester: semester_reducer,
+    degree: degreeReducer,
   },
 });
 
