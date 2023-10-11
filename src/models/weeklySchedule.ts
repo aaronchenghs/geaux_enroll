@@ -11,34 +11,44 @@ export enum Day {
 export class WeeklySchedule {
   public days: TimeSlot[] = Array(7);
 
+  // This is the only function that mutates the state of WeeklySchedule
+  // Because redux does pointer comparision to determine if state changed
+  // Adding timeslots should be done to construct a WeeklySchedule
+  // It should not be done to update the state of the app.
   public addTimeSlot(day: Day, schedule: TimeSlot): void {
     this.days[WeeklySchedule._dayIndices.get(day)!] = schedule;
   }
 
-  // Mutates the state of weekly schedule
-  public union(other: WeeklySchedule): WeeklySchedule {
+  // Combines A and B in a new WeekelyScheudleObj
+  static union(a: WeeklySchedule, b: WeeklySchedule): WeeklySchedule {
+    const output = new WeeklySchedule();
+
     for (let i = 0; i < 7; i++) {
-      // If there are both then union and update this
-      if (this.days[i] && other.days[i]) {
-        this.days[i] = this.days[i].union(other.days[i]);
-      }
-      // If there is only other, set this to other's
-      else if (other.days[i]) {
-        // This is very unsafe if someone decides to modify and existing timeslot object (please don't)
-        this.days[i] = other.days[i];
+      if (a.days[i] && b.days[i]) {
+        output.days[i] = a.days[i].union(b.days[i]);
+      } else if (a.days[i]) {
+        output.days[i] = a.days[i].clone();
+      } else if (b.days[i]) {
+        output.days[i] = b.days[i].clone();
       }
     }
-    return this;
+
+    return output;
   }
 
-  // Mutates the state of weekly schedule
-  public disunion(other: WeeklySchedule): WeeklySchedule {
+  // Removes B from A, returns new WeeklySchedule Obj
+  static disunion(a: WeeklySchedule, b: WeeklySchedule): WeeklySchedule {
+    const output = new WeeklySchedule();
+
     for (let i = 0; i < 7; i++) {
-      if (this.days[i]) {
-        this.days[i] = this.days[i].disunion(other.days[i]);
+      if (a.days[i] && b.days[i]) {
+        output.days[i] = a.days[i].disunion(b.days[i]);
+      } else if (a.days[i]) {
+        output.days[i] = a.days[i].clone();
       }
     }
-    return this;
+
+    return output;
   }
 
   private static _dayIndices: Map<Day, number> =
@@ -107,6 +117,15 @@ export class TimeSlot {
       this.middayBlock = startBitStream.midday ^ endBitStream.midday;
       this.nightBlock = startBitStream.night ^ endBitStream.night;
     }
+  }
+
+  clone(): TimeSlot {
+    return new TimeSlot(
+      "",
+      this.morningBlock,
+      this.middayBlock,
+      this.nightBlock,
+    );
   }
 
   union(other: TimeSlot): TimeSlot {
