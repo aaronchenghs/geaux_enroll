@@ -43,4 +43,4 @@ const semester_slice = createSlice({
 
 export const semester_reducer = semester_slice.reducer;
 
-export const { setCoursesToSchedule } = semester_slice.actions;
+export const { setCoursesToSchedule, selectCourse } = semester_slice.actions;
