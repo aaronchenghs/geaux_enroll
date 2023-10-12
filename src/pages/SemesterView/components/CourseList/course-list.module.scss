@@ -1,3 +1,35 @@
+.navButton {
+    border: 3px solid var(--primaryColor);
+    border-radius: 50px;
+    transition:
+        background-color 0.3s,
+        border-color 0.3s,
+        transform 0.2s;
+    background-color: var(--backgroundColor);
+    color: var(--primaryColor);
+
+    height: 125px;
+    width: 80%;
+
+    margin-bottom: 16px;
+
+    &:hover {
+        background-color: var(--primaryColor);
+        border-color: var(--surfaceColor);
+        color: var(--surfaceColor);
+    }
+
+    &:active {
+        transform: scale(0.95);
+        background-color: var(--headerColor);
+        color: var(--accentColor);
+    }
+}
+
 .title {
+    text-align: center;
+}
+
+.center {
     text-align: center;
 }

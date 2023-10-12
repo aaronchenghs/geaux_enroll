@@ -3,6 +3,7 @@ import { Course, CourseFactory, Department } from "../../models/course";
 
 interface SemesterState {
   coursesToSchedule: Course[];
+  selectedCourse: null | Course;
 }
 
 const genDummyCourses = (): Course[] => {
@@ -24,6 +25,7 @@ export const dummy_courses = genDummyCourses();
 
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],
+  selectedCourse: null,
 };
 
 const semester_slice = createSlice({
@@ -32,6 +34,9 @@ const semester_slice = createSlice({
   reducers: {
     setCoursesToSchedule(state, action: PayloadAction<Course[]>) {
       state.coursesToSchedule = action.payload;
+    },
+    selectCourse(state, action: PayloadAction<Course | null>) {
+      state.selectedCourse = action.payload;
     },
   },
 });
