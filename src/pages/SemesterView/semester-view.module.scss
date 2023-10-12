@@ -15,3 +15,21 @@
     transform: translateX(100%);
   }
 }
+
+.myrow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+
+.week_chart {
+  width: 75%;
+  height: 100%;
+}
+
+.course_list {
+  width: 25%;
+  height: 100%;
+  border: 5px solid black;
+}

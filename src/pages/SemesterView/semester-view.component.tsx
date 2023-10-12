@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { View } from "../../store/App/slice";
 
 import styles from "./semester-view.module.scss";
+import { WeekChart } from "./components/WeekChart/week-chart.component";
 
 const SemesterView = (): JSX.Element => {
   const navigate = useNavigate();
@@ -35,7 +36,14 @@ const SemesterView = (): JSX.Element => {
                   ${isMounted ? styles.slideIn : ""} 
                   ${$view === View.Degree ? styles.slideOut : ""}`}
     >
-      <CourseList />
+      <div className={styles.myrow}>
+        <div className={styles.course_list}>
+          <CourseList />
+        </div>
+        <div className={styles.week_chart}>
+          <WeekChart />
+        </div>
+      </div>
     </div>
   );
 };
