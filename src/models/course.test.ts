@@ -97,7 +97,7 @@ test("Create CatagoryCourse Object", () => {
   });
 
   expect(test.code).toBe(3333);
-  expect(test.courseAbreviation).toBe("CS 3333");
+  expect(test.courseAbreviation).toBe("Advanced Elective");
   expect(test.department).toBe(Department.CS);
   expect(test.section == null).toBe(true);
   expect(test.prereqs).toStrictEqual([]);
