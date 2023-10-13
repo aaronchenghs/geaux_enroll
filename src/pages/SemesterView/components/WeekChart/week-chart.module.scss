@@ -3,3 +3,18 @@
     font-size: xx-large;
     text-align: center;
 }
+
+.grid {
+    display: grid;
+    border: solid black;
+    grid-template-rows: 10px 10px 10px 10px  10px;
+    grid-template-columns: 10px 10px 10px 10px 10px 10px;
+    column-gap: 50px;
+}
+
+.item {
+    grid-row: span 2;
+    grid-column: span 2;
+    color: 'red';
+    border: solid black
+}
