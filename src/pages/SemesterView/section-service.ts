@@ -1,6 +1,6 @@
 // This service exists to proxy a database that takes in courses and returns what the sections are for this year
 
-import { Course } from "../../models/course";
+import { CategoryCourse, Course } from "../../models/course";
 import {
   Buildings,
   CourseLocation,
@@ -15,6 +15,9 @@ export function getCurrentSections(course: Course): Section[] {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const seedrandom = require("seedrandom");
   const rng = seedrandom(course.courseAbreviation);
+
+  if (course instanceof CategoryCourse)
+    throw new Error("Catagory Courses don't have sections...");
 
   const numSections = Math.floor((rng() / 2) * 10);
 

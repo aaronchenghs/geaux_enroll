@@ -1,11 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Course, CourseFactory, Department } from "../../models/course";
+import {
+  CategoryCourse,
+  Course,
+  CourseFactory,
+  Department,
+} from "../../models/course";
 import { Section } from "../../models/section";
 import { getCurrentSections } from "../../pages/SemesterView/section-service";
 
 interface SemesterState {
   coursesToSchedule: Course[];
-  selectedCourseProps: { course: null | Course; sections: Section[] };
+  selectedCourseProps: {
+    course: null | Course;
+    sections: Section[]; // For most courses
+    options: Course[]; // For catagory courses
+  };
 }
 
 const genDummyCourses = (): Course[] => {
@@ -20,6 +29,28 @@ const genDummyCourses = (): Course[] => {
 
     output.push(factory.createCourse());
   }
+
+  const factory = new CourseFactory();
+  factory.name = "Category Course";
+  factory.code = 1111;
+  factory.department = Department.BIOL;
+
+  const options = [];
+
+  for (let i = 0; i < 5; i++) {
+    const factory = new CourseFactory();
+
+    factory.name = "Course " + i;
+    factory.code = i * 1000;
+    factory.department = Department.BIOL;
+
+    options.push(factory.createCourse());
+  }
+
+  factory.setOptions(options, null);
+
+  output.push(factory.createCourse());
+
   return output;
 };
 
@@ -27,7 +58,7 @@ export const dummy_courses = genDummyCourses();
 
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],
-  selectedCourseProps: { course: null, sections: [] },
+  selectedCourseProps: { course: null, sections: [], options: [] },
 };
 
 const semester_slice = createSlice({
@@ -39,10 +70,19 @@ const semester_slice = createSlice({
     },
     selectCourse(state, action: PayloadAction<Course | null>) {
       state.selectedCourseProps.course = action.payload;
+      // If a course is being selected
       if (action.payload != null) {
-        state.selectedCourseProps.sections = getCurrentSections(action.payload);
+        // If CategoryCourse
+        if (action.payload instanceof CategoryCourse) {
+          state.selectedCourseProps.options = action.payload.options;
+        } else {
+          state.selectedCourseProps.sections = getCurrentSections(
+            action.payload,
+          );
+        }
       } else {
         state.selectedCourseProps.sections = [];
+        state.selectedCourseProps.options = [];
       }
     },
   },

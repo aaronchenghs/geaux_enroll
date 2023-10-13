@@ -117,6 +117,10 @@ export class CategoryCourse extends Course {
     }
   }
 
+  get courseAbreviation(): string {
+    return this.name;
+  }
+
   get section(): Section | null {
     if (this.optionTaken == null) return null;
 
