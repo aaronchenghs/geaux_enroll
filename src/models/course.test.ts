@@ -1,5 +1,5 @@
 import {
-  CatagoryCourse,
+  CategoryCourse,
   CoreCourse,
   Course,
   CourseFactory,
@@ -9,15 +9,15 @@ import {
 } from "./course";
 
 test("Create Course Object", () => {
-  const test = new Course(
-    "Intro to CS for Majors",
-    1350,
-    Department.CS,
-    "Fundamentals of algorithm development and OO Programming",
-    [],
-    [],
-    Grade.D,
-  );
+  const test = new Course({
+    name: "Intro to CS for Majors",
+    code: 1350,
+    department: Department.CS,
+    description: "Fundamentals of algorithm development and OO Programming",
+    prereqs: [],
+    courseType: [],
+    grade: Grade.D,
+  });
 
   expect(test.code).toBe(1350);
   expect(test.courseAbreviation).toBe("CS 1350");
@@ -31,15 +31,15 @@ test("Create Course Object", () => {
 });
 
 test("Create CoreCourse Object", () => {
-  const test = new CoreCourse(
-    "Intro to CS for Majors",
-    1350,
-    Department.CS,
-    "Fundamentals of algorithm development and OO Programming",
-    [],
-    [],
-    Grade.D,
-  );
+  const test = new CoreCourse({
+    name: "Intro to CS for Majors",
+    code: 1350,
+    department: Department.CS,
+    description: "Fundamentals of algorithm development and OO Programming",
+    prereqs: [],
+    courseType: [],
+    grade: Grade.D,
+  });
 
   expect(test.code).toBe(1350);
   expect(test.courseAbreviation).toBe("CS 1350");
@@ -54,47 +54,47 @@ test("Create CoreCourse Object", () => {
 
 test("Create CatagoryCourse Object", () => {
   const options = [
-    new Course(
-      "Intro to CS for Majors",
-      1350,
-      Department.CS,
-      "Fundamentals of algorithm development and OO Programming",
-      [],
-      [],
-      Grade.D,
-    ),
-    new Course(
-      "Music Appreciation",
-      2233,
-      Department.PHIL,
-      "Music through the ages",
-      [],
-      [],
-      Grade.A,
-    ),
-    new CoreCourse(
-      "Finance For Home",
-      4563,
-      Department.MATH,
-      "Make money make goods",
-      [],
-      [],
-      Grade.C,
-    ),
+    new Course({
+      name: "Intro to CS for Majors",
+      code: 1350,
+      department: Department.CS,
+      description: "Fundamentals of algorithm development and OO Programming",
+      prereqs: [],
+      courseType: [],
+      grade: Grade.D,
+    }),
+    new Course({
+      name: "Music Appreciation",
+      code: 2233,
+      department: Department.PHIL,
+      description: "Music through the ages",
+      prereqs: [],
+      courseType: [],
+      grade: Grade.A,
+    }),
+    new CoreCourse({
+      name: "Finance For Home",
+      code: 4563,
+      department: Department.MATH,
+      description: "Make money make goods",
+      prereqs: [],
+      courseType: [],
+      grade: Grade.C,
+    }),
   ];
 
-  const test = new CatagoryCourse(
-    "Advanced Elective",
-    3333,
-    Department.CS,
-    "Choose one Advanced Elective",
-    [],
-    [],
-    Grade.D,
-    null,
-    options,
-    null,
-  );
+  const test = new CategoryCourse({
+    name: "Advanced Elective",
+    code: 3333,
+    department: Department.CS,
+    description: "Choose one Advanced Elective",
+    prereqs: [],
+    courseType: [],
+    grade: Grade.D,
+    section: null,
+    options: options,
+    optionTaken: null,
+  });
 
   expect(test.code).toBe(3333);
   expect(test.courseAbreviation).toBe("CS 3333");

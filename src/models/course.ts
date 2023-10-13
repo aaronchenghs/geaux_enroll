@@ -1,39 +1,34 @@
 import { Section } from "./section";
 
-export class Course {
+interface CourseParams {
   name: string;
-
   code: number;
   department: Department;
-
-  description: string | null;
+  description?: string | null;
+  prereqs?: Course[] | null;
+  courseType?: CourseType[];
+  grade?: Grade | null;
+  section?: Section | null;
+}
+export class Course {
+  name: string;
+  code: number;
+  department: Department;
+  description?: string | null;
   prereqs: Course[];
-  courseType: CourseType[];
-
+  courseType?: CourseType[];
   grade: Grade | null;
   private _section: Section | null;
 
-  constructor(
-    name: string,
-    code: number,
-    department: Department,
-    description: string | null,
-    prereqs: Course[] | null = null,
-    courseType: CourseType[] = [],
-    grade: Grade | null = null,
-    section: Section | null = null,
-  ) {
-    this.name = name;
-
-    this.code = code;
-    this.department = department;
-
-    this.description = description;
-    this.prereqs = prereqs != null ? prereqs : [];
-    this.courseType = courseType;
-
-    this.grade = grade;
-    this._section = section;
+  constructor(params: CourseParams) {
+    this.name = params.name;
+    this.code = params.code;
+    this.department = params.department;
+    this.description = params.description;
+    this.prereqs = params.prereqs ?? [];
+    this.courseType = params.courseType;
+    this.grade = params.grade ?? null;
+    this._section = params.section ?? null;
   }
 
   get section(): Section | null {
@@ -87,36 +82,38 @@ export class CoreCourse extends Course {
 }
 
 // Course where you have a few options - like Physical Science
-export class CatagoryCourse extends Course {
+
+interface CategoryCourseParams {
+  name: string;
+  code: number;
+  department: Department;
+  description: string;
+  prereqs: Course[] | null;
+  courseType: CourseType[];
+  grade: Grade | null;
+  section: Section | null;
+  options: Course[];
+  optionTaken: Course | null;
+}
+export class CategoryCourse extends Course {
   options: Course[];
   optionTaken: Course | null;
 
-  constructor(
-    name: string,
-    code: number,
-    department: Department,
-    description: string,
-    prereqs: Course[] | null = null,
-    courseType: CourseType[] = [],
-    grade: Grade | null = null,
-    section: Section | null = null,
-    options: Course[],
-    optionTaken: Course | null,
-  ) {
-    super(
-      name,
-      code,
-      department,
-      description,
-      prereqs,
-      courseType,
-      grade,
-      section,
-    );
-    this.options = options;
-    this.optionTaken = optionTaken;
-    if (this.optionTaken != null) {
-      this.optionTaken.section = section;
+  constructor(params: CategoryCourseParams) {
+    super({
+      name: params.name,
+      code: params.code,
+      department: params.department,
+      description: params.description,
+      prereqs: params.prereqs,
+      courseType: params.courseType,
+      grade: params.grade,
+      section: params.section,
+    });
+    this.options = params.options;
+    this.optionTaken = params.optionTaken;
+    if (this.optionTaken != null && params.section) {
+      this.optionTaken.section = params.section;
     }
   }
 
@@ -174,43 +171,43 @@ export class CourseFactory {
     this.setUndefinedToDefault();
 
     if (this.isCoreCorse()) {
-      return new CoreCourse(
-        this._name!,
-        this._code!,
-        this._department!,
-        this._description!,
-        this._prereqs!,
-        this._courseType!,
-        this._grade!,
-        this._section!,
-      );
+      return new CoreCourse({
+        name: this._name!,
+        code: this._code!,
+        department: this._department!,
+        description: this._description!,
+        prereqs: this._prereqs!,
+        courseType: this._courseType!,
+        grade: this._grade!,
+        section: this._section!,
+      });
     }
 
     if (this.isCatagoryCorse()) {
-      return new CatagoryCourse(
-        this._name!,
-        this._code!,
-        this._department!,
-        this._description!,
-        this._prereqs!,
-        this._courseType!,
-        this._grade!,
-        this._section!,
-        this._options!,
-        this._optionTaken!,
-      );
+      return new CategoryCourse({
+        name: this._name!,
+        code: this._code!,
+        department: this._department!,
+        description: this._description!,
+        prereqs: this._prereqs!,
+        courseType: this._courseType!,
+        grade: this._grade!,
+        section: this._section!,
+        options: this._options!,
+        optionTaken: this._optionTaken!,
+      });
     }
 
-    return new Course(
-      this._name!,
-      this._code!,
-      this._department!,
-      this._description ?? null,
-      this._prereqs,
-      this._courseType,
-      this._grade,
-      this._section,
-    );
+    return new Course({
+      name: this._name!,
+      code: this._code!,
+      department: this._department!,
+      description: this._description,
+      prereqs: this._prereqs,
+      courseType: this._courseType,
+      grade: this._grade,
+      section: this._section,
+    });
   }
 
   private hasRequiredFields(): boolean {
@@ -292,6 +289,7 @@ export enum Department {
   POLS = "POLS",
   BA = "BA",
   PHIL = "PHIL",
+  ART = "ART",
 }
 
 export enum CourseType {
