@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppState } from "../../../../store/store";
+import { AppState } from "../../../../../store/store";
 import { Dispatch, ReactNode } from "react";
 import React from "react";
 import { Button } from "@mui/material";
 
-import { selectCourse } from "../../../../store/Semester/semester-slice";
+import { selectCourse } from "../../../../../store/Semester/semester-slice";
 
 import styles from "./course-list.module.scss";
 

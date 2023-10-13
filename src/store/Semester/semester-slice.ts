@@ -1,9 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Course, CourseFactory, Department } from "../../models/course";
+import { Section } from "../../models/section";
+import { getCurrentSections } from "../../pages/SemesterView/section-service";
 
 interface SemesterState {
   coursesToSchedule: Course[];
-  selectedCourse: null | Course;
+  selectedCourseProps: { course: null | Course; sections: Section[] };
 }
 
 const genDummyCourses = (): Course[] => {
@@ -25,7 +27,7 @@ export const dummy_courses = genDummyCourses();
 
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],
-  selectedCourse: null,
+  selectedCourseProps: { course: null, sections: [] },
 };
 
 const semester_slice = createSlice({
@@ -36,7 +38,12 @@ const semester_slice = createSlice({
       state.coursesToSchedule = action.payload;
     },
     selectCourse(state, action: PayloadAction<Course | null>) {
-      state.selectedCourse = action.payload;
+      state.selectedCourseProps.course = action.payload;
+      if (action.payload != null) {
+        state.selectedCourseProps.sections = getCurrentSections(action.payload);
+      } else {
+        state.selectedCourseProps.sections = [];
+      }
     },
   },
 });
