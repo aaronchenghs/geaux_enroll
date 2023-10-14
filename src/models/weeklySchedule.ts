@@ -19,6 +19,19 @@ export class WeeklySchedule {
     this.days[WeeklySchedule._dayIndices.get(day)!] = schedule;
   }
 
+  static doCollide(a: WeeklySchedule, b: WeeklySchedule): boolean {
+    for (let i = 0; i < 7; i++) {
+      const collides =
+        a.days[i] != null &&
+        b.days[i] != null &&
+        a.days[i].collidesWith(b.days[i]);
+
+      if (collides) return true;
+    }
+
+    return false;
+  }
+
   // Combines A and B in a new WeekelyScheudleObj
   static union(a: WeeklySchedule, b: WeeklySchedule): WeeklySchedule {
     const output = new WeeklySchedule();
@@ -147,7 +160,8 @@ export class TimeSlot {
   }
 
   // This function is the whole reason to do the conversion into ints
-  collidesWith(other: TimeSlot): boolean {
+  collidesWith(other: TimeSlot | null): boolean {
+    if (other == null) return false;
     return (
       (this.morningBlock & other.morningBlock) +
         (this.middayBlock & other.middayBlock) +

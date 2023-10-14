@@ -7,6 +7,7 @@ import {
 } from "../../models/course";
 import { Section } from "../../models/section";
 import { getCurrentSections } from "../../pages/SemesterView/section-service";
+import { WeeklySchedule } from "../../models/weeklySchedule";
 
 interface SemesterState {
   coursesToSchedule: Course[];
@@ -15,6 +16,8 @@ interface SemesterState {
     sections: Section[]; // For most courses
     options: Course[]; // For catagory courses
   };
+  schedule: WeeklySchedule; // This is what will do the calculations
+  scheduledSections: Section[]; // This will store the human readable version
 }
 
 const genDummyCourses = (): Course[] => {
@@ -59,6 +62,8 @@ export const dummy_courses = genDummyCourses();
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],
   selectedCourseProps: { course: null, sections: [], options: [] },
+  schedule: new WeeklySchedule(),
+  scheduledSections: [],
 };
 
 const semester_slice = createSlice({
@@ -85,9 +90,34 @@ const semester_slice = createSlice({
         state.selectedCourseProps.options = [];
       }
     },
+    addSection(state, action: PayloadAction<Section>) {
+      if (WeeklySchedule.doCollide(state.schedule, action.payload.schedule))
+        throw new Error(
+          "Attempted to add a section that would collide with exisiting schedule",
+        );
+
+      state.scheduledSections.push(action.payload);
+      state.schedule = WeeklySchedule.union(
+        state.schedule,
+        action.payload.schedule,
+      );
+    },
+    removeSection(state, action: PayloadAction<Section>) {
+      const indexToRemove = state.scheduledSections.indexOf(action.payload);
+
+      if (indexToRemove == -1)
+        throw new Error("Attempted to remove a section that wasnt scheduled");
+
+      state.scheduledSections.splice(indexToRemove, 1);
+      state.schedule = WeeklySchedule.disunion(
+        state.schedule,
+        action.payload.schedule,
+      );
+    },
   },
 });
 
 export const semester_reducer = semester_slice.reducer;
 
-export const { setCoursesToSchedule, selectCourse } = semester_slice.actions;
+export const { setCoursesToSchedule, selectCourse, addSection, removeSection } =
+  semester_slice.actions;
