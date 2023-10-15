@@ -19,10 +19,17 @@ export const CourseList = (): JSX.Element => {
     return (
       <React.Fragment key={course.name}>
         <Button
-          className={styles.navButton}
+          className={`${styles.navButton} ${
+            course.section != null ? styles.scheduled : ""
+          }`}
           onClick={(): unknown => dispatch(selectCourse(course))}
         >
-          <h3>{course.courseAbreviation}</h3>
+          <h3>
+            {course.courseAbreviation}{" "}
+            {`${
+              course.section == null ? " - ?" : "- " + course.section!.number
+            }`}
+          </h3>
         </Button>
       </React.Fragment>
     );

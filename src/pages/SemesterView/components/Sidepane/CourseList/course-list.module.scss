@@ -1,6 +1,6 @@
 .CourseList{
     Button {
-        border: 3px solid var(--primaryColor);
+        border: 3px dashed var(--primaryColor);
         border-radius: 50px;
         transition:
             background-color 0.3s,
@@ -25,6 +25,11 @@
             background-color: var(--headerColor);
             color: var(--accentColor);
         }
+    }
+
+    Button.scheduled{
+        border: 6px solid var(--primaryColor);
+
     }
 
     Button.back {
