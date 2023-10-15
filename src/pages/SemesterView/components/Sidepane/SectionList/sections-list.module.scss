@@ -27,6 +27,18 @@
         }
     }
 
+    Button.scheduled{
+        // border: 6px solid var(--primaryColor);
+
+        background-color: var(--primaryColor);
+        border-color: var(--surfaceColor);
+        color: var(--surfaceColor);
+    }
+
+    Button.disabled{
+        border: 3px dashed var(--surfaceColor);
+    }
+
     Button.back {
         border: 3px solid var(--bs-danger);
         border-radius: 50px;

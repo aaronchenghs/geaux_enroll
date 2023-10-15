@@ -91,12 +91,30 @@ const semester_slice = createSlice({
       }
     },
     addSection(state, action: PayloadAction<Section>) {
+      // If a section for the course is already scheduled
+      if (action.payload.course.section != null) {
+        // Exit early if attempting to add a section that is already added
+        if (action.payload.course.section == action.payload) {
+          return;
+        }
+        // Otherwise, remove the section from the currently scheduled state
+        semester_slice.caseReducers.removeSection(
+          state,
+          removeSection(action.payload.course.section),
+        );
+      }
+
+      // If the new sections schedule would collide throw error
       if (WeeklySchedule.doCollide(state.schedule, action.payload.schedule))
         throw new Error(
           "Attempted to add a section that would collide with exisiting schedule",
         );
 
+      // Update course to reflect newly schedule section
+      action.payload.course.section = action.payload;
+      // Add section to list of scheduled sections
       state.scheduledSections.push(action.payload);
+      // Update schedule object by adding section schedule
       state.schedule = WeeklySchedule.union(
         state.schedule,
         action.payload.schedule,

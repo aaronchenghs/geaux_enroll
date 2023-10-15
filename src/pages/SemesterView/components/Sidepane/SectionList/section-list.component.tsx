@@ -12,33 +12,64 @@ import {
 import { WeeklySchedule } from "../../../../../models/weeklySchedule";
 
 export const SectionList = (): JSX.Element => {
-  const state = useSelector((state: AppState) => state.semester);
+  // const state = useSelector((state: AppState) => state.semester);
 
   const dispatch = useDispatch();
 
-  const renderedSections: ReactNode[] = state.selectedCourseProps.sections.map(
+  const schedule: WeeklySchedule = useSelector((state: AppState) => {
+    // If the selected course has a section selected, remove it from the schedule
+    // This is because if you select a different section of the same course,
+    // Then the current section will first be removed, so we do it ahead of time to correctly
+    // Show which courses are blocked, and which ones are available to schedule.
+    if (state.semester.selectedCourseProps.course?.section != null) {
+      return WeeklySchedule.disunion(
+        state.semester.schedule,
+        state.semester.selectedCourseProps.course?.section.schedule,
+      );
+    } else {
+      return state.semester.schedule;
+    }
+  });
+
+  const selectedCourseProps = useSelector(
+    (state: AppState) => state.semester.selectedCourseProps,
+  );
+
+  const renderedSections: ReactNode[] = selectedCourseProps.sections.map(
     (section): ReactNode => {
-      let canAdd;
+      const isScheduled =
+        selectedCourseProps.course?.section?.number == section.number;
+      const doesCollide = WeeklySchedule.doCollide(schedule, section.schedule);
       let onClick;
 
-      if (WeeklySchedule.doCollide(state.schedule, section.schedule)) {
+      // If its already added or can't be added, clicking should do nothing
+      if (isScheduled || doesCollide) {
         onClick = (): void => {};
-        canAdd = false;
       } else {
         onClick = (): void => {
           dispatch(addSection(section));
         };
-        canAdd = true;
       }
 
       return (
         <React.Fragment key={section.number}>
           <Button
-            className={`${styles.navButton}`}
+            className={`${styles.navButton} ${
+              isScheduled ? styles.scheduled : ""
+            } ${!isScheduled && doesCollide ? styles.disabled : ""}`}
             onClick={onClick}
-            disabled={!canAdd}
+            disabled={!isScheduled && doesCollide}
           >
-            <h3>{"Section: " + section.number}</h3>
+            <div>
+              <h2> {section.number} </h2>
+              <h4>{"Dr. " + section.instructor?.lastName}</h4>
+              <p>
+                {"Location: " +
+                  section.location?.building +
+                  " " +
+                  section.location?.roomNumber}
+              </p>
+            </div>
           </Button>
         </React.Fragment>
       );
@@ -49,7 +80,7 @@ export const SectionList = (): JSX.Element => {
     <div className={styles.SectionList}>
       <h2 className={styles.title}>
         {" "}
-        Sections of {state.selectedCourseProps.course?.courseAbreviation}{" "}
+        Sections of {selectedCourseProps.course?.courseAbreviation}{" "}
       </h2>
 
       <div className={styles.center}>
