@@ -126,6 +126,11 @@ const semester_slice = createSlice({
       if (indexToRemove == -1)
         throw new Error("Attempted to remove a section that wasnt scheduled");
 
+      // Update active course prop and remove section
+      if (state.selectedCourseProps.course?.section != null) {
+        state.selectedCourseProps.course!.section = null;
+      }
+
       state.scheduledSections.splice(indexToRemove, 1);
       state.schedule = WeeklySchedule.disunion(
         state.schedule,

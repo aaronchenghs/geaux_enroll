@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import styles from "./sections-list.module.scss";
 import {
   addSection,
+  removeSection,
   selectCourse,
 } from "../../../../../store/Semester/semester-slice";
 import { WeeklySchedule } from "../../../../../models/weeklySchedule";
@@ -76,6 +77,23 @@ export const SectionList = (): JSX.Element => {
     },
   );
 
+  let clearSectionButton: JSX.Element;
+  if (selectedCourseProps.course?.section != null) {
+    clearSectionButton = (
+      <Button
+        className={styles.clear}
+        onClick={(): void => {
+          dispatch(removeSection(selectedCourseProps.course!.section!));
+        }}
+      >
+        {" "}
+        Clear Section{" "}
+      </Button>
+    );
+  } else {
+    clearSectionButton = <></>;
+  }
+
   return (
     <div className={styles.SectionList}>
       <h2 className={styles.title}>
@@ -91,6 +109,7 @@ export const SectionList = (): JSX.Element => {
           <h3>{"Go Back"}</h3>
         </Button>
         {renderedSections}
+        {clearSectionButton}
       </div>
     </div>
   );
