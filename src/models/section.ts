@@ -18,6 +18,10 @@ export class Section {
     public location: CourseLocation | undefined,
     public speciallEnrollment: SpecialEnrollment[] = [],
   ) {}
+
+  get name(): string {
+    return this.course.courseAbreviation + "-" + this.number;
+  }
 }
 
 export interface Instructor {

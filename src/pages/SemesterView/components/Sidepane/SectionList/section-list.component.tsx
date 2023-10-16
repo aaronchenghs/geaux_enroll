@@ -8,7 +8,7 @@ import styles from "./sections-list.module.scss";
 import {
   addSection,
   removeSection,
-  selectCourse,
+  returnFromCurrentSelection,
 } from "../../../../../store/Semester/semester-slice";
 import { WeeklySchedule } from "../../../../../models/weeklySchedule";
 
@@ -104,7 +104,7 @@ export const SectionList = (): JSX.Element => {
       <div className={styles.center}>
         <Button
           className={styles.back}
-          onClick={(): unknown => dispatch(selectCourse(null))}
+          onClick={(): unknown => dispatch(returnFromCurrentSelection())}
         >
           <h3>{"Go Back"}</h3>
         </Button>

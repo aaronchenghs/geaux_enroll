@@ -14,7 +14,7 @@ interface SemesterState {
   selectedCourseProps: {
     course: null | Course;
     sections: Section[]; // For most courses
-    options: Course[]; // For catagory courses
+    parent: CategoryCourse | null;
   };
   schedule: WeeklySchedule; // This is what will do the calculations
   scheduledSections: Section[]; // This will store the human readable version
@@ -61,7 +61,11 @@ export const dummy_courses = genDummyCourses();
 
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],
-  selectedCourseProps: { course: null, sections: [], options: [] },
+  selectedCourseProps: {
+    course: null,
+    sections: [],
+    parent: null,
+  },
   schedule: new WeeklySchedule(),
   scheduledSections: [],
 };
@@ -73,21 +77,44 @@ const semester_slice = createSlice({
     setCoursesToSchedule(state, action: PayloadAction<Course[]>) {
       state.coursesToSchedule = action.payload;
     },
-    selectCourse(state, action: PayloadAction<Course | null>) {
-      state.selectedCourseProps.course = action.payload;
-      // If a course is being selected
-      if (action.payload != null) {
-        // If CategoryCourse
-        if (action.payload instanceof CategoryCourse) {
-          state.selectedCourseProps.options = action.payload.options;
-        } else {
-          state.selectedCourseProps.sections = getCurrentSections(
-            action.payload,
+    returnFromCurrentSelection(state) {
+      if (state.selectedCourseProps.parent == null) {
+        // Nothing on stack
+        state.selectedCourseProps.course = null;
+        state.selectedCourseProps.sections = [];
+      } else {
+        // CategoryCourse was parent of that course
+        const next = state.selectedCourseProps.parent;
+
+        state.selectedCourseProps.course = next;
+        state.selectedCourseProps.sections = [];
+        state.selectedCourseProps.parent = null;
+      }
+    },
+    selectCourse(state, action: PayloadAction<Course>) {
+      // Create backtrail to parent CategoryCourse
+      console.log(
+        state.selectedCourseProps.course instanceof CategoryCourse,
+        "Instance of CatagoryCourse?",
+      );
+      if (state.selectedCourseProps.course instanceof CategoryCourse) {
+        if (state.selectedCourseProps.parent != null) {
+          throw new Error(
+            "CategoryCourses supported to depth of one - for now...",
           );
         }
+
+        state.selectedCourseProps.parent = state.selectedCourseProps.course;
+      }
+
+      // Update selected course
+      state.selectedCourseProps.course = action.payload;
+
+      // If CategoryCourse add option information to state
+      if (action.payload instanceof CategoryCourse) {
+        // state.selectedCourseProps.options = action.payload.options;
       } else {
-        state.selectedCourseProps.sections = [];
-        state.selectedCourseProps.options = [];
+        state.selectedCourseProps.sections = getCurrentSections(action.payload);
       }
     },
     addSection(state, action: PayloadAction<Section>) {
@@ -97,7 +124,7 @@ const semester_slice = createSlice({
         if (action.payload.course.section == action.payload) {
           return;
         }
-        // Otherwise, remove the section from the currently scheduled state
+        // Otherwise, remove the old section from the currently scheduled state
         semester_slice.caseReducers.removeSection(
           state,
           removeSection(action.payload.course.section),
@@ -110,8 +137,13 @@ const semester_slice = createSlice({
           "Attempted to add a section that would collide with exisiting schedule",
         );
 
-      // Update course to reflect newly schedule section
+      // Update course to reflect newly scheduled section
       action.payload.course.section = action.payload;
+
+      if (state.selectedCourseProps.parent) {
+        state.selectedCourseProps.parent.section = action.payload;
+      }
+
       // Add section to list of scheduled sections
       state.scheduledSections.push(action.payload);
       // Update schedule object by adding section schedule
@@ -142,5 +174,10 @@ const semester_slice = createSlice({
 
 export const semester_reducer = semester_slice.reducer;
 
-export const { setCoursesToSchedule, selectCourse, addSection, removeSection } =
-  semester_slice.actions;
+export const {
+  setCoursesToSchedule,
+  selectCourse,
+  returnFromCurrentSelection,
+  addSection,
+  removeSection,
+} = semester_slice.actions;

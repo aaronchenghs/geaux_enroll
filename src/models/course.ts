@@ -129,8 +129,9 @@ export class CategoryCourse extends Course {
 
   // Updates both what course option was taken and the section information of that course
   set section(input: Section | null) {
-    if (input == null) this.optionTaken = null;
-    else {
+    if (input == null) {
+      this.optionTaken = null;
+    } else {
       // If section input corresponds to a valid option
       if (
         this.options.find((option) => {
