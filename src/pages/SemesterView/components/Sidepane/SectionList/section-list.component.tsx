@@ -18,22 +18,33 @@ export const SectionList = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const schedule: WeeklySchedule = useSelector((state: AppState) => {
-    // If the selected course has a section selected, remove it from the schedule
-    // This is because if you select a different section of the same course,
-    // Then the current section will first be removed, so we do it ahead of time to correctly
-    // Show which courses are blocked, and which ones are available to schedule.
-    if (state.semester.selectedCourseProps.course?.section != null) {
+    // We need to not consider the influence of the section that is currently scheduled for the section
+
+    // Handle there is a parent of the current course, so we need to check it for the real section to remove
+    if (
+      state.semester.selectedProps.parent &&
+      state.semester.selectedProps.parent.section != null
+    ) {
       return WeeklySchedule.disunion(
         state.semester.schedule,
-        state.semester.selectedCourseProps.course?.section.schedule,
+        state.semester.selectedProps.parent.section.schedule,
       );
-    } else {
-      return state.semester.schedule;
     }
+
+    // We can look at the current selected course to figure out which section to remove from consideration
+    if (state.semester.selectedProps.course?.section != null) {
+      return WeeklySchedule.disunion(
+        state.semester.schedule,
+        state.semester.selectedProps.course.section.schedule,
+      );
+    }
+
+    // If there wasn't a section scheduled, return the exiting schedule unmodified
+    return state.semester.schedule;
   });
 
   const selectedCourseProps = useSelector(
-    (state: AppState) => state.semester.selectedCourseProps,
+    (state: AppState) => state.semester.selectedProps,
   );
 
   const renderedSections: ReactNode[] = selectedCourseProps.sections.map(

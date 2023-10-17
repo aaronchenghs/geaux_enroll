@@ -15,8 +15,7 @@ import { CategoryCourse } from "../../../../../models/course";
 
 export const OptionList = (): JSX.Element => {
   const selected: CategoryCourse = useSelector(
-    (state: AppState) =>
-      state.semester.selectedCourseProps.course! as CategoryCourse,
+    (state: AppState) => state.semester.selectedProps.course! as CategoryCourse,
   );
 
   const dispatch = useDispatch();

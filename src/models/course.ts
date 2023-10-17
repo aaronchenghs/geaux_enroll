@@ -130,6 +130,7 @@ export class CategoryCourse extends Course {
   // Updates both what course option was taken and the section information of that course
   set section(input: Section | null) {
     if (input == null) {
+      if (this.optionTaken != null) this.optionTaken!.section = null;
       this.optionTaken = null;
     } else {
       // If section input corresponds to a valid option
@@ -139,6 +140,7 @@ export class CategoryCourse extends Course {
         })
       ) {
         this.optionTaken = input.course;
+        this.optionTaken.section = input;
       } else {
         throw new Error(
           "Section added to CatagoryCourse not from a course that fufills the catagory",

@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 import { selectCourse } from "../../../../../store/Semester/semester-slice";
 
 import styles from "./course-list.module.scss";
+import { Category } from "@mui/icons-material";
+import { CategoryCourse } from "../../../../../models/course";
 
 export const CourseList = (): JSX.Element => {
   const courses = useSelector(
@@ -25,9 +27,13 @@ export const CourseList = (): JSX.Element => {
           onClick={(): unknown => dispatch(selectCourse(course))}
         >
           <h3>
-            {course.courseAbreviation}{" "}
+            {course.section != null && course instanceof CategoryCourse
+              ? course.courseAbreviation + ":"
+              : ""}
             {`${
-              course.section == null ? " - ?" : "- " + course.section!.number
+              course.section == null
+                ? course.courseAbreviation
+                : course.section.name
             }`}
           </h3>
         </Button>

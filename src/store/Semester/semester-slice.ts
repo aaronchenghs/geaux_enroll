@@ -11,7 +11,7 @@ import { WeeklySchedule } from "../../models/weeklySchedule";
 
 interface SemesterState {
   coursesToSchedule: Course[];
-  selectedCourseProps: {
+  selectedProps: {
     course: null | Course;
     sections: Section[]; // For most courses
     parent: CategoryCourse | null;
@@ -61,7 +61,7 @@ export const dummy_courses = genDummyCourses();
 
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],
-  selectedCourseProps: {
+  selectedProps: {
     course: null,
     sections: [],
     parent: null,
@@ -78,57 +78,69 @@ const semester_slice = createSlice({
       state.coursesToSchedule = action.payload;
     },
     returnFromCurrentSelection(state) {
-      if (state.selectedCourseProps.parent == null) {
+      if (state.selectedProps.parent == null) {
         // Nothing on stack
-        state.selectedCourseProps.course = null;
-        state.selectedCourseProps.sections = [];
+        state.selectedProps.course = null;
+        state.selectedProps.sections = [];
       } else {
         // CategoryCourse was parent of that course
-        const next = state.selectedCourseProps.parent;
+        const next = state.selectedProps.parent;
 
-        state.selectedCourseProps.course = next;
-        state.selectedCourseProps.sections = [];
-        state.selectedCourseProps.parent = null;
+        state.selectedProps.course = next;
+        state.selectedProps.sections = [];
+        state.selectedProps.parent = null;
       }
     },
     selectCourse(state, action: PayloadAction<Course>) {
       // Create backtrail to parent CategoryCourse
       console.log(
-        state.selectedCourseProps.course instanceof CategoryCourse,
+        state.selectedProps.course instanceof CategoryCourse,
         "Instance of CatagoryCourse?",
       );
-      if (state.selectedCourseProps.course instanceof CategoryCourse) {
-        if (state.selectedCourseProps.parent != null) {
+      if (state.selectedProps.course instanceof CategoryCourse) {
+        if (state.selectedProps.parent != null) {
           throw new Error(
             "CategoryCourses supported to depth of one - for now...",
           );
         }
 
-        state.selectedCourseProps.parent = state.selectedCourseProps.course;
+        state.selectedProps.parent = state.selectedProps.course;
       }
 
       // Update selected course
-      state.selectedCourseProps.course = action.payload;
+      state.selectedProps.course = action.payload;
 
       // If CategoryCourse add option information to state
       if (action.payload instanceof CategoryCourse) {
         // state.selectedCourseProps.options = action.payload.options;
       } else {
-        state.selectedCourseProps.sections = getCurrentSections(action.payload);
+        state.selectedProps.sections = getCurrentSections(action.payload);
       }
     },
     addSection(state, action: PayloadAction<Section>) {
-      // If a section for the course is already scheduled
-      if (action.payload.course.section != null) {
-        // Exit early if attempting to add a section that is already added
-        if (action.payload.course.section == action.payload) {
-          return;
+      // If dealing with a category course
+      if (state.selectedProps.parent) {
+        if (state.selectedProps.parent.optionTaken != null) {
+          if (state.selectedProps.parent.section == action.payload) return;
+
+          semester_slice.caseReducers.removeSection(
+            state,
+            removeSection(state.selectedProps.parent.section as Section),
+          );
         }
-        // Otherwise, remove the old section from the currently scheduled state
-        semester_slice.caseReducers.removeSection(
-          state,
-          removeSection(action.payload.course.section),
-        );
+      } else {
+        // If a section for the course is already scheduled
+        if (action.payload.course.section != null) {
+          // Exit early if attempting to add a section that is already added
+          if (action.payload.course.section == action.payload) {
+            return;
+          }
+          // Otherwise, remove the old section from the currently scheduled state
+          semester_slice.caseReducers.removeSection(
+            state,
+            removeSection(action.payload.course.section),
+          );
+        }
       }
 
       // If the new sections schedule would collide throw error
@@ -140,8 +152,8 @@ const semester_slice = createSlice({
       // Update course to reflect newly scheduled section
       action.payload.course.section = action.payload;
 
-      if (state.selectedCourseProps.parent) {
-        state.selectedCourseProps.parent.section = action.payload;
+      if (state.selectedProps.parent) {
+        state.selectedProps.parent.section = action.payload;
       }
 
       // Add section to list of scheduled sections
@@ -155,12 +167,18 @@ const semester_slice = createSlice({
     removeSection(state, action: PayloadAction<Section>) {
       const indexToRemove = state.scheduledSections.indexOf(action.payload);
 
+      if (state.selectedProps.parent) {
+        if (state.selectedProps.parent.section == action.payload) {
+          state.selectedProps.parent.section = null;
+        }
+      }
+
       if (indexToRemove == -1)
         throw new Error("Attempted to remove a section that wasnt scheduled");
 
       // Update active course prop and remove section
-      if (state.selectedCourseProps.course?.section != null) {
-        state.selectedCourseProps.course!.section = null;
+      if (state.selectedProps.course?.section != null) {
+        state.selectedProps.course!.section = null;
       }
 
       state.scheduledSections.splice(indexToRemove, 1);

@@ -7,7 +7,7 @@ import { OptionList } from "./OptionsList/options-list.component";
 
 const Sidepane = (): JSX.Element => {
   const selected = useSelector(
-    (state: AppState) => state.semester.selectedCourseProps,
+    (state: AppState) => state.semester.selectedProps,
   );
 
   if (selected.course == null) {
