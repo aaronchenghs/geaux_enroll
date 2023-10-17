@@ -10,7 +10,18 @@ export const WeekChart = (): JSX.Element => {
     <>
     <h2 className={styles.title}> Schedule </h2>
       <div className={styles.grid}>
-        <div className={styles.item}>1</div>
+        <div className={styles.timeColumn}>1</div>
+        <div className={styles.item}>2</div>
+        <div className={styles.item}>3</div>
+        <div className={styles.item}>4</div>
+        <div className={styles.item}>5</div>
+        <div className={styles.item}>6</div>
+        <div className={styles.timeColumn}>1</div>
+        <div className={styles.item}>2</div>
+        <div className={styles.item}>3</div>
+        <div className={styles.item}>4</div>
+        <div className={styles.item}>5</div>
+        <div className={styles.item}>6</div>
       </div>
     </>
   );

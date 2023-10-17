@@ -5,16 +5,34 @@
 }
 
 .grid {
+    margin-left: 2.5%;
+    margin-bottom: 2.5%;
+    width: 95%;
+    height: 95%;
     display: grid;
-    border: solid black;
-    grid-template-rows: 10px 10px 10px 10px  10px;
-    grid-template-columns: 10px 10px 10px 10px 10px 10px;
-    column-gap: 50px;
+    border: solid white;
+    border-width: 5px;
+    border-radius: 2%;
+    row-gap: 2px;
+    grid-template-rows: repeat(25, 1fr);
+    grid-template-columns: 5% repeat(5, 1fr);
+    
 }
 
 .item {
+    margin: 1%;
     grid-row: span 2;
-    grid-column: span 2;
+    grid-column: span 1;
     color: 'red';
+    text-decoration-color: 'red';
+    border-radius: 2%;
     border: solid black
+}
+
+.timeColumn {
+    margin: 1%;
+    grid-row: span 1;
+    grid-column: span 1;
+
+
 }
