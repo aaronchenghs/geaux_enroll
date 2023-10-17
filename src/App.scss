@@ -40,12 +40,13 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--white);
+  background: var(--backgroundColor);
 }
 ::-webkit-scrollbar-thumb {
-  background: #555;
-  border-radius: 3px;
+  background: var(--headerColor);
+  border-radius: 2px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #888;
+  background: var(--textColor);
+  cursor: pointer !important;
 }

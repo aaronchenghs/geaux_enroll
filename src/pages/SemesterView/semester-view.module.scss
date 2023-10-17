@@ -1,7 +1,8 @@
 .SemesterView {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100vh - (var(--topBarHeight) * 2));
+  overflow-y: auto;
   width: 100%;
   transform: translateX(100%);
 
