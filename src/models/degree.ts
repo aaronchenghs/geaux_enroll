@@ -13,6 +13,7 @@ export interface Degree {
   concentration: string;
   requirements: Course[];
   hours: number;
+  year: string;
 
   rootCourses: Course[];
 }
@@ -89,17 +90,7 @@ export const CSC1351 = new CoreCourse({
   code: 1351,
   department: Department.CS,
   description: "",
-  prereqs: [CSC1350],
-  courseType: [],
-  grade: null,
-  section: null,
-});
-export const CSC3102 = new CoreCourse({
-  name: "Adv Data Str",
-  code: 3102,
-  department: Department.CS,
-  description: "",
-  prereqs: [CSC1351],
+  prereqs: [CSC1350, MATH1550],
   courseType: [],
   grade: null,
   section: null,
@@ -109,7 +100,17 @@ export const CSC2259 = new CoreCourse({
   code: 2259,
   department: Department.CS,
   description: "",
-  prereqs: null,
+  prereqs: [MATH1552, CSC1351],
+  courseType: [],
+  grade: null,
+  section: null,
+});
+export const CSC3102 = new CoreCourse({
+  name: "Adv Data Str",
+  code: 3102,
+  department: Department.CS,
+  description: "",
+  prereqs: [CSC1351, CSC2259],
   courseType: [],
   grade: null,
   section: null,
@@ -131,7 +132,7 @@ export const CSC4330 = new CoreCourse({
   department: Department.CS,
   description: "",
 
-  prereqs: [CSC3380],
+  prereqs: [CSC3380, CSC3102],
   courseType: [],
   grade: null,
   section: null,
@@ -197,7 +198,7 @@ export const MATH2090 = new Course({
   department: Department.MATH,
   description: "",
 
-  prereqs: [], // Prerequisite is DE & Lin Alg
+  prereqs: [MATH1552],
   courseType: [],
   grade: null,
   section: null,
@@ -208,7 +209,7 @@ export const CSC2262 = new Course({
   department: Department.CS,
   description: "",
 
-  prereqs: [MATH2090], // Prerequisite is DE & Lin Alg
+  prereqs: [MATH1552, CSC1351],
   courseType: [],
   grade: null,
   section: null,
@@ -219,7 +220,7 @@ export const IE3302 = new Course({
   department: Department.IE,
   description: "",
 
-  prereqs: [CSC2262],
+  prereqs: [CSC2262, MATH1552],
   courseType: [],
   grade: null,
   section: null,
@@ -463,7 +464,7 @@ export const PhysicalScienceSequence2Lab = new CategoryCourse({
   name: "Science Seq II Lab",
   description: "",
 
-  prereqs: null,
+  prereqs: [PhysicalScienceSequence1Lab],
   courseType: [CourseType.LAB],
   grade: null,
   section: null,
@@ -519,6 +520,7 @@ export const SoftwareEngineeringDegree: Degree = {
   department: "Computer Science",
   abbreviation: "SWE",
   concentration: "Software Engineering",
+  year: "2019-2020",
   requirements: SWEDegreeRequirements,
   hours: 0,
   rootCourses: [],
