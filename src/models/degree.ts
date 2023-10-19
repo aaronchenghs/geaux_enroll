@@ -89,7 +89,11 @@ export const CSC1351 = new CoreCourse({
   name: "Intro CS II for majors",
   code: 1351,
   department: Department.CS,
-  description: "",
+  description: `This course is a continuation of Intro to Computer Science I, 
+    delving deeper into foundational concepts of computer science. Students 
+    will explore more advanced programming techniques, data structures, and algorithms. 
+    Topics may include object-oriented programming, recursion, searching and sorting
+     algorithms, and an introduction to data structures such as linked lists and trees.`,
   prereqs: [CSC1350, MATH1550],
   courseType: [],
   grade: null,
@@ -99,17 +103,24 @@ export const CSC2259 = new CoreCourse({
   name: "Discrete Structures",
   code: 2259,
   department: Department.CS,
-  description: "",
+  description: `Discrete Structures introduces students to the foundational mathematical
+   concepts used in computer science. Topics covered include set theory, logic, relations,
+    functions, combinatorics, graph theory, and formal languages. This course emphasizes the
+     application of these concepts to computer science problems and algorithms.`,
   prereqs: [MATH1552, CSC1351],
   courseType: [],
   grade: null,
   section: null,
 });
 export const CSC3102 = new CoreCourse({
-  name: "Adv Data Str",
+  name: "Advanced Data Structures",
   code: 3102,
   department: Department.CS,
-  description: "",
+  description: `Advanced Data Structures delves into the intricacies of various data structures
+   and their applications. Students will learn about and implement advanced data structures such 
+   as balanced trees, graphs, heaps, and hash tables. The course will also cover associated algorithms 
+   and their time complexities, ensuring students understand the trade-offs involved in choosing one 
+   structure over another for specific problems.`,
   prereqs: [CSC1351, CSC2259],
   courseType: [],
   grade: null,
@@ -119,8 +130,10 @@ export const CSC3380 = new CoreCourse({
   name: "Object-Oriented Design",
   code: 3380,
   department: Department.CS,
-  description: "",
-
+  description: `Object-Oriented Design focuses on the principles and practices of object-oriented programming (OOP)
+   and design. Students will learn about classes, inheritance, polymorphism, encapsulation, and design patterns. 
+   The course emphasizes the importance of creating modular and maintainable code, 
+   and students will work on projects that require them to design and implement software using OOP principles.`,
   prereqs: [CSC3102],
   courseType: [],
   grade: null,
@@ -522,6 +535,6 @@ export const SoftwareEngineeringDegree: Degree = {
   concentration: "Software Engineering",
   year: "2019-2020",
   requirements: SWEDegreeRequirements,
-  hours: 0,
+  hours: 120,
   rootCourses: [],
 };
