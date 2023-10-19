@@ -3,7 +3,7 @@ import styles from "./flowchart.module.scss";
 
 import { COURSE_STATUS_COLORS, buildCourseNode } from "./flowchart.utils";
 import ReactFlow, { Background, Controls } from "react-flow-renderer";
-import DegreeModal from "../DegreeModal/degreemodal.component";
+import CourseModal from "../DegreeModal/degreemodal.component";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
 import { CourseNode } from "./CourseNode/coursenode.component";
@@ -36,7 +36,7 @@ const FlowChart = (): JSX.Element => {
           <Controls />
         </ReactFlow>
       </div>
-      {$selectedCourseNode && <DegreeModal />}
+      {<CourseModal openCondition={$selectedCourseNode !== null} />}
     </Fragment>
   );
 };

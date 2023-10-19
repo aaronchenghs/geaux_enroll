@@ -85,9 +85,8 @@ export class CoreCourse extends Course {
 
 interface CategoryCourseParams {
   name: string;
-  code: number;
-  department: Department;
   description: string;
+  department?: Department;
   prereqs: Course[] | null;
   courseType: CourseType[];
   grade: Grade | null;
@@ -102,8 +101,8 @@ export class CategoryCourse extends Course {
   constructor(params: CategoryCourseParams) {
     super({
       name: params.name,
-      code: params.code,
-      department: params.department,
+      code: -1,
+      department: params.department ?? Department.NA,
       description: params.description,
       prereqs: params.prereqs,
       courseType: params.courseType,
@@ -193,7 +192,6 @@ export class CourseFactory {
     if (this.isCatagoryCorse()) {
       return new CategoryCourse({
         name: this._name!,
-        code: this._code!,
         department: this._department!,
         description: this._description!,
         prereqs: this._prereqs!,
@@ -297,6 +295,8 @@ export enum Department {
   BA = "BA",
   PHIL = "PHIL",
   ART = "ART",
+  IE = "IE",
+  NA = "",
 }
 
 export enum CourseType {

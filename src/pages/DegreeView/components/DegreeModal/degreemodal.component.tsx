@@ -6,10 +6,12 @@ import { setSelectedCourseNode } from "../../../../store/Degree/degree-slice";
 //styles
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const DegreeModal = (): JSX.Element => {
-  const $selectedCourseNode = useSelector(
-    (state: AppState) => state.degree.selectedCourseNode,
-  );
+export type ModalProps = {
+  openCondition: boolean;
+};
+
+const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
+  const $view = useSelector((state: AppState) => state.app.view);
   const dispatch = useDispatch();
 
   const handleClose = (): void => {
@@ -18,7 +20,7 @@ const DegreeModal = (): JSX.Element => {
 
   return (
     <>
-      <Modal show={$selectedCourseNode !== null} onHide={handleClose}>
+      <Modal show={openCondition} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal Title</Modal.Title>
         </Modal.Header>
@@ -33,4 +35,4 @@ const DegreeModal = (): JSX.Element => {
   );
 };
 
-export default DegreeModal;
+export default CourseModal;

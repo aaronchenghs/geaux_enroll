@@ -85,7 +85,6 @@ test("Create CatagoryCourse Object", () => {
 
   const test = new CategoryCourse({
     name: "Advanced Elective",
-    code: 3333,
     department: Department.CS,
     description: "Choose one Advanced Elective",
     prereqs: [],
