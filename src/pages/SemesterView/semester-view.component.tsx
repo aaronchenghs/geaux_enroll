@@ -10,6 +10,7 @@ import { WeekChart } from "./components/WeekChart/week-chart.component";
 import { Course } from "../../models/course";
 import { SectionList } from "./components/Sidepane/SectionList/section-list.component";
 import Sidepane from "./components/Sidepane/sidepane.module";
+import { ToastContainer, toast } from "react-toastify";
 
 const SemesterView = (): JSX.Element => {
   const navigate = useNavigate();
@@ -45,6 +46,19 @@ const SemesterView = (): JSX.Element => {
         </div>
         <div className={styles.week_chart}>
           <WeekChart />
+          <ToastContainer
+            limit={3}
+            position="bottom-center"
+            autoClose={2000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable={false}
+            pauseOnHover
+            theme="colored"
+          />
         </div>
       </div>
     </div>

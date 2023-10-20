@@ -8,6 +8,8 @@ import {
 import { Section } from "../../models/section";
 import { getCurrentSections } from "../../pages/SemesterView/section-service";
 import { WeeklySchedule } from "../../models/weeklySchedule";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface SemesterState {
   coursesToSchedule: Course[];
@@ -158,11 +160,25 @@ const semester_slice = createSlice({
 
       // Add section to list of scheduled sections
       state.scheduledSections.push(action.payload);
+
       // Update schedule object by adding section schedule
       state.schedule = WeeklySchedule.union(
         state.schedule,
         action.payload.schedule,
       );
+
+      // There must be a <ToastContainer> on the papge to see this
+      toast.success(`${action.payload.name} successfully added!`, {
+        position: "bottom-center",
+        autoClose: 3000,
+        closeButton: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
     },
     removeSection(state, action: PayloadAction<Section>) {
       const indexToRemove = state.scheduledSections.indexOf(action.payload);
