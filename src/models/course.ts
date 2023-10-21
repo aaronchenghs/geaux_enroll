@@ -297,6 +297,9 @@ export enum Department {
   ART = "ART",
   IE = "IE",
   NA = "",
+  ARTH = "ARTH",
+  MC = "MC",
+  MUS = "MUS",
 }
 
 export enum CourseType {
