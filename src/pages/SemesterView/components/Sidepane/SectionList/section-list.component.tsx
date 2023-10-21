@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../../store/store";
+import { LocationOn, Star, Apple, Person } from "@mui/icons-material";
+
 import { Dispatch, ReactNode } from "react";
 import React from "react";
 import { Button } from "@mui/material";
@@ -10,7 +12,10 @@ import {
   removeSection,
   returnFromCurrentSelection,
 } from "../../../../../store/Semester/semester-slice";
-import { WeeklySchedule } from "../../../../../models/weeklySchedule";
+import {
+  DAYS_IN_LIST,
+  WeeklySchedule,
+} from "../../../../../models/weeklySchedule";
 
 export const SectionList = (): JSX.Element => {
   // const state = useSelector((state: AppState) => state.semester);
@@ -63,6 +68,13 @@ export const SectionList = (): JSX.Element => {
         };
       }
 
+      const dayTiles: ReactNode[] = section.schedule.days.map(
+        (schedule, index) => {
+          return <p key={index}>{DAYS_IN_LIST[index].shortName}</p>;
+        },
+      );
+
+      // Section Button
       return (
         <React.Fragment key={section.number}>
           <Button
@@ -72,15 +84,29 @@ export const SectionList = (): JSX.Element => {
             onClick={onClick}
             disabled={!isScheduled && doesCollide}
           >
-            <div>
-              <h2> {section.number} </h2>
-              <h4>{"Dr. " + section.instructor?.lastName}</h4>
-              <p>
-                {"Location: " +
-                  section.location?.building +
-                  " " +
-                  section.location?.roomNumber}
-              </p>
+            <div className={styles.column}>
+              <div className={styles.row}>
+                <p> {section.number} </p>
+                <p>
+                  {" "}
+                  <LocationOn />
+                  {section.location?.building +
+                    " " +
+                    section.location?.roomNumber}
+                </p>
+                {dayTiles}
+              </div>
+
+              <div className={styles.row}>
+                <Star />
+                <p> {section.instructor ? section.instructor.rating : "---"}</p>
+                <Apple />
+                <p>{section.instructor ? section.instructor.name : "TBH"}</p>
+                <Person />
+                <p>
+                  {section.enrollmentCount} / {section.enrollmentLimit}
+                </p>
+              </div>
             </div>
           </Button>
         </React.Fragment>

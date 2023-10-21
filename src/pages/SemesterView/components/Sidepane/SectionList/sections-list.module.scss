@@ -1,6 +1,25 @@
 .SectionList{
     height: max-content;
 
+    h2 {
+        text-align: center;
+        text-decoration: underline;
+    }
+    
+    .center {
+        text-align: center;
+        height: 100%;
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .column {
+        display: block;
+        flex-direction: column;
+    }
+
     Button {
         border: 3px solid var(--primaryColor);
         border-radius: 50px;
@@ -30,7 +49,7 @@
     }
 
     Button.scheduled{
-        // border: 6px solid var(--primaryColor);
+        border: 6px solid var(--primaryColor);
 
         background-color: var(--primaryColor);
         border-color: var(--surfaceColor);
@@ -43,18 +62,13 @@
 
     Button.back {
         border: 3px solid var(--bs-danger);
-        border-radius: 50px;
-        transition:
-            background-color 0.3s,
-            border-color 0.3s,
-            transform 0.2s;
+
         background-color: var(--backgroundColor);
         color: var(--bs-danger);
     
         height: 75px;
         width: 50%;
     
-        margin-bottom: 16px;
     
         &:hover {
             background-color: var(--bs-danger);
@@ -78,16 +92,12 @@
         width: 12.5%;
 
         border: 3px solid var(--bs-danger);
-        border-radius: 50px;
         transition:
             background-color 0.3s,
             border-color 0.3s,
             transform 0.2s;
         background-color: var(--backgroundColor);
         color: var(--bs-danger);
-    
-    
-        margin-bottom: 16px;
     
         &:hover {
             background-color: var(--bs-danger);
@@ -102,13 +112,5 @@
         }
     }
 
-    h2 {
-        text-align: center;
-        text-decoration: underline;
-    }
-    
-    .center {
-        text-align: center;
-        height: 100%;
-    }
+
 }

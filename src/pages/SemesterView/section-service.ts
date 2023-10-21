@@ -8,7 +8,19 @@ import {
   Section,
   Session,
 } from "../../models/section";
-import { Day, TimeSlot, WeeklySchedule } from "../../models/weeklySchedule";
+
+import {
+  DAYS_IN_LIST,
+  FRIDAY,
+  MONDAY,
+  SATURDAY,
+  SUNDAY,
+  THURSDAY,
+  TUESDAY,
+  TimeSlot,
+  WEDNESDAY,
+  WeeklySchedule,
+} from "../../models/weeklySchedule";
 
 export function getCurrentSections(course: Course): Section[] {
   // Seed randomness with the course name, so sections are always the same
@@ -64,16 +76,6 @@ function genSection(
     specialEnrollment,
   );
 }
-// I hate this, enums should be easy to convert to a number :(
-const daysInList = [
-  Day.MONDAY,
-  Day.TUESDAY,
-  Day.WEDNESDAY,
-  Day.THURSDAY,
-  Day.FRIDAY,
-  Day.SATURDAY,
-  Day.SUNDAY,
-];
 
 function genWeeklySchedule(rng: () => number): WeeklySchedule {
   const typeOfClass = Math.floor(rng() * 3);
@@ -88,7 +90,7 @@ function genWeeklySchedule(rng: () => number): WeeklySchedule {
     const endTime = startTime + 3;
 
     output.addTimeSlot(
-      daysInList[dayOfWeek],
+      DAYS_IN_LIST[dayOfWeek],
       new TimeSlot(startTime + ":00-" + endTime + ":00"),
     );
   }
@@ -99,9 +101,9 @@ function genWeeklySchedule(rng: () => number): WeeklySchedule {
 
     const timeslot = new TimeSlot(startTime + ":00-" + endTime + ":00");
 
-    output.addTimeSlot(Day.MONDAY, timeslot);
-    output.addTimeSlot(Day.WEDNESDAY, timeslot);
-    output.addTimeSlot(Day.FRIDAY, timeslot);
+    output.addTimeSlot(MONDAY, timeslot);
+    output.addTimeSlot(WEDNESDAY, timeslot);
+    output.addTimeSlot(FRIDAY, timeslot);
   }
   // Tues Thurs
   else {
@@ -110,8 +112,8 @@ function genWeeklySchedule(rng: () => number): WeeklySchedule {
 
     const timeslot = new TimeSlot(startTime + ":00-" + endTime + ":30");
 
-    output.addTimeSlot(Day.TUESDAY, timeslot);
-    output.addTimeSlot(Day.THURSDAY, timeslot);
+    output.addTimeSlot(TUESDAY, timeslot);
+    output.addTimeSlot(THURSDAY, timeslot);
   }
 
   return output;
@@ -122,32 +124,32 @@ const instructorList: Instructor[] = [
   {
     id: "1",
     email: "pfranz@geauxenroll.com",
-    firstName: "Peter",
-    lastName: "Franz",
+    name: "Peter Franz",
+    rating: 1.0,
   },
   {
     id: "2",
     email: "acheng@geauxenroll.com",
-    firstName: "Aaron",
-    lastName: "Cheng",
+    name: "Aaron Cheng",
+    rating: 3.0,
   },
   {
     id: "3",
     email: "aschulte@geauxenroll.com",
-    firstName: "Adam",
-    lastName: "Schulte",
+    name: "Adam Schulte",
+    rating: 4.5,
   },
   {
     id: "4",
     email: "cpeytavin@geauxenroll.com",
-    firstName: "Christian",
-    lastName: "Peytavin",
+    name: "Christian Peytavin",
+    rating: 4.0,
   },
   {
     id: "5",
     email: "aweb@geauxenroll.com",
-    firstName: "Andrew",
-    lastName: "Webb",
+    name: "Andrew Webb",
+    rating: 5.0,
   },
 ];
 

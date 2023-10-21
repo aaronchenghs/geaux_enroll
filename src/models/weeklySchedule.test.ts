@@ -1,4 +1,12 @@
-import { Day, TimeSlot, WeeklySchedule } from "./weeklySchedule";
+import {
+  FRIDAY,
+  MONDAY,
+  THURSDAY,
+  TUESDAY,
+  TimeSlot,
+  WEDNESDAY,
+  WeeklySchedule,
+} from "./weeklySchedule";
 
 test("timeslot from three ints", () => {
   const test = new TimeSlot("", 100, 200, 300);
@@ -279,9 +287,9 @@ test("Weekly Schedule Creation", () => {
 
   const weeklySchedule = new WeeklySchedule();
 
-  weeklySchedule.addTimeSlot(Day.MONDAY, timeslot);
-  weeklySchedule.addTimeSlot(Day.WEDNESDAY, timeslot);
-  weeklySchedule.addTimeSlot(Day.FRIDAY, timeslot);
+  weeklySchedule.addTimeSlot(MONDAY, timeslot);
+  weeklySchedule.addTimeSlot(WEDNESDAY, timeslot);
+  weeklySchedule.addTimeSlot(FRIDAY, timeslot);
 
   expect(weeklySchedule.days[0].collidesWith(timeslot)).toBeTruthy();
   expect(weeklySchedule.days[1]).toBeUndefined;
@@ -299,20 +307,20 @@ test("Union of Schedules", () => {
 
   const noonSchedule = new WeeklySchedule();
 
-  noonSchedule.addTimeSlot(Day.MONDAY, timeslot);
-  noonSchedule.addTimeSlot(Day.WEDNESDAY, timeslot);
-  noonSchedule.addTimeSlot(Day.THURSDAY, timeslot);
-  noonSchedule.addTimeSlot(Day.FRIDAY, timeslot);
+  noonSchedule.addTimeSlot(MONDAY, timeslot);
+  noonSchedule.addTimeSlot(WEDNESDAY, timeslot);
+  noonSchedule.addTimeSlot(THURSDAY, timeslot);
+  noonSchedule.addTimeSlot(FRIDAY, timeslot);
 
   const string2 = "16:00-17:30";
   const timeslot2 = new TimeSlot(string2);
 
   const nightSchedule = new WeeklySchedule();
 
-  nightSchedule.addTimeSlot(Day.MONDAY, timeslot2);
-  nightSchedule.addTimeSlot(Day.TUESDAY, timeslot2);
-  nightSchedule.addTimeSlot(Day.WEDNESDAY, timeslot2);
-  nightSchedule.addTimeSlot(Day.FRIDAY, timeslot2);
+  nightSchedule.addTimeSlot(MONDAY, timeslot2);
+  nightSchedule.addTimeSlot(TUESDAY, timeslot2);
+  nightSchedule.addTimeSlot(WEDNESDAY, timeslot2);
+  nightSchedule.addTimeSlot(FRIDAY, timeslot2);
 
   const unionSchedule = WeeklySchedule.union(noonSchedule, nightSchedule);
 

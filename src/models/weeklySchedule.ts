@@ -1,4 +1,4 @@
-export enum Day {
+export enum Days {
   MONDAY = "Mon",
   TUESDAY = "Tues",
   WEDNESDAY = "Wed",
@@ -8,6 +8,29 @@ export enum Day {
   SUNDAY = "Sun",
 }
 
+export interface Day {
+  name: string;
+  index: number;
+  shortName: string;
+}
+export const MONDAY: Day = { name: "Monday", index: 0, shortName: "M" };
+export const TUESDAY: Day = { name: "Tuesday", index: 1, shortName: "T" };
+export const WEDNESDAY: Day = { name: "Wednesday", index: 2, shortName: "W" };
+export const THURSDAY: Day = { name: "Thursday", index: 3, shortName: "TH" };
+export const FRIDAY: Day = { name: "Friday", index: 4, shortName: "F" };
+export const SATURDAY: Day = { name: "Saturday", index: 5, shortName: "S" };
+export const SUNDAY: Day = { name: "Sunday", index: 6, shortName: "SU" };
+
+export const DAYS_IN_LIST = [
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+  SATURDAY,
+  SUNDAY,
+];
+
 export class WeeklySchedule {
   public days: TimeSlot[] = Array(7);
 
@@ -16,7 +39,7 @@ export class WeeklySchedule {
   // Adding timeslots should be done to construct a WeeklySchedule
   // It should not be done to update the state of the app.
   public addTimeSlot(day: Day, schedule: TimeSlot): void {
-    this.days[WeeklySchedule._dayIndices.get(day)!] = schedule;
+    this.days[day.index] = schedule;
   }
 
   static doCollide(a: WeeklySchedule, b: WeeklySchedule): boolean {
@@ -64,22 +87,22 @@ export class WeeklySchedule {
     return output;
   }
 
-  private static _dayIndices: Map<Day, number> =
-    WeeklySchedule.initDayToIndexMap();
+  // private static _dayIndices: Map<Days, number> =
+  //   WeeklySchedule.initDayToIndexMap();
 
-  static initDayToIndexMap(): Map<Day, number> {
-    const output = new Map<Day, number>();
+  // static initDayToIndexMap(): Map<Days, number> {
+  //   const output = new Map<Days, number>();
 
-    output.set(Day.MONDAY, 0);
-    output.set(Day.TUESDAY, 1);
-    output.set(Day.WEDNESDAY, 2);
-    output.set(Day.THURSDAY, 3);
-    output.set(Day.FRIDAY, 4);
-    output.set(Day.SATURDAY, 5);
-    output.set(Day.SUNDAY, 6);
+  //   output.set(Days.MONDAY, 0);
+  //   output.set(Days.TUESDAY, 1);
+  //   output.set(Days.WEDNESDAY, 2);
+  //   output.set(Days.THURSDAY, 3);
+  //   output.set(Days.FRIDAY, 4);
+  //   output.set(Days.SATURDAY, 5);
+  //   output.set(Days.SUNDAY, 6);
 
-    return output;
-  }
+  //   return output;
+  // }
 }
 
 // Non-Mutable class, dont modify it after creation because who knows where it is referenced

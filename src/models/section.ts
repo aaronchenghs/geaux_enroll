@@ -27,8 +27,8 @@ export class Section {
 export interface Instructor {
   id: string;
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  rating: number;
 }
 
 export enum Session {
