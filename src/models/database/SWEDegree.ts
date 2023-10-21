@@ -6,6 +6,7 @@ import {
   Department,
 } from "../course";
 import { Degree } from "../degree";
+import { TechElectivesB } from "./TechElectivesB";
 
 export const CSC1350 = new CoreCourse({
   name: "Intro CS1 For Majors",
@@ -334,7 +335,7 @@ export const TechElectiveA = new CategoryCourse({
 export const TechElectiveAorB = new CategoryCourse({
   name: "Tech Elective A or B",
 
-  description: ` This course category allows students to choose from a 
+  description: `This course category allows students to choose from a 
     list of technical electives that cater to various specializations 
     within the field of computer science. The electives under this 
     category aim to provide deeper knowledge in specific areas, 
@@ -345,7 +346,7 @@ export const TechElectiveAorB = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...TechElectivesB],
   optionTaken: null,
 });
 export const CSC2000Elective = new CategoryCourse({

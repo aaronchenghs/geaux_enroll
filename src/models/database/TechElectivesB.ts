@@ -344,7 +344,7 @@ export const ENGL7109 = new Course({
   section: null,
 });
 
-export const GroupBElectives: Course[] = [
+export const TechElectivesB: Course[] = [
   ART2050,
   ART2055,
   ART2210,
