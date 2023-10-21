@@ -6,6 +6,7 @@ import {
   Department,
 } from "../course";
 import { Degree } from "../degree";
+import { ApprovedElectives } from "./ApprovedElectives";
 import { TechElectivesB } from "./TechElectivesB";
 
 export const CSC1350 = new CoreCourse({
@@ -21,6 +22,7 @@ export const CSC1350 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 4,
 });
 export const MATH1550 = new CoreCourse({
   name: "Calculus 1",
@@ -36,6 +38,7 @@ export const MATH1550 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 5,
 });
 export const MATH1552 = new CoreCourse({
   name: "Calculus 2",
@@ -49,6 +52,7 @@ export const MATH1552 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 4,
 });
 export const ENGL1001 = new CoreCourse({
   name: "Comp 1",
@@ -63,6 +67,7 @@ export const ENGL1001 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const BIOL = new CoreCourse({
   name: "Sequence 1 Requirement",
@@ -77,6 +82,7 @@ export const BIOL = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC1351 = new CoreCourse({
   name: "Intro CS II for majors",
@@ -91,6 +97,7 @@ export const CSC1351 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 4,
 });
 export const CSC2259 = new CoreCourse({
   name: "Discrete Structures",
@@ -104,6 +111,7 @@ export const CSC2259 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC3102 = new CoreCourse({
   name: "Advanced Data Structures",
@@ -118,6 +126,7 @@ export const CSC3102 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC3380 = new CoreCourse({
   name: "Object-Oriented Design",
@@ -131,6 +140,7 @@ export const CSC3380 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC4330 = new CoreCourse({
   name: "Software Systems",
@@ -146,6 +156,7 @@ export const CSC4330 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC4103 = new CoreCourse({
   name: "Operating Systems",
@@ -162,6 +173,7 @@ export const CSC4103 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC4402 = new Course({
   name: "Database Management Systems",
@@ -177,6 +189,7 @@ export const CSC4402 = new Course({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC4351 = new CoreCourse({
   name: "Compiler Construction",
@@ -193,6 +206,7 @@ export const CSC4351 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC3501 = new Course({
   name: "Computer Organization & Design",
@@ -209,6 +223,7 @@ export const CSC3501 = new Course({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC4101 = new CoreCourse({
   name: "Programming Languages",
@@ -229,6 +244,7 @@ export const CSC4101 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const MATH2090 = new Course({
   name: "Differential Equations & Linear Algebra",
@@ -246,6 +262,7 @@ export const MATH2090 = new Course({
   courseType: [],
   grade: null,
   section: null,
+  credits: 4,
 });
 export const CSC2262 = new Course({
   name: "Numerical Methods",
@@ -263,6 +280,7 @@ export const CSC2262 = new Course({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const IE3302 = new Course({
   name: "Statistics",
@@ -279,6 +297,7 @@ export const IE3302 = new Course({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const ENGL2000 = new CoreCourse({
   name: "English 2000",
@@ -296,6 +315,7 @@ export const ENGL2000 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const CSC3200 = new CoreCourse({
   name: "Ethics in Computing",
@@ -314,6 +334,7 @@ export const CSC3200 = new CoreCourse({
   courseType: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 export const TechElectiveA = new CategoryCourse({
   name: "Tech Elective A",
@@ -432,7 +453,7 @@ export const ApprovedElective1 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...ApprovedElectives],
   optionTaken: null,
 });
 export const ApprovedElective2 = new CategoryCourse({
@@ -443,7 +464,7 @@ export const ApprovedElective2 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...ApprovedElectives],
   optionTaken: null,
 });
 export const GenEdSocialScience = new CategoryCourse({

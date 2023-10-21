@@ -17,6 +17,7 @@ test("Create Course Object", () => {
     prereqs: [],
     courseType: [],
     grade: Grade.D,
+    credits: 3,
   });
 
   expect(test.code).toBe(1350);
@@ -39,6 +40,7 @@ test("Create CoreCourse Object", () => {
     prereqs: [],
     courseType: [],
     grade: Grade.D,
+    credits: 3,
   });
 
   expect(test.code).toBe(1350);
@@ -62,6 +64,7 @@ test("Create CatagoryCourse Object", () => {
       prereqs: [],
       courseType: [],
       grade: Grade.D,
+      credits: 3,
     }),
     new Course({
       name: "Music Appreciation",
@@ -71,6 +74,7 @@ test("Create CatagoryCourse Object", () => {
       prereqs: [],
       courseType: [],
       grade: Grade.A,
+      credits: 3,
     }),
     new CoreCourse({
       name: "Finance For Home",
@@ -80,6 +84,7 @@ test("Create CatagoryCourse Object", () => {
       prereqs: [],
       courseType: [],
       grade: Grade.C,
+      credits: 3,
     }),
   ];
 

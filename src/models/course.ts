@@ -9,6 +9,7 @@ interface CourseParams {
   courseType?: CourseType[];
   grade?: Grade | null;
   section?: Section | null;
+  credits: number;
 }
 export class Course {
   name: string;
@@ -18,6 +19,7 @@ export class Course {
   prereqs: Course[];
   courseType?: CourseType[];
   grade: Grade | null;
+  credits?: number;
   private _section: Section | null;
 
   constructor(params: CourseParams) {
@@ -29,6 +31,7 @@ export class Course {
     this.courseType = params.courseType;
     this.grade = params.grade ?? null;
     this._section = params.section ?? null;
+    this.credits = params.credits ?? -1;
   }
 
   get section(): Section | null {
@@ -108,6 +111,7 @@ export class CategoryCourse extends Course {
       courseType: params.courseType,
       grade: params.grade,
       section: params.section,
+      credits: -1,
     });
     this.options = params.options;
     this.optionTaken = params.optionTaken;
@@ -164,6 +168,7 @@ export class CourseFactory {
 
   // Support CoreCourse
   private _isCore: boolean = false;
+  private _credits: number | undefined;
 
   // Support CatagoryCourse
   private _options: Course[] | null = null;
@@ -186,6 +191,7 @@ export class CourseFactory {
         courseType: this._courseType!,
         grade: this._grade!,
         section: this._section!,
+        credits: this._credits!,
       });
     }
 
@@ -212,6 +218,7 @@ export class CourseFactory {
       courseType: this._courseType,
       grade: this._grade,
       section: this._section,
+      credits: this._credits ?? 3,
     });
   }
 
@@ -300,6 +307,8 @@ export enum Department {
   ARTH = "ARTH",
   MC = "MC",
   MUS = "MUS",
+  EE = "EE",
+  ISDS = "ISDS",
 }
 
 export enum CourseType {

@@ -9,6 +9,7 @@ export const ART2050 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART2055 = new Course({
@@ -18,6 +19,7 @@ export const ART2055 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART2210 = new Course({
@@ -27,6 +29,7 @@ export const ART2210 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART2220 = new Course({
@@ -36,6 +39,7 @@ export const ART2220 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART2230 = new Course({
@@ -45,6 +49,7 @@ export const ART2230 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART2551 = new Course({
@@ -54,6 +59,7 @@ export const ART2551 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4020 = new Course({
@@ -63,6 +69,7 @@ export const ART4020 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4050 = new Course({
@@ -72,6 +79,7 @@ export const ART4050 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4055 = new Course({
@@ -81,6 +89,7 @@ export const ART4055 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4230 = new Course({
@@ -90,6 +99,7 @@ export const ART4230 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4240 = new Course({
@@ -99,6 +109,7 @@ export const ART4240 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4290 = new Course({
@@ -108,6 +119,7 @@ export const ART4290 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4550 = new Course({
@@ -117,6 +129,7 @@ export const ART4550 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4059 = new Course({
@@ -126,6 +139,7 @@ export const ART4059 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART4560 = new Course({
@@ -135,6 +149,7 @@ export const ART4560 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ART7250 = new Course({
@@ -143,6 +158,7 @@ export const ART7250 = new Course({
   department: Department.ART,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -153,6 +169,7 @@ export const ART7255 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ARTH4480 = new Course({
@@ -161,6 +178,7 @@ export const ARTH4480 = new Course({
   department: Department.ARTH,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -170,6 +188,7 @@ export const ARTH4482 = new Course({
   department: Department.ARTH,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -179,6 +198,7 @@ export const ARTH4484 = new Course({
   department: Department.ARTH,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -186,6 +206,7 @@ export const MC2035 = new Course({
   name: "",
   code: 2035,
   department: Department.MC,
+  credits: 3,
   prereqs: [],
   grade: null,
   section: null,
@@ -196,6 +217,7 @@ export const MC3031 = new Course({
   code: 3031,
   department: Department.MC,
   prereqs: [],
+  credits: 3,
   grade: null,
   section: null,
 });
@@ -204,6 +226,7 @@ export const MC4002 = new Course({
   name: "",
   code: 4002,
   department: Department.MC,
+  credits: 3,
   prereqs: [],
   grade: null,
   section: null,
@@ -212,6 +235,7 @@ export const MC4002 = new Course({
 export const MC4015 = new Course({
   name: "",
   code: 4015,
+  credits: 3,
   department: Department.MC,
   prereqs: [],
   grade: null,
@@ -222,6 +246,7 @@ export const MC4260 = new Course({
   name: "",
   code: 4260,
   department: Department.MC,
+  credits: 3,
   prereqs: [],
   grade: null,
   section: null,
@@ -232,6 +257,7 @@ export const MC4550 = new Course({
   code: 4550,
   department: Department.MC,
   prereqs: [],
+  credits: 3,
   grade: null,
   section: null,
 });
@@ -242,6 +268,7 @@ export const MC4600 = new Course({
   department: Department.MC,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -250,6 +277,7 @@ export const MC4720 = new Course({
   code: 4720,
   department: Department.MC,
   prereqs: [],
+  credits: 3,
   grade: null,
   section: null,
 });
@@ -260,6 +288,7 @@ export const MUS2745 = new Course({
   department: Department.MUS,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -268,6 +297,7 @@ export const MUS4744 = new Course({
   code: 4744,
   department: Department.MUS,
   prereqs: [],
+  credits: 3,
   grade: null,
   section: null,
 });
@@ -278,6 +308,7 @@ export const MUS4745 = new Course({
   department: Department.MUS,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -285,6 +316,7 @@ export const MUS4746 = new Course({
   name: "",
   code: 4746,
   department: Department.MUS,
+  credits: 3,
   prereqs: [],
   grade: null,
   section: null,
@@ -293,6 +325,7 @@ export const MUS4746 = new Course({
 export const MUS4748 = new Course({
   name: "",
   code: 4748,
+  credits: 3,
   department: Department.MUS,
   prereqs: [],
   grade: null,
@@ -305,6 +338,7 @@ export const ENGL2009 = new Course({
   department: Department.ENGL,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
@@ -313,6 +347,7 @@ export const ENGL2231 = new Course({
   code: 2231,
   department: Department.ENGL,
   prereqs: [],
+  credits: 3,
   grade: null,
   section: null,
 });
@@ -321,6 +356,7 @@ export const ENGL4000 = new Course({
   name: "",
   code: 4000,
   department: Department.ENGL,
+  credits: 3,
   prereqs: [],
   grade: null,
   section: null,
@@ -333,6 +369,7 @@ export const ENGL4009 = new Course({
   prereqs: [],
   grade: null,
   section: null,
+  credits: 3,
 });
 
 export const ENGL7109 = new Course({
@@ -341,6 +378,7 @@ export const ENGL7109 = new Course({
   department: Department.ENGL,
   prereqs: [],
   grade: null,
+  credits: 3,
   section: null,
 });
 
