@@ -100,7 +100,7 @@ test("Create CatagoryCourse Object", () => {
     optionTaken: null,
   });
 
-  expect(test.code).toBe(3333);
+  expect(test.code).toBe(-1);
   expect(test.courseAbreviation).toBe("Advanced Elective");
   expect(test.department).toBe(Department.CS);
   expect(test.section == null).toBe(true);
