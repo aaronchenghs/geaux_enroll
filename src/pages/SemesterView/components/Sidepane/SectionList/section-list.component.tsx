@@ -1,6 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../../store/store";
-import { LocationOn, Star, Apple, Person } from "@mui/icons-material";
+import {
+  LocationOn,
+  Star,
+  Apple,
+  Person,
+  ArrowBack,
+} from "@mui/icons-material";
 
 import { Dispatch, ReactNode } from "react";
 import React from "react";
@@ -126,7 +132,7 @@ export const SectionList = (): JSX.Element => {
   );
 
   let clearSectionButton: JSX.Element;
-  if (selectedCourseProps.course?.section != null) {
+  if (selectedCourseProps.course?.section) {
     clearSectionButton = (
       <Button
         className={styles.clear}
@@ -142,20 +148,24 @@ export const SectionList = (): JSX.Element => {
     clearSectionButton = <></>;
   }
 
+  const header: JSX.Element = (
+    <div className={styles.header}>
+      <Button
+        className={styles.back}
+        onClick={(): unknown => dispatch(returnFromCurrentSelection())}
+      >
+        <ArrowBack />
+      </Button>
+      <h2 className={styles.title}>
+        Sections of {selectedCourseProps.course?.courseAbreviation}
+      </h2>
+    </div>
+  );
+
   return (
     <div className={styles.SectionList}>
-      <h2 className={styles.title}>
-        {" "}
-        Sections of {selectedCourseProps.course?.courseAbreviation}{" "}
-      </h2>
-
       <div className={styles.center}>
-        <Button
-          className={styles.back}
-          onClick={(): unknown => dispatch(returnFromCurrentSelection())}
-        >
-          <h3>{"Go Back"}</h3>
-        </Button>
+        {header}
         {renderedSections}
         {clearSectionButton}
       </div>
