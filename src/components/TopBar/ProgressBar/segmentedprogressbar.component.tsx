@@ -12,7 +12,7 @@ export interface segment {
 
 interface Props {
   segments: segment[];
-  max: number;
+  max: number; // TODO: This parameter does nothing, but probably should
 }
 
 const SegmentedProgressBar = ({ segments }: Props): JSX.Element => {
