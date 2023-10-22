@@ -1,3 +1,5 @@
+import { Color } from "react-bootstrap/esm/types";
+
 export enum Days {
   MONDAY = "Mon",
   TUESDAY = "Tues",
@@ -12,14 +14,50 @@ export interface Day {
   name: string;
   index: number;
   shortName: string;
+  color: string;
 }
-export const MONDAY: Day = { name: "Monday", index: 0, shortName: "M" };
-export const TUESDAY: Day = { name: "Tuesday", index: 1, shortName: "T" };
-export const WEDNESDAY: Day = { name: "Wednesday", index: 2, shortName: "W" };
-export const THURSDAY: Day = { name: "Thursday", index: 3, shortName: "TH" };
-export const FRIDAY: Day = { name: "Friday", index: 4, shortName: "F" };
-export const SATURDAY: Day = { name: "Saturday", index: 5, shortName: "S" };
-export const SUNDAY: Day = { name: "Sunday", index: 6, shortName: "SU" };
+export const MONDAY: Day = {
+  name: "Monday",
+  index: 0,
+  shortName: "M",
+  color: "rgb(127,0,0)",
+};
+export const TUESDAY: Day = {
+  name: "Tuesday",
+  index: 1,
+  shortName: "T",
+  color: "rgb(127,127,0)",
+};
+export const WEDNESDAY: Day = {
+  name: "Wednesday",
+  index: 2,
+  shortName: "W",
+  color: "rgb(0,127,0)",
+};
+export const THURSDAY: Day = {
+  name: "Thursday",
+  index: 3,
+  shortName: "TH",
+  color: "rgb(0,127,127)",
+};
+export const FRIDAY: Day = {
+  name: "Friday",
+  index: 4,
+  shortName: "F",
+  color: "rgb(0,0,127)",
+};
+export const SATURDAY: Day = {
+  name: "Saturday",
+  index: 5,
+  shortName: "S",
+  color: "rgb(127,0,127)",
+};
+export const SUNDAY: Day = {
+  name: "Sunday",
+  index: 6,
+  shortName: "SU",
+  color: "rgb(127,127,127)",
+};
 
 export const DAYS_IN_LIST = [
   MONDAY,

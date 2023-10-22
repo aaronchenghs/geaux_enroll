@@ -51,7 +51,7 @@ export enum SpecialEnrollment {
 }
 
 export enum Buildings {
-  PFT = "Patrick F. Taylor",
+  PFT = "PFT",
   LOCKETT = "Lockett",
   HIMES = "Himes",
   TUREAUD = "Tureaud",
@@ -65,5 +65,5 @@ export enum Buildings {
   MDA = "M&DA Building",
   BAND = "Band Hall",
   NICHOLSON = "Nicholson",
-  BEC = "Business Education Complex",
+  BEC = "BEC",
 }

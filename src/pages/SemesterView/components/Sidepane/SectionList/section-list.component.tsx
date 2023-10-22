@@ -70,7 +70,15 @@ export const SectionList = (): JSX.Element => {
 
       const dayTiles: ReactNode[] = section.schedule.days.map(
         (schedule, index) => {
-          return <p key={index}>{DAYS_IN_LIST[index].shortName}</p>;
+          return (
+            <p
+              key={index}
+              className={styles.day}
+              style={{ backgroundColor: DAYS_IN_LIST[index].color }}
+            >
+              {DAYS_IN_LIST[index].shortName}
+            </p>
+          );
         },
       );
 
@@ -86,15 +94,18 @@ export const SectionList = (): JSX.Element => {
           >
             <div className={styles.column}>
               <div className={styles.row}>
-                <p> {section.number} </p>
-                <p>
-                  {" "}
-                  <LocationOn />
-                  {section.location?.building +
-                    " " +
-                    section.location?.roomNumber}
-                </p>
-                {dayTiles}
+                <p className={styles.num}> {section.number} </p>
+                <div className={styles.location_container}>
+                  <LocationOn style={{ fontSize: "32px" }} />
+                  <p className={styles.location}>
+                    {" "}
+                    {section.location?.building +
+                      " " +
+                      section.location?.roomNumber}
+                  </p>
+                </div>
+
+                <div className={styles.days_container}>{dayTiles}</div>
               </div>
 
               <div className={styles.row}>
