@@ -10,6 +10,13 @@ import { getCurrentSections } from "../../pages/SemesterView/section-service";
 import { WeeklySchedule } from "../../models/weeklySchedule";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  BIOL,
+  CSC1350,
+  ENGL1001,
+  MATH1550,
+  TechElectiveA,
+} from "../../models/database/SWEDegree";
 
 interface SemesterState {
   coursesToSchedule: Course[];
@@ -59,7 +66,8 @@ const genDummyCourses = (): Course[] => {
   return output;
 };
 
-export const dummy_courses = genDummyCourses();
+// export const dummy_courses = genDummyCourses();
+export const dummy_courses = [CSC1350, MATH1550, ENGL1001, BIOL, TechElectiveA];
 
 const INITIAL_STATE: SemesterState = {
   coursesToSchedule: [],

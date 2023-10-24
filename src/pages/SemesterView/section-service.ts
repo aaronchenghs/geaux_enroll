@@ -31,7 +31,7 @@ export function getCurrentSections(course: Course): Section[] {
   if (course instanceof CategoryCourse)
     throw new Error("Catagory Courses don't have sections...");
 
-  const numSections = Math.floor((rng() / 2) * 10);
+  const numSections = Math.floor((rng() / 2) * 8) + 2;
 
   const currentSemester = Session.FALL;
 
@@ -192,7 +192,7 @@ const locations: CourseLocation[] = [
     roomNumber: "2001",
   },
   {
-    building: Buildings.MUSIC,
+    building: Buildings.WILLIAMS,
     roomNumber: "230",
   },
 ];
