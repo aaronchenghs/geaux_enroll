@@ -49,6 +49,8 @@
     p.location {
         font-size: 24px;
         margin-bottom: 0px;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     p.num {
