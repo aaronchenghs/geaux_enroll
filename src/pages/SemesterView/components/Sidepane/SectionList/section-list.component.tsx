@@ -140,8 +140,7 @@ export const SectionList = (): JSX.Element => {
           dispatch(removeSection(selectedCourseProps.course!.section!));
         }}
       >
-        {" "}
-        Clear Section{" "}
+        Clear Currently Scheduled Section
       </Button>
     );
   } else {
