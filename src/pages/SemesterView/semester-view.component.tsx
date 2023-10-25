@@ -46,19 +46,6 @@ const SemesterView = (): JSX.Element => {
         </div>
         <div className={styles.week_chart}>
           <WeekChart />
-          <ToastContainer
-            limit={3}
-            position="bottom-center"
-            autoClose={2000}
-            hideProgressBar
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable={false}
-            pauseOnHover
-            theme="colored"
-          />
         </div>
       </div>
     </div>

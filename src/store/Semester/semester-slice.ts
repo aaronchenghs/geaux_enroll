@@ -210,6 +210,9 @@ const semester_slice = createSlice({
         state.schedule,
         action.payload.schedule,
       );
+
+      // Clear notifs
+      toast.dismiss();
     },
   },
 });
