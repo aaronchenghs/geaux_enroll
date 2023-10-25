@@ -4,6 +4,8 @@ import SegmentedProgressBar, {
   segment,
 } from "../ProgressBar/segmentedprogressbar.component";
 import { Star } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../store/store";
 
 const sampleSegments: segment[] = [
   {
@@ -16,6 +18,31 @@ const sampleSegments: segment[] = [
 ];
 
 const ScheduleTopBarContent = (): JSX.Element => {
+  const rating: number | null = useSelector((state: AppState) => {
+    if (state.semester.coursesToSchedule.length < 1) {
+      return null;
+    }
+
+    const countWithProf = state.semester.scheduledSections.reduce(
+      (count, section) => {
+        return (section.instructor != null ? 1 : 0) + count;
+      },
+      0,
+    );
+
+    return (
+      state.semester.coursesToSchedule.reduce((acumulate, section) => {
+        // Flutter >>>> React
+        // (course.section?.instructor?.section.ration ?? 0) + acumulate
+        return (
+          (section.section?.instructor?.rating != null
+            ? section.section.instructor.rating
+            : 0) + acumulate
+        );
+      }, 0) / countWithProf
+    );
+  });
+
   return (
     <div className={styles.row}>
       <h2 className={styles.semester}> Fall 2023</h2>
@@ -24,7 +51,7 @@ const ScheduleTopBarContent = (): JSX.Element => {
       </div>
       <div className={styles.rating_container}>
         <Star className={styles.star} style={{ fontSize: "48px" }}></Star>
-        <h3> 5.0 </h3>
+        <h3> {rating ? rating : "0.0"} </h3>
       </div>
     </div>
   );
