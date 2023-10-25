@@ -15,7 +15,7 @@ interface Props {
   max: number; // TODO: This parameter does nothing, but probably should
 }
 
-const SegmentedProgressBar = ({ segments }: Props): JSX.Element => {
+const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
   const [tooltip, setTooltip] = useState<string | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
     null,
@@ -44,7 +44,7 @@ const SegmentedProgressBar = ({ segments }: Props): JSX.Element => {
             className={styles.progressBarSegment}
             style={
               {
-                flexBasis: `${segment.value}%`,
+                flexBasis: `${0.75 + (segment.value / max) * 100}%`,
                 backgroundColor: segment.color,
                 "--darkenedColor": darkenColor(segment.color, 30),
               } as React.CSSProperties

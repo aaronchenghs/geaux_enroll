@@ -44,11 +44,30 @@ const ScheduleTopBarContent = (): JSX.Element => {
     return avgRating;
   });
 
+  const segments: segment[] = useSelector((state: AppState) => {
+    const hoursScheduled = state.semester.scheduledSections.reduce(
+      (hoursTotal, section) => {
+        return (section.course.credits ?? 0) + hoursTotal;
+      },
+      0,
+    );
+
+    return [
+      {
+        id: "1",
+        label: "Hour Scheduled",
+        color: "#008000",
+        value: hoursScheduled,
+        tooltip: hoursScheduled + " Hours Scheduled",
+      },
+    ];
+  });
+
   return (
     <div className={styles.row}>
       <h2 className={styles.semester}> Fall 2023</h2>
       <div className={styles.progress_container}>
-        <SegmentedProgressBar segments={sampleSegments} max={100} />
+        <SegmentedProgressBar segments={segments} max={25} />
       </div>
       <div className={styles.rating_container}>
         <Star className={styles.star} style={{ fontSize: "48px" }}></Star>
