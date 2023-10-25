@@ -30,7 +30,7 @@ const ScheduleTopBarContent = (): JSX.Element => {
       0,
     );
 
-    return (
+    const avgRating =
       state.semester.coursesToSchedule.reduce((acumulate, section) => {
         // Flutter >>>> React
         // (course.section?.instructor?.section.ration ?? 0) + acumulate
@@ -39,8 +39,9 @@ const ScheduleTopBarContent = (): JSX.Element => {
             ? section.section.instructor.rating
             : 0) + acumulate
         );
-      }, 0) / countWithProf
-    );
+      }, 0) / countWithProf;
+
+    return avgRating;
   });
 
   return (
@@ -51,7 +52,7 @@ const ScheduleTopBarContent = (): JSX.Element => {
       </div>
       <div className={styles.rating_container}>
         <Star className={styles.star} style={{ fontSize: "48px" }}></Star>
-        <h3> {rating ? rating : "0.0"} </h3>
+        <h3> {rating ? rating.toFixed(2) : "0.0"} </h3>
       </div>
     </div>
   );
