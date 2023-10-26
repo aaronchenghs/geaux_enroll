@@ -36,5 +36,16 @@
     grid-column: span 1;
     vertical-align: top;
     text-align: center;
-
 }
+
+.inlineDiv {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+  
+  h3 {
+    display: inline-block;
+    text-align: center;
+  }
