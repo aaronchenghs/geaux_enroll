@@ -143,6 +143,14 @@ export class WeeklySchedule {
   // }
 }
 
+export interface HumanReadableTimeSlot {
+  startHour: number;
+  startMin: number;
+
+  endHour: number;
+  endMin: number;
+}
+
 // Non-Mutable class, dont modify it after creation because who knows where it is referenced
 export class TimeSlot {
   // Number type is a 64 bit floating point number
@@ -154,6 +162,8 @@ export class TimeSlot {
   morningBlock = 0; //12:00am-8:00am
   middayBlock = 0; //8:00am - 4:00pm
   nightBlock = 0; //4:00pm - 12:00am
+
+  readable: HumanReadableTimeSlot | null = null;
 
   // Input time in 24 hour notation with "-" between
   // %d:%d-%d:%d
@@ -178,6 +188,16 @@ export class TimeSlot {
 
       const endHour = parseInt(end[0]);
       const endMin = parseInt(end[1]);
+
+      // This means that only timeslots made with a string will be easily readable
+      // This should be okay because timeslots are only unioned for use determining collision
+      // And the only timeslots
+      this.readable = {
+        startHour: startHour,
+        startMin: startMin,
+        endHour: endHour,
+        endMin: endMin,
+      };
 
       // Convert to an index 0-96
 

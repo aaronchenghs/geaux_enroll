@@ -188,6 +188,10 @@ test("TimeSlot - 4:00-8:15", () => {
   expect(test.middayBlock).toBe(-2147483648);
   // 0
   expect(test.nightBlock).toBe(0);
+
+  expect(test.readable?.startHour).toBe(4);
+
+  expect(test.readable?.endHour).toBe(8);
 });
 
 test("TimeSlot - 3:00-4:30", () => {
