@@ -12,7 +12,7 @@ import { ART2050, MUS2745, TechElectivesB } from "./TechElectivesB";
 export const CSC1350 = new CoreCourse({
   name: "Intro CS1 For Majors",
   code: 1350,
-  department: Department.CS,
+  department: Department.CSC,
   description: `This course offers an introduction to computer science principles,
        algorithmic thinking, and foundational coding skills tailored for students
        pursuing a major in the field. Topics covered include variables, control structures,
@@ -87,7 +87,7 @@ export const BIOL = new CoreCourse({
 export const CSC1351 = new CoreCourse({
   name: "Intro CS II for majors",
   code: 1351,
-  department: Department.CS,
+  department: Department.CSC,
   description: `This course is a continuation of Intro to Computer Science I, 
       delving deeper into foundational concepts of computer science. Students 
       will explore more advanced programming techniques, data structures, and algorithms. 
@@ -102,7 +102,7 @@ export const CSC1351 = new CoreCourse({
 export const CSC2259 = new CoreCourse({
   name: "Discrete Structures",
   code: 2259,
-  department: Department.CS,
+  department: Department.CSC,
   description: `Discrete Structures introduces students to the foundational mathematical
      concepts used in computer science. Topics covered include set theory, logic, relations,
       functions, combinatorics, graph theory, and formal languages. This course emphasizes the
@@ -116,7 +116,7 @@ export const CSC2259 = new CoreCourse({
 export const CSC3102 = new CoreCourse({
   name: "Advanced Data Structures",
   code: 3102,
-  department: Department.CS,
+  department: Department.CSC,
   description: `Advanced Data Structures delves into the intricacies of various data structures
      and their applications. Students will learn about and implement advanced data structures such 
      as balanced trees, graphs, heaps, and hash tables. The course will also cover associated algorithms 
@@ -131,7 +131,7 @@ export const CSC3102 = new CoreCourse({
 export const CSC3380 = new CoreCourse({
   name: "Object-Oriented Design",
   code: 3380,
-  department: Department.CS,
+  department: Department.CSC,
   description: `Object-Oriented Design focuses on the principles and practices of object-oriented programming (OOP)
      and design. Students will learn about classes, inheritance, polymorphism, encapsulation, and design patterns. 
      The course emphasizes the importance of creating modular and maintainable code, 
@@ -145,7 +145,7 @@ export const CSC3380 = new CoreCourse({
 export const CSC4330 = new CoreCourse({
   name: "Software Systems",
   code: 4330,
-  department: Department.CS,
+  department: Department.CSC,
   description: `This course delves into the architecture, design, and implementation of 
     large-scale software systems. Students will learn methodologies and 
     tools for software engineering, including requirements analysis, design
@@ -161,7 +161,7 @@ export const CSC4330 = new CoreCourse({
 export const CSC4103 = new CoreCourse({
   name: "Operating Systems",
   code: 4103,
-  department: Department.CS,
+  department: Department.CSC,
   description: ` Operating Systems provides a comprehensive overview of 
     the principles and workings of modern operating systems. 
     Topics include process management, memory management, file systems,
@@ -178,7 +178,7 @@ export const CSC4103 = new CoreCourse({
 export const CSC4402 = new Course({
   name: "Database Management Systems",
   code: 4402,
-  department: Department.CS,
+  department: Department.CSC,
   description: `This course introduces students to the design, 
     implementation, and management of relational databases. Topics
      covered include data modeling, normalization, SQL, transaction
@@ -194,7 +194,7 @@ export const CSC4402 = new Course({
 export const CSC4351 = new CoreCourse({
   name: "Compiler Construction",
   code: 4351,
-  department: Department.CS,
+  department: Department.CSC,
   description: `Compiler Construction offers a detailed examination of 
     the theory and practice of compiler design and construction. Students 
     will learn about lexical analysis, syntax analysis, semantic analysis, 
@@ -211,7 +211,7 @@ export const CSC4351 = new CoreCourse({
 export const CSC3501 = new Course({
   name: "Computer Organization & Design",
   code: 3501,
-  department: Department.CS,
+  department: Department.CSC,
   description: `This course provides an introduction to the architecture
      and organization of computer systems. Topics include digital logic, 
      computer arithmetic, data path design, control units, memory 
@@ -228,7 +228,7 @@ export const CSC3501 = new Course({
 export const CSC4101 = new CoreCourse({
   name: "Programming Languages",
   code: 4101,
-  department: Department.CS,
+  department: Department.CSC,
   description: ` This course provides an in-depth exploration into 
     the design, implementation, and evaluation of programming languages.
      Students will learn about the fundamental constructs that underlie 
@@ -267,7 +267,7 @@ export const MATH2090 = new Course({
 export const CSC2262 = new Course({
   name: "Numerical Methods",
   code: 2262,
-  department: Department.CS,
+  department: Department.CSC,
   description: `Numerical Methods provides students with techniques to 
     solve mathematical problems computationally. Topics include numerical
      solutions to equations, interpolation, numerical differentiation and
@@ -320,7 +320,7 @@ export const ENGL2000 = new CoreCourse({
 export const CSC3200 = new CoreCourse({
   name: "Ethics in Computing",
   code: 3200,
-  department: Department.CS,
+  department: Department.CSC,
   description: `Ethics in Computing delves into the moral and 
     ethical challenges faced in the field of computing. Topics include 
     data privacy, cybersecurity, artificial intelligence ethics, 

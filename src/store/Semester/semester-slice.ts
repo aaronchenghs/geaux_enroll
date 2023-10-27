@@ -37,7 +37,7 @@ const genDummyCourses = (): Course[] => {
 
     factory.name = "Course " + i;
     factory.code = i * 1000;
-    factory.department = Department.CS;
+    factory.department = Department.CSC;
 
     output.push(factory.createCourse());
   }

@@ -291,7 +291,7 @@ export class CourseFactory {
 }
 
 export enum Department {
-  CS = "CS",
+  CSC = "CSC",
   MATH = "MATH",
   BIOL = "BIOL",
   CHE = "CHE",

@@ -4,7 +4,7 @@ import { getCurrentSections } from "./section-service";
 test("Test Service returns an array of some sections", () => {
   const name = "In To CSC";
   const code = 123;
-  const department = Department.CS;
+  const department = Department.CSC;
 
   const factory = new CourseFactory();
 
