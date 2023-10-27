@@ -12,6 +12,9 @@ export type ModalProps = {
 
 const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   const $view = useSelector((state: AppState) => state.app.view);
+  const $selectedCourseNode = useSelector(
+    (state: AppState) => state.degree.selectedCourseNode,
+  );
   const dispatch = useDispatch();
 
   const handleClose = (): void => {
@@ -22,9 +25,14 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     <>
       <Modal show={openCondition} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal Title</Modal.Title>
+          <Modal.Title>
+            {$selectedCourseNode?.name}
+            <div className="text-muted small">
+              Hours: {$selectedCourseNode?.credits}
+            </div>
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body>This is the modal content.</Modal.Body>
+        <Modal.Body>{$selectedCourseNode?.description}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close

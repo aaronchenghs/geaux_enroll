@@ -1,3 +1,6 @@
+import { XYPosition } from "react-flow-renderer";
+import { Course } from "../../../../models/course";
+import { Degree } from "../../../../models/degree";
 import { CourseNodeProps } from "./CourseNode/coursenode.component";
 import { v4 } from "uuid";
 
@@ -5,19 +8,18 @@ import { v4 } from "uuid";
 // and all the logic will be done in here. Just gotta
 // figure out the details first
 export const buildCourseNode = (
-  borderColor: string,
-  onClickHandler: () => void,
+  course: Course,
+  position: XYPosition,
 ): CourseNodeProps => {
   return {
     id: v4(),
     type: "course",
     data: {
       label: "Course Name",
-      borderColor: borderColor,
-      onClick: onClickHandler,
+      course,
     },
     // Need to write some logic to determine node position maybe
-    position: { x: 100, y: 100 },
+    position,
   };
 };
 
@@ -51,4 +53,15 @@ export const darkenColor = (color: string, percent: number): string => {
     .toString(16)
     .slice(1)
     .toUpperCase()}`;
+};
+
+export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
+  const { requirements, rootCourses } = degree;
+  const courseNodes: CourseNodeProps[] = requirements.map(
+    (requirement, index) => {
+      return buildCourseNode(requirement, { x: 0, y: index * 50 });
+    },
+  );
+  console.log(courseNodes);
+  return [...courseNodes];
 };
