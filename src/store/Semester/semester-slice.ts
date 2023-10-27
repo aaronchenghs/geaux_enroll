@@ -87,6 +87,9 @@ const semester_slice = createSlice({
     setCoursesToSchedule(state, action: PayloadAction<Course[]>) {
       state.coursesToSchedule = action.payload;
     },
+    addCourseToSchedule(state, action: PayloadAction<Course>) {
+      state.coursesToSchedule = [...state.coursesToSchedule, action.payload];
+    },
     returnFromCurrentSelection(state) {
       if (state.selectedProps.parent == null) {
         // Nothing on stack
@@ -225,4 +228,5 @@ export const {
   returnFromCurrentSelection,
   addSection,
   removeSection,
+  addCourseToSchedule,
 } = semester_slice.actions;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
@@ -7,13 +7,19 @@ import { setSelectedCourseNode } from "../../../../store/Degree/degree-slice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./degreemodal.module.scss";
 import { CategoryCourse, Course, Department } from "../../../../models/course";
+import { addCourseToSchedule } from "../../../../store/Semester/semester-slice";
 
 export type ModalProps = {
   openCondition: boolean;
 };
 
 const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
+  const dispatch = useDispatch();
+
   const $view = useSelector((state: AppState) => state.app.view);
+  const $coursesToSchedule = useSelector(
+    (state: AppState) => state.semester.coursesToSchedule,
+  );
   const $selectedCourseNode = useSelector(
     (state: AppState) => state.degree.selectedCourseNode,
   );
@@ -27,7 +33,6 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const isCategory = $selectedCourseNode instanceof CategoryCourse;
-  const dispatch = useDispatch();
 
   const relevantCodeRanges = isCategory
     ? Array.from(
@@ -45,6 +50,13 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     : [];
 
   const handleClose = (): void => {
+    dispatch(setSelectedCourseNode(null));
+  };
+
+  const handleAdd = (): void => {
+    if (!$selectedCourseNode) return;
+
+    dispatch(addCourseToSchedule($selectedCourseNode));
     dispatch(setSelectedCourseNode(null));
   };
 
@@ -165,13 +177,26 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button
-            variant="primary"
-            onClick={handleClose}
-            disabled={isCategory && !chosenOption}
-          >
-            Schedule
-          </Button>
+          {$selectedCourseNode &&
+          !$coursesToSchedule.some((course) =>
+            course.equals($selectedCourseNode),
+          ) ? (
+            <Button
+              variant="primary"
+              onClick={handleAdd}
+              disabled={isCategory && !chosenOption}
+            >
+              Schedule
+            </Button>
+          ) : (
+            <Button
+              variant="danger"
+              onClick={handleClose}
+              disabled={isCategory && !chosenOption}
+            >
+              Remove
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>

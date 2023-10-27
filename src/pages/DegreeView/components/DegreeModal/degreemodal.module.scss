@@ -42,7 +42,7 @@
 
 .filtersContainer {
   display: flex;
-  justify-content: space-between; // Separates the filter groups
+  justify-content: space-between;
   flex-direction: column;
   margin-top: 15px;
 }
@@ -63,4 +63,6 @@
   margin-right: 10px;
   margin-bottom: 5px;
   display: block;
+
+  cursor: pointer;
 }
