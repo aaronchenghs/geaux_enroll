@@ -43,7 +43,7 @@ export class Course {
   }
 
   get courseAbreviation(): string {
-    return this.department.toUpperCase() + " " + this.code.toString();
+    return this.department.toUpperCase() + "" + this.code.toString();
   }
 
   // Returns true if the grade awarded is sufficent to pass the course
