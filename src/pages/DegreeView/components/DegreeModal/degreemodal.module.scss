@@ -67,3 +67,8 @@
 
   cursor: pointer;
 }
+
+.mainContent {
+  max-height: 63vh;
+  overflow-y: scroll;
+}

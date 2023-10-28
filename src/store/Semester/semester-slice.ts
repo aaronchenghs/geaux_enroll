@@ -93,7 +93,7 @@ const semester_slice = createSlice({
     // pass course.courseAbreviation + course.code
     removeCourseFromSchedule(state, action: PayloadAction<string>) {
       state.coursesToSchedule = state.coursesToSchedule.filter(
-        (course) => course.courseAbreviation + course.code === action.payload,
+        (course) => course.courseAbreviation + course.code !== action.payload,
       );
     },
     returnFromCurrentSelection(state) {

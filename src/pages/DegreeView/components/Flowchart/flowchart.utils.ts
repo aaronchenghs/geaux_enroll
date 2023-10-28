@@ -56,12 +56,25 @@ export const darkenColor = (color: string, percent: number): string => {
 };
 
 export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
-  const { requirements, rootCourses } = degree;
+  const { requirements } = degree;
+
+  // Max number of columns and rows
+  const maxCols = 8;
+  const maxRows = Math.ceil(requirements.length / maxCols);
+
+  // Calculate the width and height division for nodes
+  const widthDivision = window.innerWidth / maxCols;
+  const heightDivision = window.innerHeight / maxRows;
+
   const courseNodes: CourseNodeProps[] = requirements.map(
     (requirement, index) => {
-      return buildCourseNode(requirement, { x: 0, y: index * 50 });
+      // Determine the x and y based on index for column-first filling
+      const x = Math.floor(index / maxRows) * widthDivision;
+      const y = (index % maxRows) * heightDivision;
+
+      return buildCourseNode(requirement, { x, y });
     },
   );
-  console.log(courseNodes);
+
   return [...courseNodes];
 };
