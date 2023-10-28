@@ -13,6 +13,7 @@ import {
 } from "../../../../store/Semester/semester-slice";
 import { getCourseBorderColor } from "../Flowchart/CourseNode/nodeUtils";
 import { COURSE_STATUS_COLORS } from "../Flowchart/flowchart.utils";
+import ToolTip from "../../../../components/ToolTip/ToolTip.component";
 
 export type ModalProps = {
   openCondition: boolean;
@@ -124,10 +125,29 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     </Button>
   );
 
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
+    null,
+  );
+
   const renderCannotScheduleButton = (
-    <Button variant="secondary" onClick={handleAdd} disabled>
-      Cannot Schedule
-    </Button>
+    <div
+      onMouseOver={(e: React.MouseEvent<HTMLDivElement>): void => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setTooltipPos({ x: rect.x, y: rect.bottom });
+        setTooltipVisible(true);
+      }}
+      onMouseOut={(): void => setTooltipVisible(false)}
+    >
+      <Button variant="secondary" onClick={handleAdd} disabled>
+        Cannot Schedule
+      </Button>
+      <ToolTip
+        content="Requirements not met"
+        position={tooltipPos || { x: 0, y: 0 }}
+        isVisible={tooltipVisible}
+      />
+    </div>
   );
 
   const renderScheduleButton = (

@@ -1,13 +1,17 @@
 import React from "react";
 import styles from "./ToolTip.module.scss";
 
-interface TooltipProps {
+interface ToolTipProps {
   content: string;
   position: { x: number; y: number };
   isVisible: boolean;
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ content, position, isVisible }) => {
+export const ToolTip: React.FC<ToolTipProps> = ({
+  content,
+  position,
+  isVisible,
+}) => {
   if (!isVisible) return null;
 
   return (
@@ -23,4 +27,4 @@ const Tooltip: React.FC<TooltipProps> = ({ content, position, isVisible }) => {
   );
 };
 
-export default Tooltip;
+export default ToolTip;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./segmentedprogressbar.module.scss";
 import { darkenColor } from "../../../pages/DegreeView/components/Flowchart/flowchart.utils";
-import Tooltip from "../../ToolTip/ToolTip.component";
+import ToolTip from "../../ToolTip/ToolTip.component";
 
 export interface segment {
   id: string;
@@ -55,7 +55,7 @@ const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
           ></div>
         ))}
 
-        <Tooltip
+        <ToolTip
           content={tooltip || ""}
           position={tooltipPos || { x: 0, y: 0 }}
           isVisible={!!tooltip}
