@@ -7,7 +7,10 @@ import { setSelectedCourseNode } from "../../../../store/Degree/degree-slice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./degreemodal.module.scss";
 import { CategoryCourse, Course, Department } from "../../../../models/course";
-import { addCourseToSchedule } from "../../../../store/Semester/semester-slice";
+import {
+  addCourseToSchedule,
+  removeCourseFromSchedule,
+} from "../../../../store/Semester/semester-slice";
 
 export type ModalProps = {
   openCondition: boolean;
@@ -33,6 +36,9 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const isCategory = $selectedCourseNode instanceof CategoryCourse;
+  const courseIsRegistered =
+    $selectedCourseNode &&
+    !$coursesToSchedule.some((course) => course.equals($selectedCourseNode));
 
   const relevantCodeRanges = isCategory
     ? Array.from(
@@ -57,7 +63,15 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     if (!$selectedCourseNode) return;
 
     dispatch(addCourseToSchedule($selectedCourseNode));
-    dispatch(setSelectedCourseNode(null));
+  };
+  const handleRemove = (): void => {
+    if (!$selectedCourseNode) return;
+
+    dispatch(
+      removeCourseFromSchedule(
+        $selectedCourseNode.courseAbreviation + $selectedCourseNode.code,
+      ),
+    );
   };
 
   const toggleCodeRange = (codeStart: number): void => {
@@ -153,7 +167,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
                     )
                     .map((option) => {
                       return (
-                        <div
+                        <button
                           className={`${styles.optionBox} ${
                             chosenOption?.equals(option) ? styles.active : ""
                           }`}
@@ -165,7 +179,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
                           }}
                         >
                           {option.courseAbreviation + ": " + option.name}
-                        </div>
+                        </button>
                       );
                     })}
                 </div>
@@ -177,10 +191,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          {$selectedCourseNode &&
-          !$coursesToSchedule.some((course) =>
-            course.equals($selectedCourseNode),
-          ) ? (
+          {courseIsRegistered ? (
             <Button
               variant="primary"
               onClick={handleAdd}
@@ -191,7 +202,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
           ) : (
             <Button
               variant="danger"
-              onClick={handleClose}
+              onClick={handleRemove}
               disabled={isCategory && !chosenOption}
             >
               Remove
