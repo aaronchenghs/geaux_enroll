@@ -11,6 +11,7 @@ import { Label } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCourseNode } from "../../../../../store/Degree/degree-slice";
 import { AppState } from "../../../../../store/store";
+import { getCourseBorderColor } from "./nodeUtils";
 
 export interface CourseData {
   label: string;
@@ -30,20 +31,7 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
   );
 
   const borderColor: string = useMemo(() => {
-    if (course instanceof CoreCourse) {
-      if (!course.hasPrereqs()) {
-        return COURSE_STATUS_COLORS.CAN_SCHEDULE;
-      }
-    }
-    if (course instanceof CategoryCourse) {
-      if (course.options.some((option) => !option.hasPrereqs()))
-        return COURSE_STATUS_COLORS.CAN_SCHEDULE;
-    }
-    if (course instanceof Course) {
-    }
-    // add logic to determine border color
-    // by comparing course to student's completed courses
-    return COURSE_STATUS_COLORS.CANNOT_SCHEDULE;
+    return getCourseBorderColor(course);
   }, [$completedCourses]);
 
   const handleNodeClick = (): void => {

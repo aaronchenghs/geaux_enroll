@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
@@ -11,6 +11,8 @@ import {
   addCourseToSchedule,
   removeCourseFromSchedule,
 } from "../../../../store/Semester/semester-slice";
+import { getCourseBorderColor } from "../Flowchart/CourseNode/nodeUtils";
+import { COURSE_STATUS_COLORS } from "../Flowchart/flowchart.utils";
 
 export type ModalProps = {
   openCondition: boolean;
@@ -26,6 +28,9 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   const $selectedCourseNode = useSelector(
     (state: AppState) => state.degree.selectedCourseNode,
   );
+  const $completedCourses = useSelector(
+    (state: AppState) => state.student.completedCourses,
+  );
 
   const [chosenOption, setChosenOption] = useState<Course | null>(null);
   const [selectedCodeRange, setSelectedCodeRange] = useState<number[]>([
@@ -39,6 +44,13 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   const courseIsRegistered =
     $selectedCourseNode &&
     !$coursesToSchedule.some((course) => course.equals($selectedCourseNode));
+
+  const requirementsMet = useMemo(() => {
+    return getCourseBorderColor($selectedCourseNode!) ===
+      COURSE_STATUS_COLORS.CANNOT_SCHEDULE
+      ? false
+      : true;
+  }, [$completedCourses]);
 
   const relevantCodeRanges = isCategory
     ? Array.from(
@@ -104,6 +116,35 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
         return a.code - b.code;
       })
     : [];
+
+  const addButtonDisabled = isCategory && !chosenOption;
+  const renderCloseButton = (
+    <Button variant="secondary" onClick={handleClose}>
+      Close
+    </Button>
+  );
+
+  const renderCannotScheduleButton = (
+    <Button variant="secondary" onClick={handleAdd} disabled>
+      Cannot Schedule
+    </Button>
+  );
+
+  const renderScheduleButton = (
+    <Button variant="primary" onClick={handleAdd} disabled={addButtonDisabled}>
+      Schedule
+    </Button>
+  );
+
+  const renderRemoveButton = (
+    <Button
+      variant="danger"
+      onClick={handleRemove}
+      disabled={addButtonDisabled}
+    >
+      Remove
+    </Button>
+  );
 
   return (
     <>
@@ -188,26 +229,12 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
           )}
         </div>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          {courseIsRegistered ? (
-            <Button
-              variant="primary"
-              onClick={handleAdd}
-              disabled={isCategory && !chosenOption}
-            >
-              Schedule
-            </Button>
-          ) : (
-            <Button
-              variant="danger"
-              onClick={handleRemove}
-              disabled={isCategory && !chosenOption}
-            >
-              Remove
-            </Button>
-          )}
+          {renderCloseButton}
+          {!requirementsMet
+            ? renderCannotScheduleButton
+            : courseIsRegistered
+            ? renderScheduleButton
+            : renderRemoveButton}
         </Modal.Footer>
       </Modal>
     </>

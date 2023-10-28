@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./segmentedprogressbar.module.scss";
 import { darkenColor } from "../../../pages/DegreeView/components/Flowchart/flowchart.utils";
+import Tooltip from "../../ToolTip/ToolTip.component";
 
 export interface segment {
   id: string;
@@ -53,17 +54,12 @@ const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
             onMouseOut={hideTooltip}
           ></div>
         ))}
-        {tooltip && tooltipPos && (
-          <div
-            className={styles.tooltip}
-            style={{
-              left: `${tooltipPos.x.toPrecision(2)}px`,
-              top: `${tooltipPos.y.toPrecision(2)}px`,
-            }}
-          >
-            {tooltip}
-          </div>
-        )}
+
+        <Tooltip
+          content={tooltip || ""}
+          position={tooltipPos || { x: 0, y: 0 }}
+          isVisible={!!tooltip}
+        />
       </div>
     </>
   );
