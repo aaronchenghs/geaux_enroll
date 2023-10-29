@@ -48,7 +48,7 @@ export const MATH1552 = new CoreCourse({
     Students will study techniques of integration, sequences, series, and the applications of integrals.
      The course emphasizes understanding these concepts graphically, numerically, and analytically. 
      Real-world scenarios underscore the importance of advanced calculus concepts in diverse disciplines.`,
-  prereqs: null,
+  prereqs: [MATH1550],
   courseType: [],
   grade: null,
   section: null,
