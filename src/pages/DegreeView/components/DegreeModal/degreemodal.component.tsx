@@ -42,16 +42,21 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const isCategory = $selectedCourseNode instanceof CategoryCourse;
-  const courseIsRegistered =
-    $selectedCourseNode &&
-    !$coursesToSchedule.some((course) => course.equals($selectedCourseNode));
+  const courseIsRegistered = useMemo(() => {
+    return (
+      $selectedCourseNode &&
+      !$coursesToSchedule.some((course) => course.equals($selectedCourseNode))
+    );
+  }, [$selectedCourseNode, $coursesToSchedule]);
 
   const requirementsMet = useMemo(() => {
+    if (!$selectedCourseNode) return false;
+
     return getCourseBorderColor($selectedCourseNode!) ===
       COURSE_STATUS_COLORS.CANNOT_SCHEDULE
       ? false
       : true;
-  }, [$completedCourses]);
+  }, [$completedCourses, $selectedCourseNode]);
 
   const relevantCodeRanges = isCategory
     ? Array.from(
@@ -69,6 +74,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     : [];
 
   const handleClose = (): void => {
+    setChosenOption(null);
     dispatch(setSelectedCourseNode(null));
   };
 
@@ -252,7 +258,8 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
           {renderCloseButton}
           {!requirementsMet
             ? renderCannotScheduleButton
-            : courseIsRegistered
+            : // TODO: account for category courses
+            courseIsRegistered
             ? renderScheduleButton
             : renderRemoveButton}
         </Modal.Footer>
