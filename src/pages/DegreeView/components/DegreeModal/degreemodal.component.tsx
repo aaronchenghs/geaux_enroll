@@ -42,6 +42,8 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const isCategory = $selectedCourseNode instanceof CategoryCourse;
+
+  // This is an outdated memo that only works for core courses
   const courseIsRegistered = useMemo(() => {
     return (
       $selectedCourseNode &&
