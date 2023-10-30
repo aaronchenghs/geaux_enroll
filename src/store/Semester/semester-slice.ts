@@ -17,6 +17,7 @@ import {
   MATH1550,
   TechElectiveA,
 } from "../../models/database/SWEDegree";
+import { defaultToastSuccessOptions } from "../store";
 
 interface SemesterState {
   coursesToSchedule: Course[];
@@ -88,6 +89,10 @@ const semester_slice = createSlice({
       state.coursesToSchedule = action.payload;
     },
     addCourseToSchedule(state, action: PayloadAction<Course>) {
+      toast.success(
+        `${action.payload.name} scheduled - choose a section`,
+        defaultToastSuccessOptions,
+      );
       state.coursesToSchedule = [...state.coursesToSchedule, action.payload];
     },
     // pass course.courseAbreviation + course.code
@@ -185,17 +190,10 @@ const semester_slice = createSlice({
       );
 
       // There must be a <ToastContainer> on the papge to see this
-      toast.success(`${action.payload.name} successfully added!`, {
-        position: "bottom-center",
-        autoClose: 3000,
-        closeButton: false,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.success(
+        `${action.payload.name} successfully added!`,
+        defaultToastSuccessOptions,
+      );
     },
     removeSection(state, action: PayloadAction<Section>) {
       const indexToRemove = state.scheduledSections.indexOf(action.payload);

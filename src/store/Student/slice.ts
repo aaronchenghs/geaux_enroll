@@ -1,19 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Student } from "../../models/student";
-
-const INITIAL_STATE: Student = {
-  id: "",
-  firstName: "",
-  lastName: "",
-  majors: [],
-  minors: [],
-  gpa: 0,
-  completedCourses: [],
-};
+import { AaronCheng_INITIAL } from "../../models/student";
 
 const slice = createSlice({
   name: "student",
-  initialState: INITIAL_STATE,
+  initialState: AaronCheng_INITIAL,
   reducers: {
     changeName(state, action: PayloadAction<string>) {
       state.firstName = action.payload;
