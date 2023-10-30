@@ -9,8 +9,9 @@
         background-color: var(--backgroundColor);
         color: var(--primaryColor);
     
-        height: 125px;
-        width: 80%;
+        height: 5vw;
+        min-height: 75px;
+        width: 95%;
     
         margin-bottom: 16px;
     
@@ -33,9 +34,16 @@
 
     h3 {
         margin: 0;
+        font-size: 1.75vw;
     }
+
+    h3.category {
+        font-size: 1.25vw;
+    }
+
     h4 {
         margin: 0;
+        font-size: 1vw;
     }
 
     .container {
@@ -46,7 +54,7 @@
     }
     .title_container {
         display: flex;
-        gap: 10px;
+        gap: 0.25vw;
         justify-content: center;
     }
 
@@ -68,8 +76,8 @@
         flex: 1;
     }
 
-    Star {
-     font-size: 200px;   
+    .icon_container * {
+        font-size: max(60px, 2.5vw);
     }
 }
 
