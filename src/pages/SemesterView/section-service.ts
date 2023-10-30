@@ -49,7 +49,7 @@ function genSection(
   index: number,
   rng: () => number,
 ): Section {
-  const instructor: Instructor = instructorList[Math.floor((rng() / 2) * 10)];
+  const instructor: Instructor = instructorList[Math.floor(rng() * 10)];
   const enrollmentLimit = 100;
 
   let enrollmentCount: number;
@@ -150,6 +150,36 @@ const instructorList: Instructor[] = [
     email: "aweb@geauxenroll.com",
     name: "Andrew Webb",
     rating: 5.0,
+  },
+  {
+    id: "6",
+    email: "ttl@geauxenroll.com",
+    name: "Talk Too Loud",
+    rating: 1.25,
+  },
+  {
+    id: "7",
+    email: "evil.jeff@geauxenroll.com",
+    name: "Evil Jeff",
+    rating: 2.25,
+  },
+  {
+    id: "8",
+    email: "cat@geauxenroll.com",
+    name: "Sentient Cat",
+    rating: 5.0,
+  },
+  {
+    id: "9",
+    email: "late@geauxenroll.com",
+    name: "Slowbrown Eldric",
+    rating: 0.5,
+  },
+  {
+    id: "10",
+    email: "late@geauxenroll.com",
+    name: "Virgil",
+    rating: 3.25,
   },
 ];
 
