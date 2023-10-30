@@ -24,7 +24,8 @@ export const CourseList = (): JSX.Element => {
 
   return (
     <div className={styles.CourseList}>
-      <h2 className={styles.title}> Courses </h2>
+      <br></br>
+      {/* <h2> Courses:</h2> */}
       <div className={styles.center}>{renderedCourses}</div>
     </div>
   );

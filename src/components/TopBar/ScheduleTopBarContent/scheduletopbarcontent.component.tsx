@@ -65,7 +65,10 @@ const ScheduleTopBarContent = (): JSX.Element => {
 
   return (
     <div className={styles.row}>
-      <h2 className={styles.semester}> Fall 2023</h2>
+      <h2 className={styles.semester}>
+        {" "}
+        <span className={styles.light}>Scheduling: </span> Fall 2023
+      </h2>
       <div className={styles.progress_container}>
         <SegmentedProgressBar segments={segments} max={25} />
       </div>

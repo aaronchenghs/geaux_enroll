@@ -8,7 +8,6 @@ import styles from "./week-chart.module.scss";
 export const WeekChart = (): JSX.Element => {
   return (
     <>
-      <h2 className={styles.title}> Schedule </h2>
       <div className={styles.inlineDiv}>
         <h3>Mon</h3>
         <h3>Tue</h3>

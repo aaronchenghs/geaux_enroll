@@ -41,3 +41,8 @@ h2.semester{
     margin-bottom: 0;
     color: var(--surfaceColor);
 }
+
+.light {
+    font-weight: lighter;
+    color: fade-out($color: #f4f6f8, $amount: 0.5);
+}
