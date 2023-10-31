@@ -1,0 +1,23 @@
+.starFill {
+    cursor: "pointer";
+    transition: color 200ms, width 2s;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .starContainer {
+    cursor: pointer;
+    transition: color 200ms;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .parent {
+    position: relative;
+    width: 4vw;
+    display: inline-block;
+}

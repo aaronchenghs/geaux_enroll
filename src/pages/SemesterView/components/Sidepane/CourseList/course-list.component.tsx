@@ -9,6 +9,7 @@ import { selectCourse } from "../../../../../store/Semester/semester-slice";
 import styles from "./course-list.module.scss";
 import { Category } from "@mui/icons-material";
 import { CategoryCourse } from "../../../../../models/course";
+import { CourseTile } from "../CourseTile/course-tile.components";
 
 export const CourseList = (): JSX.Element => {
   const courses = useSelector(
@@ -18,32 +19,13 @@ export const CourseList = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const renderedCourses: ReactNode[] = courses.map((course): ReactNode => {
-    return (
-      <React.Fragment key={course.name}>
-        <Button
-          className={`${styles.navButton} ${
-            course.section != null ? styles.scheduled : ""
-          }`}
-          onClick={(): unknown => dispatch(selectCourse(course))}
-        >
-          <h3>
-            {course.section != null && course instanceof CategoryCourse
-              ? course.courseAbreviation + ":"
-              : ""}
-            {`${
-              course.section == null
-                ? course.courseAbreviation
-                : course.section.name
-            }`}
-          </h3>
-        </Button>
-      </React.Fragment>
-    );
+    return <CourseTile key={course.name} course={course}></CourseTile>;
   });
 
   return (
     <div className={styles.CourseList}>
-      <h2 className={styles.title}> Courses </h2>
+      <br></br>
+      {/* <h2> Courses:</h2> */}
       <div className={styles.center}>{renderedCourses}</div>
     </div>
   );

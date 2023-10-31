@@ -12,6 +12,7 @@ import {
 // Modular style inshallah
 import styles from "./options-list.module.scss";
 import { CategoryCourse } from "../../../../../models/course";
+import { CourseTile } from "../CourseTile/course-tile.components";
 
 export const OptionList = (): JSX.Element => {
   const selected: CategoryCourse = useSelector(
@@ -22,20 +23,7 @@ export const OptionList = (): JSX.Element => {
 
   const renderedCourses: ReactNode[] = selected.options.map(
     (course): ReactNode => {
-      const wasSelected = selected.optionTaken == course;
-
-      return (
-        <React.Fragment key={course.name}>
-          <Button
-            className={`${styles.navButton} ${
-              wasSelected ? styles.scheduled : ""
-            }`}
-            onClick={(): unknown => dispatch(selectCourse(course))}
-          >
-            <h3>{course.courseAbreviation}</h3>
-          </Button>
-        </React.Fragment>
-      );
+      return <CourseTile key={course.name} course={course}></CourseTile>;
     },
   );
 

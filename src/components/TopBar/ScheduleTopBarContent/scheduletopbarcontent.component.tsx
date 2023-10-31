@@ -6,6 +6,8 @@ import SegmentedProgressBar, {
 import { Star } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../store/store";
+import StarRating from "./star-bar/star-rating.component";
+import StarBar from "./star-bar/star-bar.component";
 
 const sampleSegments: segment[] = [
   {
@@ -65,13 +67,21 @@ const ScheduleTopBarContent = (): JSX.Element => {
 
   return (
     <div className={styles.row}>
-      <h2 className={styles.semester}> Fall 2023</h2>
+      <h2 className={styles.semester}>
+        {" "}
+        <span className={styles.light}>Scheduling: </span> Fall 2023
+      </h2>
       <div className={styles.progress_container}>
         <SegmentedProgressBar segments={segments} max={25} />
       </div>
       <div className={styles.rating_container}>
-        <Star className={styles.star} style={{ fontSize: "48px" }}></Star>
-        <h3> {rating ? rating.toFixed(2) : "0.0"} </h3>
+        {/* <Star className={styles.star} style={{ fontSize: "48px" }}></Star> */}
+        {/* <StarRating rating={50} size={48}></StarRating> */}
+        <h4>
+          <span className={styles.light}>AVG RATING:</span>{" "}
+          <b>{rating ? rating.toFixed(2) : "0.0"} </b>
+        </h4>
+        <StarBar rating={rating ? rating : 0}></StarBar>
       </div>
     </div>
   );
