@@ -1,3 +1,6 @@
+import { XYPosition } from "react-flow-renderer";
+import { Course } from "../../../../models/course";
+import { Degree } from "../../../../models/degree";
 import { CourseNodeProps } from "./CourseNode/coursenode.component";
 import { v4 } from "uuid";
 
@@ -5,19 +8,18 @@ import { v4 } from "uuid";
 // and all the logic will be done in here. Just gotta
 // figure out the details first
 export const buildCourseNode = (
-  borderColor: string,
-  onClickHandler: () => void,
+  course: Course,
+  position: XYPosition,
 ): CourseNodeProps => {
   return {
     id: v4(),
     type: "course",
     data: {
       label: "Course Name",
-      borderColor: borderColor,
-      onClick: onClickHandler,
+      course,
     },
     // Need to write some logic to determine node position maybe
-    position: { x: 100, y: 100 },
+    position,
   };
 };
 
@@ -51,4 +53,28 @@ export const darkenColor = (color: string, percent: number): string => {
     .toString(16)
     .slice(1)
     .toUpperCase()}`;
+};
+
+export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
+  const { requirements } = degree;
+
+  // Max number of columns and rows
+  const maxCols = 8;
+  const maxRows = Math.ceil(requirements.length / maxCols);
+
+  // Calculate the width and height division for nodes
+  const widthDivision = window.innerWidth / maxCols;
+  const heightDivision = window.innerHeight / maxRows;
+
+  const courseNodes: CourseNodeProps[] = requirements.map(
+    (requirement, index) => {
+      // Determine the x and y based on index for column-first filling
+      const x = Math.floor(index / maxRows) * widthDivision;
+      const y = (index % maxRows) * heightDivision;
+
+      return buildCourseNode(requirement, { x, y });
+    },
+  );
+
+  return [...courseNodes];
 };

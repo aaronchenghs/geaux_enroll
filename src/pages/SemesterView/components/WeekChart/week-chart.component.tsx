@@ -20,7 +20,6 @@ export const WeekChart = (): JSX.Element => {
   //then I make all the courses from the array appear on the weekly chart >>
   return (
     <>
-      <h2 className={styles.title}> Schedule </h2>
       <div className={styles.inlineDiv}>
         <h3>Mon</h3>
         <h3>Tue</h3>

@@ -1,12 +1,20 @@
 import React, { Fragment, useMemo } from "react";
 import styles from "./flowchart.module.scss";
 
-import { COURSE_STATUS_COLORS, buildCourseNode } from "./flowchart.utils";
+import {
+  COURSE_STATUS_COLORS,
+  buildCourseNode,
+  buildDegreeNodes,
+} from "./flowchart.utils";
 import ReactFlow, { Background, Controls } from "react-flow-renderer";
 import CourseModal from "../DegreeModal/degreemodal.component";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
 import { CourseNode } from "./CourseNode/coursenode.component";
+import {
+  SWEDegreeRequirements,
+  SoftwareEngineeringDegree,
+} from "../../../../models/database/SWEDegree";
 
 const FlowChart = (): JSX.Element => {
   const $selectedCourseNode = useSelector(
@@ -25,11 +33,7 @@ const FlowChart = (): JSX.Element => {
     <Fragment>
       <div className={styles.Flowchart}>
         <ReactFlow
-          nodes={[
-            buildCourseNode(COURSE_STATUS_COLORS.CAN_SCHEDULE, () =>
-              console.log("Course Node Clicked!"),
-            ),
-          ]}
+          nodes={[...buildDegreeNodes(SoftwareEngineeringDegree)]}
           nodeTypes={nodeTypes}
         >
           <Background />

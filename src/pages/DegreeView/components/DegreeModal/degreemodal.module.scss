@@ -1,0 +1,74 @@
+.selectOptionsContainer {
+  margin-top: 8px;
+  padding: 3%;
+  width: 100%;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .optionBox {
+    padding: 12px 15px;
+    width: 100%;
+    font-size: 1.05em;
+    background-color: #fff;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: start;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+
+    &:hover {
+      background-color: #e5e5e5;
+    }
+
+    &.active {
+      background-color: #007bff;
+      color: #fff;
+    }
+  }
+}
+
+.divider {
+  margin: 10px 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+.filtersContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.filterLabel {
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-right: 5px;
+}
+
+.checkboxLabel {
+  margin-right: 10px;
+  margin-bottom: 5px;
+  display: block;
+
+  cursor: pointer;
+}
+
+.mainContent {
+  max-height: 63vh;
+  overflow-y: scroll;
+}

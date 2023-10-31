@@ -1,0 +1,83 @@
+.CourseTile{
+    Button {
+        border: 3px dashed var(--primaryColor);
+        border-radius: 50px;
+        transition:
+            background-color 0.3s,
+            border-color 0.3s,
+            transform 0.2s;
+        background-color: var(--backgroundColor);
+        color: var(--primaryColor);
+    
+        height: 5vw;
+        min-height: 75px;
+        width: 95%;
+    
+        margin-bottom: 16px;
+    
+        &:hover {
+            background-color: var(--primaryColor);
+            border-color: var(--surfaceColor);
+            color: var(--surfaceColor);
+        }
+    
+        &:active {
+            transform: scale(0.95);
+            background-color: var(--headerColor);
+            color: var(--accentColor);
+        }
+    }
+
+    Button.scheduled{
+        border: 6px solid var(--primaryColor);
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 1.75vw;
+    }
+
+    h3.category {
+        font-size: 1.25vw;
+    }
+
+    h4 {
+        margin: 0;
+        font-size: 1vw;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+    }
+    .title_container {
+        display: flex;
+        gap: 0.25vw;
+        justify-content: center;
+    }
+
+    .text_container {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        white-space: nowrap;
+        gap: 8px;
+        flex: 3;
+    }
+
+    .icon_container {
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+    .icon_container * {
+        font-size: max(60px, 2.5vw);
+    }
+}
+

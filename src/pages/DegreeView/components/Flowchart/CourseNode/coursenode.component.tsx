@@ -2,11 +2,20 @@ import { Node } from "react-flow-renderer";
 import { COURSE_STATUS_COLORS, darkenColor } from "../flowchart.utils";
 import styles from "./coursenode.module.scss";
 import { useMemo } from "react";
+import {
+  CategoryCourse,
+  CoreCourse,
+  Course,
+} from "../../../../../models/course";
+import { Label } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedCourseNode } from "../../../../../store/Degree/degree-slice";
+import { AppState } from "../../../../../store/store";
+import { getCourseBorderColor } from "./nodeUtils";
 
 export interface CourseData {
   label: string;
-  borderColor?: string;
-  onClick?: () => void;
+  course: Course;
 }
 
 // Use the Node type for CourseNodeProps
@@ -15,12 +24,25 @@ export interface CourseNodeProps extends Node<CourseData> {}
 export const CourseNode: React.FC<CourseNodeProps> = ({
   data,
 }: CourseNodeProps) => {
+  const dispatch = useDispatch();
+  const { label, course } = data;
+  const $completedCourses = useSelector(
+    (state: AppState) => state.student.completedCourses,
+  );
+
   const borderColor: string = useMemo(() => {
-    return data.borderColor ?? COURSE_STATUS_COLORS.CANNOT_SCHEDULE;
-  }, []);
+    return getCourseBorderColor(course);
+  }, [$completedCourses]);
+
+  const handleNodeClick = (): void => {
+    // Will need to check for availability to click
+    // can use same logic as calculating border color
+    dispatch(setSelectedCourseNode(course));
+  };
+
   return (
     <div
-      onClick={data.onClick}
+      onClick={handleNodeClick}
       className={styles.courseNode}
       style={
         {
@@ -29,7 +51,7 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
         } as React.CSSProperties
       }
     >
-      <h4>{data.label}</h4>
+      <h4>{course.name}</h4>
     </div>
   );
 };

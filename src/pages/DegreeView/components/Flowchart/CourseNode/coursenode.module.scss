@@ -1,9 +1,18 @@
 .courseNode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   padding: 10px;
   background: #f7fbff;
   border-radius: 5px;
   border: 3px solid var(--initialBorderColor, black);
   cursor: pointer;
+  width: 10vw;
+  height: 5vw;
+
+  font-size: 1px !important;
 
   &:hover {
     border-color: var(--darkenedColor, black);

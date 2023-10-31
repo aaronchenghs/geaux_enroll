@@ -37,7 +37,7 @@ const genDummyCourses = (): Course[] => {
 
     factory.name = "Course " + i;
     factory.code = i * 1000;
-    factory.department = Department.CS;
+    factory.department = Department.CSC;
 
     output.push(factory.createCourse());
   }
@@ -86,6 +86,15 @@ const semester_slice = createSlice({
   reducers: {
     setCoursesToSchedule(state, action: PayloadAction<Course[]>) {
       state.coursesToSchedule = action.payload;
+    },
+    addCourseToSchedule(state, action: PayloadAction<Course>) {
+      state.coursesToSchedule = [...state.coursesToSchedule, action.payload];
+    },
+    // pass course.courseAbreviation + course.code
+    removeCourseFromSchedule(state, action: PayloadAction<string>) {
+      state.coursesToSchedule = state.coursesToSchedule.filter(
+        (course) => course.courseAbreviation + course.code !== action.payload,
+      );
     },
     returnFromCurrentSelection(state) {
       if (state.selectedProps.parent == null) {
@@ -225,4 +234,6 @@ export const {
   returnFromCurrentSelection,
   addSection,
   removeSection,
+  addCourseToSchedule,
+  removeCourseFromSchedule,
 } = semester_slice.actions;

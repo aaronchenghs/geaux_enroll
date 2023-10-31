@@ -12,7 +12,7 @@ test("Create Course Object", () => {
   const test = new Course({
     name: "Intro to CS for Majors",
     code: 1350,
-    department: Department.CS,
+    department: Department.CSC,
     description: "Fundamentals of algorithm development and OO Programming",
     prereqs: [],
     courseType: [],
@@ -22,7 +22,7 @@ test("Create Course Object", () => {
 
   expect(test.code).toBe(1350);
   expect(test.courseAbreviation).toBe("CS 1350");
-  expect(test.department).toBe(Department.CS);
+  expect(test.department).toBe(Department.CSC);
   expect(test.section == null).toBe(true);
   expect(test.prereqs).toStrictEqual([]);
 
@@ -35,7 +35,7 @@ test("Create CoreCourse Object", () => {
   const test = new CoreCourse({
     name: "Intro to CS for Majors",
     code: 1350,
-    department: Department.CS,
+    department: Department.CSC,
     description: "Fundamentals of algorithm development and OO Programming",
     prereqs: [],
     courseType: [],
@@ -45,7 +45,7 @@ test("Create CoreCourse Object", () => {
 
   expect(test.code).toBe(1350);
   expect(test.courseAbreviation).toBe("CS 1350");
-  expect(test.department).toBe(Department.CS);
+  expect(test.department).toBe(Department.CSC);
   expect(test.section == null).toBe(true);
   expect(test.prereqs).toStrictEqual([]);
 
@@ -59,7 +59,7 @@ test("Create CatagoryCourse Object", () => {
     new Course({
       name: "Intro to CS for Majors",
       code: 1350,
-      department: Department.CS,
+      department: Department.CSC,
       description: "Fundamentals of algorithm development and OO Programming",
       prereqs: [],
       courseType: [],
@@ -90,7 +90,7 @@ test("Create CatagoryCourse Object", () => {
 
   const test = new CategoryCourse({
     name: "Advanced Elective",
-    department: Department.CS,
+    department: Department.CSC,
     description: "Choose one Advanced Elective",
     prereqs: [],
     courseType: [],
@@ -102,7 +102,7 @@ test("Create CatagoryCourse Object", () => {
 
   expect(test.code).toBe(-1);
   expect(test.courseAbreviation).toBe("Advanced Elective");
-  expect(test.department).toBe(Department.CS);
+  expect(test.department).toBe(Department.CSC);
   expect(test.section == null).toBe(true);
   expect(test.prereqs).toStrictEqual([]);
 
@@ -114,7 +114,7 @@ test("Create CatagoryCourse Object", () => {
 test("Create Course w/ Factory - Minimal", () => {
   const name = "Intro To CSC";
   const code = 1234;
-  const department = Department.CS;
+  const department = Department.CSC;
 
   const factory = new CourseFactory();
 
@@ -137,7 +137,7 @@ test("Create Course w/ Factory - Minimal", () => {
 test("Create Course w/ Factory - Maximal", () => {
   const name = "Intro To CSC";
   const code = 1234;
-  const department = Department.CS;
+  const department = Department.CSC;
 
   const factory = new CourseFactory();
 

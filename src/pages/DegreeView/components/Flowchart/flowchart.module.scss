@@ -6,6 +6,6 @@
 }
 
 .Node {
-  width: 100px;
-  height: 100px;
+  width: calc(100vw / 8);
+  height: calc(100vh / 4.5);
 }

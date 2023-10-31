@@ -3,7 +3,7 @@ import { Course, Department } from "../course";
 export const CSC4243 = new Course({
   name: "Interface Design and Technology",
   code: 4243,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -13,7 +13,7 @@ export const CSC4243 = new Course({
 export const CSC4263 = new Course({
   name: "Video Game Design",
   code: 4263,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -23,7 +23,7 @@ export const CSC4263 = new Course({
 export const CSC4356 = new Course({
   name: "Interactive Computer Graphics",
   code: 4356,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -33,7 +33,7 @@ export const CSC4356 = new Course({
 export const CSC4357 = new Course({
   name: "Applied Computer Graphics",
   code: 4357,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -43,7 +43,7 @@ export const CSC4357 = new Course({
 export const CSC4360 = new Course({
   name: "Malware Analysis and Reverse Engineering",
   code: 4360,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -53,7 +53,7 @@ export const CSC4360 = new Course({
 export const CSC4362 = new Course({
   name: "Software Vulnerabilities and Exploitation",
   code: 4362,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -63,7 +63,7 @@ export const CSC4362 = new Course({
 export const CSC4370 = new Course({
   name: "Software Modeling Techniques",
   code: 4370,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -73,7 +73,7 @@ export const CSC4370 = new Course({
 export const CSC4444 = new Course({
   name: "Artificial Intelligence",
   code: 4444,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -83,7 +83,7 @@ export const CSC4444 = new Course({
 export const CSC4501 = new Course({
   name: "Computer Networks",
   code: 4501,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -93,7 +93,7 @@ export const CSC4501 = new Course({
 export const CSC4585 = new Course({
   name: "Multicore Programming",
   code: 4585,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -103,7 +103,7 @@ export const CSC4585 = new Course({
 export const CSC4610 = new Course({
   name: "Cloud Systems and Virtualization",
   code: 4610,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -113,7 +113,7 @@ export const CSC4610 = new Course({
 export const CSC4740 = new Course({
   name: "Big Data Technologies",
   code: 4740,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
@@ -123,7 +123,7 @@ export const CSC4740 = new Course({
 export const CSC4890 = new Course({
   name: "Introduction to Theory of Computation",
   code: 4890,
-  department: Department.CS,
+  department: Department.CSC,
   prereqs: [],
   grade: null,
   section: null,
