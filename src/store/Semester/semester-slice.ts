@@ -17,7 +17,7 @@ import {
   MATH1550,
   TechElectiveA,
 } from "../../models/database/SWEDegree";
-import { defaultToastSuccessOptions } from "../store";
+import { defaultToastSuccessOptions } from "../../models/toast";
 
 interface SemesterState {
   coursesToSchedule: Course[];

@@ -16,18 +16,6 @@ const store = configureStore({
   },
 });
 
-export const defaultToastSuccessOptions: ToastOptions = {
-  position: "bottom-center",
-  autoClose: 3000,
-  closeButton: false,
-  hideProgressBar: true,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: false,
-  progress: undefined,
-  theme: "colored",
-};
-
 const state = store.getState();
 export type AppState = typeof state;
 
