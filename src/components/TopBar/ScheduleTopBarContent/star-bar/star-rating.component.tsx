@@ -8,7 +8,7 @@ export interface Props {
   size: number;
 }
 //https://stackoverflow.com/questions/74523990/how-to-fill-a-non-quadrilateral-shape-i-e-a-star-based-on-a-percentage-using
-const StarRating = ({ rating = 50, size = 200 }: Props): JSX.Element => {
+const StarRating = ({ rating = 50, size = 25 }: Props): JSX.Element => {
   if (rating < 0) rating = 0;
   if (rating > 100) rating = 100;
 
@@ -16,12 +16,17 @@ const StarRating = ({ rating = 50, size = 200 }: Props): JSX.Element => {
 
   return (
     <div className={styles.parent}>
-      <div className={styles.starContainer}>
-        <Star style={{ color: "#e4e5e9", fontSize: size }} />
-      </div>
+      <Star
+        className={styles.starContainer}
+        style={{
+          color: "#e4e5e9",
+          fontSize: size + "vh",
+          transformOrigin: "center",
+        }}
+      />
       <div className={styles.starFill}>
         <div style={{ width: rating, overflow: "hidden" }}>
-          <Star style={{ color: "#ffc107", fontSize: size }} />
+          <Star style={{ color: "#ffc107", fontSize: size + "vh" }} />
         </div>
         {/* transparent div to reserve the complementary spacing */}
         <div style={{ width: size }}></div>

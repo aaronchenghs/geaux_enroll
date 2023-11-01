@@ -19,7 +19,6 @@ div.rating_container{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
     width: 200px;
     margin-right: 24px;
 
@@ -36,9 +35,9 @@ h2.semester{
 }
 
 .rating_container h4{
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     color: var(--surfaceColor);
-    font-size: medium;
+    font-size: 1.75vh;
     text-align: start;
 }
 

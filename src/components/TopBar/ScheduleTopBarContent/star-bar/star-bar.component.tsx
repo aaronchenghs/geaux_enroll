@@ -6,10 +6,10 @@ interface StarBarProps {
 }
 
 const StarBar = ({ rating }: StarBarProps): JSX.Element => {
-  const starSize: number = 45;
+  const starSize: number = 4;
 
   return (
-    <div className={styles.row}>
+    <div className={styles.row} style={{ height: starSize + "vh" }}>
       <StarRating
         rating={Math.min(100, rating * 100)}
         size={starSize}
