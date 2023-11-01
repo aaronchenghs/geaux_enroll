@@ -17,15 +17,13 @@ const StarRating = ({ rating = 50, size = 25 }: Props): JSX.Element => {
   return (
     <div className={styles.parent}>
       <Star
-        className={styles.starContainer}
         style={{
           color: "#e4e5e9",
           fontSize: size + "vh",
-          transformOrigin: "center",
         }}
       />
       <div className={styles.starFill}>
-        <div style={{ width: rating, overflow: "hidden" }}>
+        <div style={{ width: rating + "vh", overflow: "hidden" }}>
           <Star style={{ color: "#ffc107", fontSize: size + "vh" }} />
         </div>
         {/* transparent div to reserve the complementary spacing */}
