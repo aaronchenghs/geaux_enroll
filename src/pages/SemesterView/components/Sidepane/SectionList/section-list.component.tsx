@@ -149,15 +149,22 @@ export const SectionList = (): JSX.Element => {
 
   const header: JSX.Element = (
     <div className={styles.header}>
-      <Button
-        className={styles.back}
-        onClick={(): unknown => dispatch(returnFromCurrentSelection())}
-      >
-        <ArrowBack />
-      </Button>
-      <h2 className={styles.title}>
-        Sections of {selectedCourseProps.course?.courseAbreviation}
-      </h2>
+      <div className={styles.back_container}>
+        <Button
+          className={styles.back}
+          onClick={(): unknown => dispatch(returnFromCurrentSelection())}
+        >
+          <ArrowBack />
+        </Button>
+      </div>
+      <div className={styles.text_container}>
+        <p> Sections of: </p>
+        <h2 className={styles.title}>
+          {selectedCourseProps.course?.department +
+            " " +
+            selectedCourseProps.course?.code}
+        </h2>
+      </div>
     </div>
   );
 
