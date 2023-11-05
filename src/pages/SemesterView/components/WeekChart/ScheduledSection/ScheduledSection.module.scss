@@ -1,11 +1,12 @@
 .scheduledSection {
+    margin-left: .5%;
+    margin-right: .5%;
     text-align: center;
-    border: 2px;
-    border-color:black;
+    border: dashed 3px;
+    border-color: var(--primaryColor);
     border-radius: 2%;
     grid-row-start: 0;
     grid-row-end: 0;
-    border-style: solid;
 }
 
 .courseName {

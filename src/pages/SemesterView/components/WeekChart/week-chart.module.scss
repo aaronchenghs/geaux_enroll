@@ -4,16 +4,41 @@
     text-align: center;
 }
 
+.gridContainer{
+  display: flex;
+  justify-content: flex-start;
+}
+
 .grid {
-    width: 100%;
+    margin-left: 5%;
+    width: 97%;
     height: 100%;
     display: grid;
     border: solid white;
+    // border-top: solid white;
+    // border-right: solid white;
+    // border-bottom: solid white;
     border-width: 5px;
-    border-radius: 2%;
+    border-radius: 1%;
     row-gap: 0px;
     grid-template-rows: repeat(25, 1fr);
     grid-template-columns: repeat(5, 1fr);
+}
+
+.timeGrid{
+  width: 1fr;
+  border-block-width: 5%;
+  height: 100%;
+  display: grid;
+  border: solid white;
+  // border-left: solid white;
+  // border-bottom: solid white;
+  // border-top: solid white;
+  border-width: 5px;
+  border-radius: 2%;
+  row-gap: 0px;
+  grid-template-rows: repeat(25, 1fr);
+  grid-template-columns: 50px;
 }
 
 .item {
@@ -34,15 +59,17 @@
 }
 
 .inlineDiv {
+    margin-left: 12.5%;
+    margin-right: 7%;
     display: flex;
-    justify-content: space-around;
-    
+    justify-content: space-between;
   }
   
   h3 {
     display: inline-block;
     text-align: center;
   }
+
 
   .invisibleItem{
     grid-row: span 2;
