@@ -32,6 +32,7 @@ export const WeekChart = (): JSX.Element => {
         section.schedule.days.forEach((day, i) => {
           if (day != null) {
             timeslots.push({
+              key: section.name + "-" + i,
               courseName: section.course.courseAbreviation,
               rowStart: readableToRowIndex(
                 day.readable!.startHour,
@@ -77,7 +78,7 @@ export const WeekChart = (): JSX.Element => {
       <div className={styles.grid}>
         {timeslotProps.map((timeslot) => (
           <ScheduledSection
-            key={timeslot.courseName}
+            key={timeslot.key}
             courseName={timeslot.courseName}
             rowStart={timeslot.rowStart}
             rowEnd={timeslot.rowEnd}

@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import React from "react";
 import styles from "./ScheduledSection.module.scss";
 export interface ScheduledSectionProps {
+  key: string;
   courseName: string;
   rowStart: number;
   rowEnd: number;
