@@ -75,20 +75,41 @@ export const WeekChart = (): JSX.Element => {
         <h3>Thu</h3>
         <h3>Fri</h3>
       </div>
-      <div className={styles.grid}>
-        {timeslotProps.map((timeslot) => (
-          <ScheduledSection
-            key={timeslot.key}
-            courseName={timeslot.courseName}
-            rowStart={timeslot.rowStart}
-            rowEnd={timeslot.rowEnd}
-            colStart={timeslot.colStart}
-            colEnd={timeslot.colEnd}
-            onClick={(): unknown => 5 + 5}
-          >
-            {timeslot.courseName}
-          </ScheduledSection>
-        ))}
+      <div className={styles.gridContainer}>
+        <div className={styles.timeGrid}>
+          <div className={styles.timeColumn}>7:00</div>
+          <div className={styles.timeColumn}>8:00</div>
+          <div className={styles.timeColumn}>9:00</div>
+          <div className={styles.timeColumn}>10:00</div>
+          <div className={styles.timeColumn}>11:00</div>
+          <div className={styles.timeColumn}>12:00</div>
+          <div className={styles.timeColumn}>1:00</div>
+          <div className={styles.timeColumn}>2:00</div>
+          <div className={styles.timeColumn}>3:00</div>
+          <div className={styles.timeColumn}>4:00</div>
+          <div className={styles.timeColumn}>5:00</div>
+          <div className={styles.timeColumn}>6:00</div>
+          <div className={styles.timeColumn}>7:00</div>
+          <div className={styles.timeColumn}>8:00</div>
+        </div>
+        <div className={styles.gridLayerer}>
+          <div className={styles.grid}></div>
+          <div className={styles.grid}>
+            {timeslotProps.map((timeslot) => (
+              <ScheduledSection
+                key={timeslot.key}
+                courseName={timeslot.courseName}
+                rowStart={timeslot.rowStart}
+                rowEnd={timeslot.rowEnd}
+                colStart={timeslot.colStart}
+                colEnd={timeslot.colEnd}
+                onClick={(): unknown => 5 + 5}
+              >
+                {timeslot.courseName}
+              </ScheduledSection>
+            ))}
+          </div>
+        </div>
       </div>
     </>
   );

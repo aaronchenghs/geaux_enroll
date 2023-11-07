@@ -5,39 +5,51 @@
 }
 
 .gridContainer{
+  width: 100%;
+  height: 94.75%;
   display: flex;
   justify-content: flex-start;
 }
 
+.gridLayerer{
+  display: grid;
+  height: 100%;
+  width: 97%;
+  grid-template-rows: 1;
+  grid-template-columns: 1;
+}
+
 .grid {
-    margin-left: 5%;
-    width: 97%;
-    height: 100%;
-    display: grid;
-    border: solid white;
-    // border-top: solid white;
-    // border-right: solid white;
-    // border-bottom: solid white;
-    border-width: 5px;
-    border-radius: 1%;
-    row-gap: 0px;
-    grid-template-rows: repeat(52, 1fr);
-    grid-template-columns: repeat(5, 1fr);
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 46.35%;
+  display: grid;
+  border: solid white;
+  // border-top: solid white;
+  // border-right: solid white;
+  // border-bottom: solid white;
+  border-width: 5px;
+  //border-radius: 1%;
+  row-gap: 0px;
+  grid-template-rows: repeat(52, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .timeGrid{
-  width: 1fr;
-  border-block-width: 5%;
+  margin-left: -0.4%;
   height: 100%;
   display: grid;
-  border: solid white;
+  border-left: solid white;
+  border-top: solid white;
+  border-bottom: solid white;
   // border-left: solid white;
   // border-bottom: solid white;
   // border-top: solid white;
   border-width: 5px;
-  border-radius: 2%;
+  //border-radius: 2%;
   row-gap: 0px;
-  grid-template-rows: repeat(25, 1fr);
+  grid-template-rows: repeat(52, 1fr);
   grid-template-columns: 50px;
 }
 
@@ -51,8 +63,8 @@
 }
 
 .timeColumn {
-    margin: -1%;
-    grid-row: span 1;
+    //margin: -1%;
+    grid-row: span 4;
     grid-column: span 1;
     vertical-align: top;
     text-align: center;
@@ -60,7 +72,7 @@
 
 .inlineDiv {
     margin-left: 12.5%;
-    margin-right: 7%;
+    margin-right: 8%;
     display: flex;
     justify-content: space-between;
   }
