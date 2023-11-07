@@ -70,7 +70,7 @@ export const DAYS_IN_LIST = [
 ];
 
 export class WeeklySchedule {
-  public days: TimeSlot[] = Array(7);
+  public days: (TimeSlot | null)[] = [null, null, null, null, null, null, null];
 
   // This is the only function that mutates the state of WeeklySchedule
   // Because redux does pointer comparision to determine if state changed
@@ -85,7 +85,7 @@ export class WeeklySchedule {
       const collides =
         a.days[i] != null &&
         b.days[i] != null &&
-        a.days[i].collidesWith(b.days[i]);
+        a.days[i]!.collidesWith(b.days[i]);
 
       if (collides) return true;
     }
@@ -99,11 +99,11 @@ export class WeeklySchedule {
 
     for (let i = 0; i < 7; i++) {
       if (a.days[i] && b.days[i]) {
-        output.days[i] = a.days[i].union(b.days[i]);
+        output.days[i] = a.days[i]!.union(b.days[i]!);
       } else if (a.days[i]) {
-        output.days[i] = a.days[i].clone();
+        output.days[i] = a.days[i]!.clone();
       } else if (b.days[i]) {
-        output.days[i] = b.days[i].clone();
+        output.days[i] = b.days[i]!.clone();
       }
     }
 
@@ -116,9 +116,9 @@ export class WeeklySchedule {
 
     for (let i = 0; i < 7; i++) {
       if (a.days[i] && b.days[i]) {
-        output.days[i] = a.days[i].disunion(b.days[i]);
+        output.days[i] = a.days[i]!.disunion(b.days[i]!);
       } else if (a.days[i]) {
-        output.days[i] = a.days[i].clone();
+        output.days[i] = a.days[i]!.clone();
       }
     }
 

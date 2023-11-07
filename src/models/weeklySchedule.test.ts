@@ -295,11 +295,11 @@ test("Weekly Schedule Creation", () => {
   weeklySchedule.addTimeSlot(WEDNESDAY, timeslot);
   weeklySchedule.addTimeSlot(FRIDAY, timeslot);
 
-  expect(weeklySchedule.days[0].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[0]?.collidesWith(timeslot)).toBeTruthy();
   expect(weeklySchedule.days[1]).toBeUndefined;
-  expect(weeklySchedule.days[2].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[2]?.collidesWith(timeslot)).toBeTruthy();
   expect(weeklySchedule.days[3]).toBeUndefined;
-  expect(weeklySchedule.days[4].collidesWith(timeslot)).toBeTruthy();
+  expect(weeklySchedule.days[4]?.collidesWith(timeslot)).toBeTruthy();
   expect(weeklySchedule.days[5]).toBeUndefined;
   expect(weeklySchedule.days[6]).toBeUndefined;
 });
@@ -328,20 +328,20 @@ test("Union of Schedules", () => {
 
   const unionSchedule = WeeklySchedule.union(noonSchedule, nightSchedule);
 
-  expect(unionSchedule.days[0].collidesWith(timeslot)).toBeTruthy();
-  expect(unionSchedule.days[0].collidesWith(timeslot2)).toBeTruthy();
+  expect(unionSchedule.days[0]!.collidesWith(timeslot)).toBeTruthy();
+  expect(unionSchedule.days[0]!.collidesWith(timeslot2)).toBeTruthy();
 
-  expect(unionSchedule.days[1].collidesWith(timeslot)).toBeFalsy();
-  expect(unionSchedule.days[1].collidesWith(timeslot2)).toBeTruthy();
+  expect(unionSchedule.days[1]?.collidesWith(timeslot)).toBeFalsy();
+  expect(unionSchedule.days[1]?.collidesWith(timeslot2)).toBeTruthy();
 
-  expect(unionSchedule.days[2].collidesWith(timeslot)).toBeTruthy();
-  expect(unionSchedule.days[2].collidesWith(timeslot2)).toBeTruthy();
+  expect(unionSchedule.days[2]?.collidesWith(timeslot)).toBeTruthy();
+  expect(unionSchedule.days[2]?.collidesWith(timeslot2)).toBeTruthy();
 
-  expect(unionSchedule.days[3].collidesWith(timeslot)).toBeTruthy();
-  expect(unionSchedule.days[3].collidesWith(timeslot2)).toBeFalsy();
+  expect(unionSchedule.days[3]?.collidesWith(timeslot)).toBeTruthy();
+  expect(unionSchedule.days[3]?.collidesWith(timeslot2)).toBeFalsy();
 
-  expect(unionSchedule.days[4].collidesWith(timeslot)).toBeTruthy();
-  expect(unionSchedule.days[4].collidesWith(timeslot2)).toBeTruthy();
+  expect(unionSchedule.days[4]?.collidesWith(timeslot)).toBeTruthy();
+  expect(unionSchedule.days[4]?.collidesWith(timeslot2)).toBeTruthy();
 
   expect(unionSchedule.days[5]).toBeUndefined;
   expect(unionSchedule.days[6]).toBeUndefined;

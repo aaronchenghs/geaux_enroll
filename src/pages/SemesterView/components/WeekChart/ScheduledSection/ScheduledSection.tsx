@@ -3,7 +3,7 @@ import { AppState } from "../../../../../store/store";
 import { ReactNode } from "react";
 import React from "react";
 import styles from "./ScheduledSection.module.scss";
-interface ScheduledSectionProps {
+export interface ScheduledSectionProps {
   courseName: string;
   rowStart: number;
   rowEnd: number;
@@ -19,7 +19,7 @@ export const ScheduledSection = ({
   rowEnd,
   colStart,
   colEnd,
-  onClick
+  onClick,
 }: ScheduledSectionProps): JSX.Element => {
   return (
     <>

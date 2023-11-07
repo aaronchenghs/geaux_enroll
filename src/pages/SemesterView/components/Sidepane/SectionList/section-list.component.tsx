@@ -76,15 +76,16 @@ export const SectionList = (): JSX.Element => {
 
       const dayTiles: ReactNode[] = section.schedule.days.map(
         (schedule, index) => {
-          return (
-            <p
-              key={index}
-              className={styles.day}
-              style={{ backgroundColor: DAYS_IN_LIST[index].color }}
-            >
-              {DAYS_IN_LIST[index].shortName}
-            </p>
-          );
+          if (schedule != null)
+            return (
+              <p
+                key={index}
+                className={styles.day}
+                style={{ backgroundColor: DAYS_IN_LIST[index].color }}
+              >
+                {DAYS_IN_LIST[index].shortName}
+              </p>
+            );
         },
       );
 

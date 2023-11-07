@@ -84,7 +84,7 @@ function genWeeklySchedule(rng: () => number): WeeklySchedule {
 
   // Single day but long
   if (typeOfClass == 0) {
-    const dayOfWeek = Math.floor(rng() * 7);
+    const dayOfWeek = Math.floor(rng() * 5);
 
     const startTime = Math.floor(rng() * 10) + 7;
     const endTime = startTime + 3;
