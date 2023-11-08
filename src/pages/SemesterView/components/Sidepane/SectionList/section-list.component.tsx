@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../../store/store";
 import {
-  LocationOn,
+  LocationOnOutlined,
   Star,
   Apple,
   Person,
   ArrowBack,
 } from "@mui/icons-material";
+
+import EmojiPeopleOutlinedIcon from "@mui/icons-material/EmojiPeopleOutlined";
 
 import { Dispatch, ReactNode } from "react";
 import React from "react";
@@ -117,34 +119,51 @@ export const SectionList = (): JSX.Element => {
             onMouseLeave={onMouseLeave}
             disabled={!isScheduled && doesCollide}
           >
-            <div className={styles.column}>
-              <div className={styles.row}>
-                <p className={styles.num}> {section.number} </p>
-                <div className={styles.location_container}>
-                  <LocationOn style={{ fontSize: "32px" }} />
-                  <p className={styles.location}>
-                    {" "}
-                    {section.location?.building +
-                      " " +
-                      section.location?.roomNumber}
-                  </p>
+            <div className={styles.major_row}>
+              <p className={styles.num}>{section.number}</p>
+              <div className={styles.column}>
+                <div className={styles.row}>
+                  <div className={styles.location_container}>
+                    <LocationOnOutlined style={{ fontSize: "1.5vw" }} />
+                    <p className={styles.location}>
+                      {" "}
+                      {section.location?.building +
+                        " " +
+                        section.location?.roomNumber}
+                    </p>
+                  </div>
+
+                  <div className={styles.days_container}>
+                    <Tooltip id="time-hr" />
+                    {dayTiles}
+                  </div>
                 </div>
 
-                <div className={styles.days_container}>
-                  <Tooltip id="time-hr" />
-                  {dayTiles}
+                <div className={styles.row}>
+                  <div className={styles.flexrow}>
+                    <Star />
+                    <p>
+                      {" "}
+                      {section.instructor
+                        ? section.instructor.rating.toPrecision(
+                            section.instructor.rating < 1 ? 2 : 3,
+                          )
+                        : "---"}
+                    </p>
+                  </div>
+                  <div className={`${styles.flexrow} ${styles.name}`}>
+                    <EmojiPeopleOutlinedIcon style={{ fontSize: "24px" }} />
+                    <p className={styles.instructor}>
+                      {section.instructor ? section.instructor.name : "TBH"}
+                    </p>
+                  </div>
+                  <div className={styles.flexrow}>
+                    <Person />
+                    <p>
+                      {section.enrollmentCount} / {section.enrollmentLimit}
+                    </p>
+                  </div>
                 </div>
-              </div>
-
-              <div className={styles.row}>
-                <Star />
-                <p> {section.instructor ? section.instructor.rating : "---"}</p>
-                <Apple />
-                <p>{section.instructor ? section.instructor.name : "TBH"}</p>
-                <Person />
-                <p>
-                  {section.enrollmentCount} / {section.enrollmentLimit}
-                </p>
               </div>
             </div>
           </Button>
