@@ -15,13 +15,19 @@ import { Button } from "@mui/material";
 import styles from "./sections-list.module.scss";
 import {
   addSection,
+  hoverSection,
   removeSection,
   returnFromCurrentSelection,
+  unhoverSection,
 } from "../../../../../store/Semester/semester-slice";
 import {
   DAYS_IN_LIST,
   WeeklySchedule,
+  hrtsToString,
 } from "../../../../../models/weeklySchedule";
+
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 export const SectionList = (): JSX.Element => {
   // const state = useSelector((state: AppState) => state.semester);
@@ -74,14 +80,24 @@ export const SectionList = (): JSX.Element => {
         };
       }
 
+      const onMouseEnter = (): void => {
+        dispatch(hoverSection(section));
+      };
+
+      const onMouseLeave = (): void => {
+        dispatch(unhoverSection(section));
+      };
+
       const dayTiles: ReactNode[] = section.schedule.days.map(
-        (schedule, index) => {
-          if (schedule != null)
+        (timeslot, index) => {
+          if (timeslot != null)
             return (
               <p
                 key={index}
                 className={styles.day}
                 style={{ backgroundColor: DAYS_IN_LIST[index].color }}
+                data-tooltip-id="time-hr"
+                data-tooltip-content={hrtsToString(timeslot.readable)}
               >
                 {DAYS_IN_LIST[index].shortName}
               </p>
@@ -97,6 +113,8 @@ export const SectionList = (): JSX.Element => {
               isScheduled ? styles.scheduled : ""
             } ${!isScheduled && doesCollide ? styles.disabled : ""}`}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             disabled={!isScheduled && doesCollide}
           >
             <div className={styles.column}>
@@ -112,7 +130,10 @@ export const SectionList = (): JSX.Element => {
                   </p>
                 </div>
 
-                <div className={styles.days_container}>{dayTiles}</div>
+                <div className={styles.days_container}>
+                  <Tooltip id="time-hr" />
+                  {dayTiles}
+                </div>
               </div>
 
               <div className={styles.row}>

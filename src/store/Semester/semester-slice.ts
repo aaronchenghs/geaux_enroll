@@ -26,6 +26,7 @@ interface SemesterState {
     sections: Section[]; // For most courses
     parent: CategoryCourse | null;
   };
+  hoveredSection: Section | null;
   schedule: WeeklySchedule; // This is what will do the calculations
   scheduledSections: Section[]; // This will store the human readable version
 }
@@ -77,6 +78,7 @@ const INITIAL_STATE: SemesterState = {
     sections: [],
     parent: null,
   },
+  hoveredSection: null,
   schedule: new WeeklySchedule(),
   scheduledSections: [],
 };
@@ -115,6 +117,18 @@ const semester_slice = createSlice({
         state.selectedProps.parent = null;
       }
     },
+
+    hoverSection(state, action: PayloadAction<Section>) {
+      state.hoveredSection = action.payload;
+    },
+
+    unhoverSection(state, action: PayloadAction<Section | null>) {
+      // Defensive Programming
+      if (state.hoveredSection == action.payload || action.payload == null) {
+        state.hoveredSection = null;
+      }
+    },
+
     selectCourse(state, action: PayloadAction<Course>) {
       // Create backtrail to parent CategoryCourse
       if (state.selectedProps.course instanceof CategoryCourse) {
@@ -230,4 +244,6 @@ export const {
   removeSection,
   addCourseToSchedule,
   removeCourseFromSchedule,
+  hoverSection,
+  unhoverSection,
 } = semester_slice.actions;

@@ -151,6 +151,12 @@ export interface HumanReadableTimeSlot {
   endMin: number;
 }
 
+export function hrtsToString(hrts: HumanReadableTimeSlot | null): string {
+  if (hrts == null) return "N/A";
+  return `${hrts.startHour}:${hrts.startMin}${hrts.startMin == 0 ? "0" : ""}-${
+    hrts.endHour
+  }:${hrts.endMin}${hrts.endMin == 0 ? "0" : ""}`;
+}
 // Non-Mutable class, dont modify it after creation because who knows where it is referenced
 export class TimeSlot {
   // Number type is a 64 bit floating point number
