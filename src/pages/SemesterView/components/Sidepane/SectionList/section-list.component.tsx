@@ -15,8 +15,10 @@ import { Button } from "@mui/material";
 import styles from "./sections-list.module.scss";
 import {
   addSection,
+  hoverSection,
   removeSection,
   returnFromCurrentSelection,
+  unhoverSection,
 } from "../../../../../store/Semester/semester-slice";
 import {
   DAYS_IN_LIST,
@@ -74,6 +76,14 @@ export const SectionList = (): JSX.Element => {
         };
       }
 
+      const onMouseEnter = (): void => {
+        dispatch(hoverSection(section));
+      };
+
+      const onMouseLeave = (): void => {
+        dispatch(unhoverSection(section));
+      };
+
       const dayTiles: ReactNode[] = section.schedule.days.map(
         (schedule, index) => {
           if (schedule != null)
@@ -97,6 +107,8 @@ export const SectionList = (): JSX.Element => {
               isScheduled ? styles.scheduled : ""
             } ${!isScheduled && doesCollide ? styles.disabled : ""}`}
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             disabled={!isScheduled && doesCollide}
           >
             <div className={styles.column}>
