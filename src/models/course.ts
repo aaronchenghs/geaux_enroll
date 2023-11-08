@@ -19,7 +19,7 @@ export class Course {
   prereqs: Course[];
   courseType?: CourseType[];
   grade: Grade | null;
-  credits?: number;
+  credits: number;
   private _section: Section | null;
 
   constructor(params: CourseParams) {
@@ -31,7 +31,7 @@ export class Course {
     this.courseType = params.courseType;
     this.grade = params.grade ?? null;
     this._section = params.section ?? null;
-    this.credits = params.credits ?? -1;
+    this.credits = params.credits;
   }
 
   get section(): Section | null {
@@ -56,7 +56,7 @@ export class Course {
   }
 
   equals(other: Course): boolean {
-    return this.code == other.code;
+    return this.code == other.code && this.name === other.name;
   }
 
   arePrereqsMeetBy(completedCourses: Course[]): boolean {
@@ -96,6 +96,7 @@ interface CategoryCourseParams {
   section: Section | null;
   options: Course[];
   optionTaken: Course | null;
+  credits: number;
 }
 export class CategoryCourse extends Course {
   options: Course[];
@@ -111,7 +112,7 @@ export class CategoryCourse extends Course {
       courseType: params.courseType,
       grade: params.grade,
       section: params.section,
-      credits: -1,
+      credits: params.credits,
     });
     this.options = params.options;
     this.optionTaken = params.optionTaken;
@@ -168,7 +169,7 @@ export class CourseFactory {
 
   // Support CoreCourse
   private _isCore: boolean = false;
-  private _credits: number | undefined;
+  private _credits: number = 0;
 
   // Support CatagoryCourse
   private _options: Course[] | null = null;
@@ -206,6 +207,7 @@ export class CourseFactory {
         section: this._section!,
         options: this._options!,
         optionTaken: this._optionTaken!,
+        credits: this._credits!,
       });
     }
 
@@ -218,7 +220,7 @@ export class CourseFactory {
       courseType: this._courseType,
       grade: this._grade,
       section: this._section,
-      credits: this._credits ?? 3,
+      credits: this._credits,
     });
   }
 

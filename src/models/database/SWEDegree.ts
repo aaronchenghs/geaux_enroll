@@ -352,6 +352,7 @@ export const TechElectiveA = new CategoryCourse({
   section: null,
   options: [MUS2745, ART2050],
   optionTaken: null,
+  credits: 3,
 });
 export const TechElectiveAorB = new CategoryCourse({
   name: "Tech Elective A or B",
@@ -369,6 +370,7 @@ export const TechElectiveAorB = new CategoryCourse({
   section: null,
   options: [...TechElectivesB],
   optionTaken: null,
+  credits: 3,
 });
 export const CSC2000Elective = new CategoryCourse({
   name: "CSC 2+++",
@@ -385,6 +387,7 @@ export const CSC2000Elective = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const CSC2000ElectiveSeg = new CategoryCourse({
   name: "CSC 2+++ (Seg)",
@@ -400,6 +403,7 @@ export const CSC2000ElectiveSeg = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const CSC3000Elective = new CategoryCourse({
   name: "CSC 3+++",
@@ -411,6 +415,7 @@ export const CSC3000Elective = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const CSC4000Elective = new CategoryCourse({
   name: "CSC 4+++",
@@ -422,6 +427,7 @@ export const CSC4000Elective = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const AreaElective1 = new CategoryCourse({
   name: "Area Elective 1",
@@ -433,6 +439,7 @@ export const AreaElective1 = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const AreaElective2 = new CategoryCourse({
   name: "Area Elective 2",
@@ -444,6 +451,7 @@ export const AreaElective2 = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const ApprovedElective1 = new CategoryCourse({
   name: "Approved Elective 1",
@@ -455,6 +463,7 @@ export const ApprovedElective1 = new CategoryCourse({
   section: null,
   options: [...ApprovedElectives],
   optionTaken: null,
+  credits: 3,
 });
 export const ApprovedElective2 = new CategoryCourse({
   name: "Approved Elective 2",
@@ -466,9 +475,10 @@ export const ApprovedElective2 = new CategoryCourse({
   section: null,
   options: [...ApprovedElectives],
   optionTaken: null,
+  credits: 3,
 });
 export const GenEdSocialScience = new CategoryCourse({
-  name: "General Education: Social Science",
+  name: "Gen Ed: Social Science",
   description: ` This course category encompasses a range of advanced social science courses at the 2000 level and above. Students have the opportunity to explore various facets of human society, including anthropology, sociology, psychology, and political science. These courses aim to broaden students' understanding of societal structures, human behavior, and the intricacies of social dynamics.`,
 
   prereqs: null,
@@ -477,9 +487,10 @@ export const GenEdSocialScience = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const GenEdSocialScience2000 = new CategoryCourse({
-  name: "General Education: Social Science 2+++",
+  name: "Gen Ed: Social Science 2+++",
   description: ` This course category encompasses a range of advanced social science courses at the 2000 level and above. Students have the opportunity to explore various facets of human society, including anthropology, sociology, psychology, and political science. These courses aim to broaden students' understanding of societal structures, human behavior, and the intricacies of social dynamics.`,
 
   prereqs: null,
@@ -488,9 +499,10 @@ export const GenEdSocialScience2000 = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const GenEdArt = new CategoryCourse({
-  name: "General Education: Art",
+  name: "Gen Ed: Art",
   description: `This category offers students a journey into the world of visual and performing arts. Whether it's studying the history of art, engaging in hands-on artistic creation, or appreciating the nuances of music and theater, courses under this category aim to foster creativity and an appreciation for diverse artistic expressions.`,
 
   prereqs: null,
@@ -499,9 +511,10 @@ export const GenEdArt = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const GenEdHumEnglOrHnrs = new CategoryCourse({
-  name: "General Education: Humanities, ENGL, or 2000+",
+  name: "Gen Ed: Humanities, ENGL, or 2000+",
   description: `This diverse category provides students with courses that delve into the humanities, including literature, philosophy, history, and more. Whether exploring classic English literature, delving into global philosophical discussions, or studying advanced topics in the humanities, students are encouraged to think critically and engage with diverse cultural and historical perspectives.`,
 
   prereqs: null,
@@ -510,9 +523,10 @@ export const GenEdHumEnglOrHnrs = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const GenEdHum = new CategoryCourse({
-  name: "General Education: Humanities",
+  name: "Gen Ed: Humanities",
   description: `This category focuses exclusively on the humanities, offering courses that study human culture and thought. Topics might range from ancient civilizations to contemporary global issues, emphasizing critical thinking, analysis, and the exploration of human experiences across time and space.`,
 
   prereqs: null,
@@ -521,9 +535,10 @@ export const GenEdHum = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const GenEdHumCMST = new CategoryCourse({
-  name: "General Education: Humanities CMST",
+  name: "Gen Ed: Humanities CMST",
   description: `Under this category, students explore courses related to Communication Studies (CMST) within the broader realm of humanities. These courses delve into topics such as interpersonal communication, rhetoric, media studies, and public speaking. Students will gain insights into the nuances of communication, its impact on society, and its role in shaping human interactions.`,
 
   prereqs: null,
@@ -532,6 +547,7 @@ export const GenEdHumCMST = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const PhysicalScienceSequence1 = new CategoryCourse({
   name: "Physical Sci Requirement",
@@ -543,6 +559,7 @@ export const PhysicalScienceSequence1 = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const PhysicalScienceSequence2 = new CategoryCourse({
   name: "Science Sequence II Requirement",
@@ -554,6 +571,7 @@ export const PhysicalScienceSequence2 = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 3,
 });
 export const PhysicalScienceSequence1Lab = new CategoryCourse({
   name: "Science Seq I Lab",
@@ -565,6 +583,7 @@ export const PhysicalScienceSequence1Lab = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 1,
 });
 export const PhysicalScienceSequence2Lab = new CategoryCourse({
   name: "Science Seq II Lab",
@@ -576,6 +595,7 @@ export const PhysicalScienceSequence2Lab = new CategoryCourse({
   section: null,
   options: [],
   optionTaken: null,
+  credits: 1,
 });
 
 export const SWEDegreeRequirements: Course[] = [

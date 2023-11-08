@@ -1,13 +1,8 @@
 import { Node } from "react-flow-renderer";
-import { COURSE_STATUS_COLORS, darkenColor } from "../flowchart.utils";
+import { darkenColor } from "../flowchart.utils";
 import styles from "./coursenode.module.scss";
 import { useMemo } from "react";
-import {
-  CategoryCourse,
-  CoreCourse,
-  Course,
-} from "../../../../../models/course";
-import { Label } from "@mui/icons-material";
+import { Course } from "../../../../../models/course";
 import { useDispatch, useSelector } from "react-redux";
 import { setSelectedCourseNode } from "../../../../../store/Degree/degree-slice";
 import { AppState } from "../../../../../store/store";
@@ -25,14 +20,20 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
   data,
 }: CourseNodeProps) => {
   const dispatch = useDispatch();
-  const { label, course } = data;
+  const { course } = data;
   const $completedCourses = useSelector(
     (state: AppState) => state.student.completedCourses,
+  );
+  const $coursesToSchedule = useSelector(
+    (state: AppState) => state.semester.coursesToSchedule,
+  );
+  const $scheduledSections = useSelector(
+    (state: AppState) => state.semester.scheduledSections,
   );
 
   const borderColor: string = useMemo(() => {
     return getCourseBorderColor(course);
-  }, [$completedCourses]);
+  }, [$completedCourses, $coursesToSchedule, $scheduledSections]);
 
   const handleNodeClick = (): void => {
     // Will need to check for availability to click

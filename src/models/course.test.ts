@@ -98,6 +98,7 @@ test("Create CatagoryCourse Object", () => {
     section: null,
     options: options,
     optionTaken: null,
+    credits: 3,
   });
 
   expect(test.code).toBe(-1);

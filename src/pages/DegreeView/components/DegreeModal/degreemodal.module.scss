@@ -72,3 +72,14 @@
   max-height: 63vh;
   overflow-y: scroll;
 }
+
+.modalDialogCustom {
+  display: flex !important;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.modalContentCustom {
+  max-height: 90vh;
+  overflow-y: auto;
+}

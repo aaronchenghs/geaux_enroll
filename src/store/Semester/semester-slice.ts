@@ -117,10 +117,6 @@ const semester_slice = createSlice({
     },
     selectCourse(state, action: PayloadAction<Course>) {
       // Create backtrail to parent CategoryCourse
-      console.log(
-        state.selectedProps.course instanceof CategoryCourse,
-        "Instance of CatagoryCourse?",
-      );
       if (state.selectedProps.course instanceof CategoryCourse) {
         if (state.selectedProps.parent != null) {
           throw new Error(

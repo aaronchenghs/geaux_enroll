@@ -45,7 +45,7 @@ const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
             className={styles.progressBarSegment}
             style={
               {
-                flexBasis: `${0.75 + (segment.value / max) * 100}%`,
+                flexBasis: `${(segment.value / max) * 100}%`,
                 backgroundColor: segment.color,
                 "--darkenedColor": darkenColor(segment.color, 30),
               } as React.CSSProperties

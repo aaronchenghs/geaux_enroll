@@ -22,7 +22,6 @@ export type ModalProps = {
 const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   const dispatch = useDispatch();
 
-  const $view = useSelector((state: AppState) => state.app.view);
   const $coursesToSchedule = useSelector(
     (state: AppState) => state.semester.coursesToSchedule,
   );
@@ -126,7 +125,6 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
       })
     : [];
 
-  const addButtonDisabled = isCategory && !chosenOption;
   const renderCloseButton = (
     <Button variant="secondary" onClick={handleClose}>
       Close
@@ -159,40 +157,47 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const renderScheduleButton = (
-    <Button variant="primary" onClick={handleAdd} disabled={addButtonDisabled}>
+    <Button variant="primary" onClick={handleAdd}>
       Schedule
     </Button>
   );
 
   const renderRemoveButton = (
-    <Button
-      variant="danger"
-      onClick={handleRemove}
-      disabled={addButtonDisabled}
-    >
+    <Button variant="danger" onClick={handleRemove}>
       Remove
     </Button>
   );
 
   return (
     <>
-      <Modal show={openCondition} onHide={handleClose}>
+      <Modal
+        show={openCondition}
+        onHide={handleClose}
+        dialogClassName={styles.modalDialogCustom}
+        contentClassName={styles.modalContentCustom}
+      >
         <Modal.Header closeButton>
           <Modal.Title>
             {$selectedCourseNode?.name}
             <div className="text-muted small">
               Hours:{" "}
               {$selectedCourseNode?.credits === -1
-                ? "---"
+                ? chosenOption
+                  ? chosenOption.credits
+                  : "---"
                 : $selectedCourseNode?.credits}
             </div>
           </Modal.Title>
         </Modal.Header>
         <div className={styles.mainContent}>
-          <Modal.Body>{$selectedCourseNode?.description}</Modal.Body>
+          <Modal.Body>
+            {chosenOption
+              ? chosenOption.description
+              : $selectedCourseNode?.description}
+          </Modal.Body>
           {isCategory && (
             <Modal.Body>
-              <strong>Select a Course</strong>
+              <strong>View Course Selections Information</strong>
               <hr className={styles.divider} />{" "}
               <div className={styles.filtersContainer}>
                 <div className={styles.filterGroup}>

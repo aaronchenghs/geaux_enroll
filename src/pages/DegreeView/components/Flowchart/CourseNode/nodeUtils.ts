@@ -3,21 +3,46 @@ import {
   CoreCourse,
   Course,
 } from "../../../../../models/course";
+import store from "../../../../../store/store";
 import { COURSE_STATUS_COLORS } from "../flowchart.utils";
 
 export const getCourseBorderColor = (course: Course): string => {
-  if (course instanceof CoreCourse) {
-    if (!course.hasPrereqs()) {
-      return COURSE_STATUS_COLORS.CAN_SCHEDULE;
-    }
+  // Get the entire state once and destructure it to get the needed parts.
+  const { semester, student } = store.getState();
+  const { coursesToSchedule, scheduledSections } = semester;
+  const { completedCourses } = student;
+
+  // check TO BE SCHEDULED
+  if (
+    coursesToSchedule.some((courseToSchedule) =>
+      courseToSchedule.equals(course),
+    )
+  ) {
+    return COURSE_STATUS_COLORS.TOBE_SCHEDULED;
   }
-  if (course instanceof CategoryCourse) {
-    if (course.options.some((option) => !option.hasPrereqs()))
-      return COURSE_STATUS_COLORS.CAN_SCHEDULE;
+
+  // check COMPLETED
+  if (
+    completedCourses.some((completedCourse) => completedCourse.equals(course))
+  ) {
+    return COURSE_STATUS_COLORS.COMPLETED;
   }
-  if (course instanceof Course) {
+
+  // check IN PROGRESS
+  if (scheduledSections.some((section) => section.course.equals(course))) {
+    return COURSE_STATUS_COLORS.IN_PROGRESS;
   }
-  // add logic to determine border color
-  // by comparing course to student's completed courses
+
+  // Check CAN SCHEDULE (for CoreCourse or CategoryCourse with no prerequisites)
+  if (
+    (course instanceof CoreCourse && !course.hasPrereqs()) ||
+    (course instanceof CategoryCourse &&
+      course.options.some((option) => !option.hasPrereqs())) ||
+    completedCourses.some((completedCourse) => completedCourse.equals(course))
+  ) {
+    return COURSE_STATUS_COLORS.CAN_SCHEDULE;
+  }
+
+  // If none of the above, the course CANNOT be scheduled
   return COURSE_STATUS_COLORS.CANNOT_SCHEDULE;
 };
