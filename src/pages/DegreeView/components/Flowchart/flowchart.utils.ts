@@ -1,4 +1,4 @@
-import { XYPosition } from "react-flow-renderer";
+import { Edge, XYPosition } from "react-flow-renderer";
 import { Course } from "../../../../models/course";
 import { Degree } from "../../../../models/degree";
 import { CourseNodeProps } from "./CourseNode/coursenode.component";
@@ -78,4 +78,42 @@ export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
   );
 
   return [...courseNodes];
+};
+
+// This assumes you have a Map of course codes to node IDs
+const courseToNodeIdMap = new Map<string, string>();
+
+export const buildEdges = (courses: Course[]): Edge[] => {
+  const edges: Edge[] = [];
+  courses.forEach((course) => {
+    const node = buildCourseNode(course, { x: 0, y: 0 }); // You need to define the actual positions here
+    courseToNodeIdMap.set(course.courseAbreviation, node.id);
+  });
+
+  courses.forEach((course) => {
+    const targetId = courseToNodeIdMap.get(course.courseAbreviation);
+
+    // Make sure we have a valid target ID
+    if (!targetId) {
+      throw new Error(`No node ID found for course: ${course.name}`);
+    }
+
+    course.prereqs.forEach((prerequisite) => {
+      const sourceId = courseToNodeIdMap.get(prerequisite.courseAbreviation);
+
+      // Make sure we have a valid source ID
+      if (sourceId) {
+        const edge: Edge = {
+          id: `e${sourceId}-${targetId}`,
+          source: sourceId,
+          target: targetId,
+          animated: true, // This is optional for visual effect
+          // You can also add a label or other properties as needed
+        };
+        edges.push(edge);
+      }
+    });
+  });
+
+  return edges;
 };
