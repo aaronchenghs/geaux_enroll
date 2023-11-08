@@ -23,7 +23,11 @@ import {
 import {
   DAYS_IN_LIST,
   WeeklySchedule,
+  hrtsToString,
 } from "../../../../../models/weeklySchedule";
+
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 
 export const SectionList = (): JSX.Element => {
   // const state = useSelector((state: AppState) => state.semester);
@@ -85,13 +89,15 @@ export const SectionList = (): JSX.Element => {
       };
 
       const dayTiles: ReactNode[] = section.schedule.days.map(
-        (schedule, index) => {
-          if (schedule != null)
+        (timeslot, index) => {
+          if (timeslot != null)
             return (
               <p
                 key={index}
                 className={styles.day}
                 style={{ backgroundColor: DAYS_IN_LIST[index].color }}
+                data-tooltip-id="time-hr"
+                data-tooltip-content={hrtsToString(timeslot.readable)}
               >
                 {DAYS_IN_LIST[index].shortName}
               </p>
@@ -124,7 +130,10 @@ export const SectionList = (): JSX.Element => {
                   </p>
                 </div>
 
-                <div className={styles.days_container}>{dayTiles}</div>
+                <div className={styles.days_container}>
+                  <Tooltip id="time-hr" />
+                  {dayTiles}
+                </div>
               </div>
 
               <div className={styles.row}>
