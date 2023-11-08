@@ -65,6 +65,12 @@ const ScheduleTopBarContent = (): JSX.Element => {
     ];
   });
 
+  const maxHours: number = useSelector((state: AppState) => {
+    return state.semester.coursesToSchedule.reduce((a, course) => {
+      return a + course.credits;
+    }, 0);
+  });
+
   return (
     <div className={styles.row}>
       <h2 className={styles.semester}>
@@ -72,7 +78,7 @@ const ScheduleTopBarContent = (): JSX.Element => {
         <span className={styles.light}>Scheduling: </span> Fall 2023
       </h2>
       <div className={styles.progress_container}>
-        <SegmentedProgressBar segments={segments} max={25} />
+        <SegmentedProgressBar segments={segments} max={maxHours} />
       </div>
       <div className={styles.rating_container}>
         {/* <Star className={styles.star} style={{ fontSize: "48px" }}></Star> */}
