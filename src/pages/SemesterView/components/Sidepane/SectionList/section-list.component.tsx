@@ -72,7 +72,7 @@ export const SectionList = (): JSX.Element => {
       const isScheduled =
         selectedCourseProps.course?.section?.number == section.number;
       const doesCollide = WeeklySchedule.doCollide(schedule, section.schedule);
-      const sectionFull = selectedCourseProps.course?.section?.isFull;
+      const sectionFull = section.isFull;
       let onClick;
 
       // If its already added or can't be added, clicking should do nothing
@@ -109,7 +109,7 @@ export const SectionList = (): JSX.Element => {
         },
       );
 
-      const isDisabled = !isScheduled && (doesCollide || sectionFull);
+      const isDisabled = doesCollide || sectionFull;
 
       // Section Button
       return (

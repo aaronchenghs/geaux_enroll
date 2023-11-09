@@ -26,7 +26,7 @@ export function getCurrentSections(course: Course): Section[] {
   // Seed randomness with the course name, so sections are always the same
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const seedrandom = require("seedrandom");
-  const seed = "123";
+  const seed = "1234";
   const rng = seedrandom(course.courseAbreviation + seed);
 
   if (course instanceof CategoryCourse)
