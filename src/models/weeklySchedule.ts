@@ -151,11 +151,21 @@ export interface HumanReadableTimeSlot {
   endMin: number;
 }
 
+function hourMinToString(hour: number, min: number): string {
+  if (hour > 12) {
+    return `${hour - 12}:${min < 10 ? "0" + min : min} pm`;
+  }
+  return `${hour}:${min < 10 ? "0" + min : min}`;
+}
+
 export function hrtsToString(hrts: HumanReadableTimeSlot | null): string {
   if (hrts == null) return "N/A";
-  return `${hrts.startHour}:${hrts.startMin}${hrts.startMin == 0 ? "0" : ""}-${
-    hrts.endHour
-  }:${hrts.endMin}${hrts.endMin == 0 ? "0" : ""}`;
+
+  return (
+    hourMinToString(hrts.startHour, hrts.startMin) +
+    "-" +
+    hourMinToString(hrts.endHour, hrts.endMin)
+  );
 }
 // Non-Mutable class, dont modify it after creation because who knows where it is referenced
 export class TimeSlot {
