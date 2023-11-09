@@ -9,6 +9,10 @@ import {
   ScheduledSection,
   ScheduledSectionProps,
 } from "./ScheduledSection/ScheduledSection";
+import {
+  HoveredSection,
+  HoveredSectionProps,
+} from "./ScheduledSection/HoveredSection";
 import { selectCourse } from "../../../../store/Semester/semester-slice";
 import { CategoryCourse, Course, Department } from "../../../../models/course";
 import { Section } from "../../../../models/section";
@@ -23,6 +27,35 @@ function readableToRowIndex(hour: number, min: number): number {
 
 export const WeekChart = (): JSX.Element => {
   const dispatch = useDispatch();
+
+  const hoveredProps: HoveredSectionProps[] = useSelector((state: AppState) => {
+    const tempProps: HoveredSectionProps[] = [];
+
+    state.semester.hoveredSection?.schedule.days.forEach((day, i) => {
+      if (day != null) {
+        tempProps.push({
+          key: state.semester.hoveredSection?.name + "-" + i,
+          courseName:
+            state.semester.hoveredSection == null
+              ? " "
+              : state.semester.hoveredSection.course.courseAbreviation,
+          rowStart: readableToRowIndex(
+            day.readable!.startHour,
+            day.readable!.startMin,
+          ),
+          rowEnd: readableToRowIndex(
+            day.readable!.endHour,
+            day.readable!.endMin,
+          ),
+          colStart: i + 1,
+          colEnd: i + 1,
+          onClick: (): void => {},
+          children: "???",
+        });
+      }
+    });
+    return tempProps;
+  });
 
   const timeslotProps: ScheduledSectionProps[] = useSelector(
     (state: AppState) => {
@@ -93,7 +126,21 @@ export const WeekChart = (): JSX.Element => {
           <div className={styles.timeColumn}>8:00</div>
         </div>
         <div className={styles.gridLayerer}>
-          <div className={styles.grid}></div>
+          <div className={styles.grid}>
+            {hoveredProps.map((timeslot) => (
+              <HoveredSection
+                key={timeslot.key}
+                courseName={timeslot.courseName}
+                rowStart={timeslot.rowStart}
+                rowEnd={timeslot.rowEnd}
+                colStart={timeslot.colStart}
+                colEnd={timeslot.colEnd}
+                onClick={(): unknown => 5 + 5}
+              >
+                {timeslot.courseName}
+              </HoveredSection>
+            ))}
+          </div>
           <div className={styles.grid}>
             {timeslotProps.map((timeslot) => (
               <ScheduledSection
