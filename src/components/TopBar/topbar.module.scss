@@ -47,7 +47,8 @@
     background-color: var(--backgroundColor);
     color: var(--primaryColor);
 
-    height: 90%;
+    height: 88%;
+    aspect-ratio: 22 / 20;
 
     &:hover {
       background-color: var(--primaryColor);
