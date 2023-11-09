@@ -22,6 +22,10 @@ export class Section {
   get name(): string {
     return this.course.courseAbreviation + "-" + this.number;
   }
+
+  get isFull(): boolean {
+    return this.enrollmentCount >= this.enrollmentLimit;
+  }
 }
 
 export interface Instructor {

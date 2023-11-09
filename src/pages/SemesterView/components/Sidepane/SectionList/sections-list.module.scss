@@ -117,7 +117,19 @@
     }
 
     Button.disabled{
-        border: 3px dashed var(--surfaceColor);
+        border: 6px dotted var(--surfaceColor);
+
+        &:hover {
+            background-color: var(--primaryDisabled);
+            border-color: var(--surfaceColor);
+            color: var(--primaryColor);
+        }
+
+        &:active {
+            background-color: var(--primaryDisabled);
+            border-color: var(--surfaceColor);
+            color: var(--primaryColor);
+        }
     }
 
     

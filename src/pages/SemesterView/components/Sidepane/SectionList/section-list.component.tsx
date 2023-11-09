@@ -72,10 +72,11 @@ export const SectionList = (): JSX.Element => {
       const isScheduled =
         selectedCourseProps.course?.section?.number == section.number;
       const doesCollide = WeeklySchedule.doCollide(schedule, section.schedule);
+      const sectionFull = selectedCourseProps.course?.section?.isFull;
       let onClick;
 
       // If its already added or can't be added, clicking should do nothing
-      if (isScheduled || doesCollide) {
+      if (isScheduled || doesCollide || sectionFull) {
         onClick = (): void => {};
       } else {
         onClick = (): void => {
@@ -108,17 +109,23 @@ export const SectionList = (): JSX.Element => {
         },
       );
 
+      const isDisabled = !isScheduled && (doesCollide || sectionFull);
+
       // Section Button
       return (
         <React.Fragment key={section.number}>
           <Button
             className={`${styles.navButton} ${
               isScheduled ? styles.scheduled : ""
-            } ${!isScheduled && doesCollide ? styles.disabled : ""}`}
+            } ${isDisabled ? styles.disabled : ""}`}
             onClick={onClick}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
-            disabled={!isScheduled && doesCollide}
+            // centerRipple={!(!isScheduled && (doesCollide || sectionFull))}
+            disableRipple={isDisabled}
+            // disabled={!isScheduled && doesCollide}
+
+            // ={!isScheduled && doesCollide && sectionFull}
           >
             <div className={styles.major_row}>
               <p className={styles.num}>{section.number}</p>

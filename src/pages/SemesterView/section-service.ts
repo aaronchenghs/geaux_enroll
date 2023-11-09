@@ -26,12 +26,13 @@ export function getCurrentSections(course: Course): Section[] {
   // Seed randomness with the course name, so sections are always the same
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const seedrandom = require("seedrandom");
-  const rng = seedrandom(course.courseAbreviation);
+  const seed = "123";
+  const rng = seedrandom(course.courseAbreviation + seed);
 
   if (course instanceof CategoryCourse)
     throw new Error("Catagory Courses don't have sections...");
 
-  const numSections = Math.floor((rng() / 2) * 8) + 2;
+  const numSections = Math.floor(rng() * 3) + 1;
 
   const currentSemester = Session.FALL;
 
@@ -125,13 +126,13 @@ const instructorList: Instructor[] = [
     id: "1",
     email: "pfranz@geauxenroll.com",
     name: "Peter Franz",
-    rating: 1.0,
+    rating: 3.0,
   },
   {
     id: "2",
     email: "acheng@geauxenroll.com",
     name: "Aaron Cheng",
-    rating: 3.0,
+    rating: 3.5,
   },
   {
     id: "3",
@@ -153,33 +154,33 @@ const instructorList: Instructor[] = [
   },
   {
     id: "6",
-    email: "ttl@geauxenroll.com",
-    name: "Talk Too Loud",
+    email: "dr.vvenom@malevolentuni.edu",
+    name: "Vincent Venom",
     rating: 1.25,
   },
   {
     id: "7",
-    email: "evil.jeff@geauxenroll.com",
-    name: "Evil Jeff",
-    rating: 2.25,
+    email: "dr.ddark@nefariouscollege.edu",
+    name: "Damien Dark",
+    rating: 2.0,
   },
   {
     id: "8",
     email: "cat@geauxenroll.com",
-    name: "Sentient Cat",
+    name: "A Talking Cat",
     rating: 5.0,
   },
   {
     id: "9",
-    email: "late@geauxenroll.com",
-    name: "Slowbrown Eldric",
-    rating: 0.5,
+    email: "prof.bmortem@shadowcollege.edu",
+    name: "Ben Bore'em",
+    rating: 0.75,
   },
   {
     id: "10",
-    email: "late@geauxenroll.com",
-    name: "Virgil",
-    rating: 3.25,
+    name: "Alexander Nox",
+    email: "dr.anox@diabolicalu.edu",
+    rating: 2.3,
   },
 ];
 
