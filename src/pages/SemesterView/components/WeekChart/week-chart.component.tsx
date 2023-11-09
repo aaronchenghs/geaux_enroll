@@ -18,7 +18,7 @@ import { DAYS_IN_LIST, Days } from "../../../../models/weeklySchedule";
 const startHour = 7;
 
 function readableToRowIndex(hour: number, min: number): number {
-  return (hour - startHour) * 4 + Math.round(min / 15);
+  return (hour - startHour) * 4 + Math.round(min / 15) + 1;
 }
 
 export const WeekChart = (): JSX.Element => {
