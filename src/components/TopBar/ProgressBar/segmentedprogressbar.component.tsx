@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./segmentedprogressbar.module.scss";
 import { darkenColor } from "../../../pages/DegreeView/components/Flowchart/flowchart.utils";
 import ToolTip from "../../ToolTip/ToolTip.component";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../store/store";
 
 export interface segment {
   id: string;
@@ -17,15 +19,33 @@ interface Props {
 }
 
 const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
+  const $degree = useSelector((state: AppState) => state.student.majors[0]);
+
   const [tooltip, setTooltip] = useState<string | null>(null);
   const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
     null,
   );
 
-  const showTooltip = (
+  const showBlankSegmentToolTip = (
+    e: React.MouseEvent<HTMLDivElement>,
+  ): void => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const hoursRemaining =
+      $degree.hours -
+      segments.reduce((acc, course) => acc + (course.value ?? 0), 0);
+    const message = `${hoursRemaining} credit hours remaining to complete ${$degree.concentration}`;
+
+    setTooltip(message);
+    setTooltipPos({ x: rect.x * 1.1, y: rect.bottom });
+  };
+
+  const showSegmentToolTip = (
     e: React.MouseEvent<HTMLDivElement>,
     segment: segment,
   ): void => {
+    e.stopPropagation();
     const rect = e.currentTarget.getBoundingClientRect();
     setTooltip(segment.tooltip);
     setTooltipPos({ x: rect.x - 4, y: rect.bottom });
@@ -38,7 +58,11 @@ const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
 
   return (
     <>
-      <div className={styles.progressBarContainer}>
+      <div
+        className={styles.progressBarContainer}
+        onMouseOver={(e): void => showBlankSegmentToolTip(e)}
+        onMouseOut={hideTooltip}
+      >
         {segments.map((segment, index) => (
           <div
             key={index}
@@ -50,7 +74,7 @@ const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
                 "--darkenedColor": darkenColor(segment.color, 30),
               } as React.CSSProperties
             }
-            onMouseOver={(e): void => showTooltip(e, segment)}
+            onMouseOver={(e): void => showSegmentToolTip(e, segment)}
             onMouseOut={hideTooltip}
           ></div>
         ))}
