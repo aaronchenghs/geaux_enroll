@@ -30,6 +30,7 @@ import {
 
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { Header } from "../Header/header.component";
 
 export const SectionList = (): JSX.Element => {
   // const state = useSelector((state: AppState) => state.semester);
@@ -189,24 +190,14 @@ export const SectionList = (): JSX.Element => {
   }
 
   const header: JSX.Element = (
-    <div className={styles.header}>
-      <div className={styles.back_container}>
-        <Button
-          className={styles.back}
-          onClick={(): unknown => dispatch(returnFromCurrentSelection())}
-        >
-          <ArrowBack />
-        </Button>
-      </div>
-      <div className={styles.text_container}>
-        <p> Sections of: </p>
-        <h2 className={styles.title}>
-          {selectedCourseProps.course?.department +
-            " " +
-            selectedCourseProps.course?.code}
-        </h2>
-      </div>
-    </div>
+    <Header
+      pretitle="Sections of: "
+      title={
+        selectedCourseProps.course?.department +
+        " " +
+        selectedCourseProps.course?.code
+      }
+    ></Header>
   );
 
   return (

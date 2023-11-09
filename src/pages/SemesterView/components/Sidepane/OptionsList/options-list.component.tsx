@@ -13,6 +13,7 @@ import {
 import styles from "./options-list.module.scss";
 import { CategoryCourse } from "../../../../../models/course";
 import { CourseTile } from "../CourseTile/course-tile.components";
+import { Header } from "../Header/header.component";
 
 export const OptionList = (): JSX.Element => {
   const selected: CategoryCourse = useSelector(
@@ -22,22 +23,25 @@ export const OptionList = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const renderedCourses: ReactNode[] = selected.options.map(
-    (course): ReactNode => {
-      return <CourseTile key={course.name} course={course}></CourseTile>;
+    (course, index): ReactNode => {
+      const orTag = index != 0 ? <p> — OR — </p> : null;
+      return (
+        <div key={course.name}>
+          {orTag}
+          <CourseTile key={course.name} course={course}></CourseTile>
+        </div>
+      );
     },
+  );
+
+  const header: JSX.Element = (
+    <Header pretitle="Options for:" title={selected.name} />
   );
 
   return (
     <div className={styles.OptionsList}>
-      <h2 className={styles.title}>Options for {selected.courseAbreviation}</h2>
       <div className={styles.center}>
-        {" "}
-        <Button
-          className={styles.back}
-          onClick={(): unknown => dispatch(returnFromCurrentSelection())}
-        >
-          <h3>{"Go Back"}</h3>
-        </Button>
+        {header}
         {renderedCourses}
       </div>
     </div>

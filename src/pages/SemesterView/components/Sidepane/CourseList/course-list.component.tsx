@@ -24,7 +24,6 @@ export const CourseList = (): JSX.Element => {
 
   return (
     <div className={styles.CourseList}>
-      <br></br>
       {/* <h2> Courses:</h2> */}
       <div className={styles.center}>{renderedCourses}</div>
     </div>
