@@ -311,6 +311,10 @@ export enum Department {
   MUS = "MUS",
   EE = "EE",
   ISDS = "ISDS",
+  BE = "BE",
+  CE = "CE",
+  GEOG = "GEOG",
+  GEOL = "GEOL"
 }
 
 export enum CourseType {
