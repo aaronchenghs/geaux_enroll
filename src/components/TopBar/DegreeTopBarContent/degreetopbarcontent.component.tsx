@@ -84,6 +84,7 @@ const DegreeTopBarContent = (): JSX.Element => {
               toBeScheduledSegment,
             ]}
             max={$degreeHours}
+            isBlankTooltipEnabled={true}
           />
         </div>
       </div>

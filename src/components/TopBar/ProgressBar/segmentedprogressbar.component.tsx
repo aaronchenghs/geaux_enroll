@@ -16,9 +16,14 @@ export interface segment {
 interface Props {
   segments: segment[];
   max: number; // TODO: This parameter does nothing, but probably should
+  isBlankTooltipEnabled: boolean;
 }
 
-const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
+const SegmentedProgressBar = ({
+  segments,
+  max,
+  isBlankTooltipEnabled = true,
+}: Props): JSX.Element => {
   const $degree = useSelector((state: AppState) => state.student.majors[0]);
 
   const [tooltip, setTooltip] = useState<string | null>(null);
@@ -60,7 +65,11 @@ const SegmentedProgressBar = ({ segments, max }: Props): JSX.Element => {
     <>
       <div
         className={styles.progressBarContainer}
-        onMouseOver={(e): void => showBlankSegmentToolTip(e)}
+        onMouseOver={
+          isBlankTooltipEnabled
+            ? (e): void => showBlankSegmentToolTip(e)
+            : (e): void => {}
+        }
         onMouseOut={hideTooltip}
       >
         {segments.map((segment, index) => (

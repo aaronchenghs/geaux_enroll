@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AaronCheng_INITIAL } from "../../models/student";
+import { DEFAULT_INITAL_STUDENT } from "../../models/student";
 
 const slice = createSlice({
   name: "student",
-  initialState: AaronCheng_INITIAL,
+  initialState: DEFAULT_INITAL_STUDENT,
   reducers: {
     changeName(state, action: PayloadAction<string>) {
       state.firstName = action.payload;
