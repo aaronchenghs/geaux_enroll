@@ -9,12 +9,16 @@
   border-radius: 5px;
   border: 3px solid var(--initialBorderColor, black);
   cursor: pointer;
-  width: 10vw;
-  height: 5vw;
+  width: 11vw;
+  height: 6vw;
 
   font-size: 1px !important;
 
   &:hover {
     border-color: var(--darkenedColor, black);
+  }
+
+  h4{
+    text-align: center;
   }
 }

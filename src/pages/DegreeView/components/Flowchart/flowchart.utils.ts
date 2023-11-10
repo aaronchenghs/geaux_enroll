@@ -15,7 +15,7 @@ export const buildCourseNode = (
     id: v4(),
     type: "course",
     data: {
-      label: "Course Name",
+      label: course.name,
       course,
     },
     // Need to write some logic to determine node position maybe
@@ -80,39 +80,26 @@ export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
   return [...courseNodes];
 };
 
-// This assumes you have a Map of course codes to node IDs
-const courseToNodeIdMap = new Map<string, string>();
-
-export const buildEdges = (courses: Course[]): Edge[] => {
+export const buildEdges = (courseNodes: CourseNodeProps[]): Edge[] => {
   const edges: Edge[] = [];
-  courses.forEach((course) => {
-    const node = buildCourseNode(course, { x: 0, y: 0 }); // You need to define the actual positions here
-    courseToNodeIdMap.set(course.courseAbreviation, node.id);
-  });
 
-  courses.forEach((course) => {
-    const targetId = courseToNodeIdMap.get(course.courseAbreviation);
+  courseNodes.forEach((node) => {
+    const course = node.data.course;
+    if (course.prereqs.length > 0) {
+      course.prereqs.forEach((prereq) => {
+        const sourceId =
+          courseNodes.find((node) => node.data.course.equals(prereq))?.id ?? "";
 
-    // Make sure we have a valid target ID
-    if (!targetId) {
-      throw new Error(`No node ID found for course: ${course.name}`);
-    }
-
-    course.prereqs.forEach((prerequisite) => {
-      const sourceId = courseToNodeIdMap.get(prerequisite.courseAbreviation);
-
-      // Make sure we have a valid source ID
-      if (sourceId) {
-        const edge: Edge = {
-          id: `e${sourceId}-${targetId}`,
+        edges.push({
+          type: "course",
+          id: sourceId + "-" + node.id,
           source: sourceId,
-          target: targetId,
-          animated: true, // This is optional for visual effect
-          // You can also add a label or other properties as needed
-        };
-        edges.push(edge);
-      }
-    });
+          sourceHandle: "outputHandle",
+          target: node.id,
+          targetHandle: "inputHandle",
+        });
+      });
+    }
   });
 
   return edges;

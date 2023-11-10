@@ -1,4 +1,4 @@
-import { Node } from "react-flow-renderer";
+import { Handle, Node, Position } from "react-flow-renderer";
 import { darkenColor } from "../flowchart.utils";
 import styles from "./coursenode.module.scss";
 import { useMemo } from "react";
@@ -53,6 +53,10 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
       }
     >
       <h4>{course.name}</h4>
+      <Handle type="source" position={Position.Right} id="outputHandle" />
+      {course.prereqs.length > 0 && (
+        <Handle type="target" position={Position.Left} id="inputHandle" />
+      )}
     </div>
   );
 };
