@@ -28,9 +28,12 @@ import {
   hrtsToString,
 } from "../../../../../models/weeklySchedule";
 
+import { defaultToastOptions } from "../../../../../models/toast";
+
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import { Header } from "../Header/header.component";
+import { toast } from "react-toastify";
 
 export const SectionList = (): JSX.Element => {
   // const state = useSelector((state: AppState) => state.semester);
@@ -76,8 +79,22 @@ export const SectionList = (): JSX.Element => {
       let onClick;
 
       // If its already added or can't be added, clicking should do nothing
-      if (isScheduled || doesCollide || sectionFull) {
+      if (isScheduled) {
         onClick = (): void => {};
+      } else if (doesCollide) {
+        onClick = (): void => {
+          toast.warning(`${section.name} conflicts with others.`, {
+            ...defaultToastOptions,
+            toastId: section.name,
+          });
+        };
+      } else if (sectionFull) {
+        onClick = (): void => {
+          toast.warn(`${section.name} is full.`, {
+            ...defaultToastOptions,
+            toastId: section.name,
+          });
+        };
       } else {
         onClick = (): void => {
           dispatch(addSection(section));

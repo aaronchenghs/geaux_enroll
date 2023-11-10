@@ -1,6 +1,6 @@
 import { ToastOptions } from "react-toastify";
 
-export const defaultToastSuccessOptions: ToastOptions = {
+export const defaultToastOptions: ToastOptions = {
   position: "bottom-center",
   autoClose: 2000,
   closeButton: false,

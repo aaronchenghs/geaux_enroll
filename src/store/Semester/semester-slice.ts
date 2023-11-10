@@ -17,7 +17,7 @@ import {
   MATH1550,
   TechElectiveA,
 } from "../../models/database/SWEDegree";
-import { defaultToastSuccessOptions } from "../../models/toast";
+import { defaultToastOptions } from "../../models/toast";
 
 interface SemesterState {
   coursesToSchedule: Course[];
@@ -93,7 +93,7 @@ const semester_slice = createSlice({
     addCourseToSchedule(state, action: PayloadAction<Course>) {
       toast.success(
         `${action.payload.name} scheduled - choose a section`,
-        defaultToastSuccessOptions,
+        defaultToastOptions,
       );
       state.coursesToSchedule = [...state.coursesToSchedule, action.payload];
     },
@@ -200,10 +200,10 @@ const semester_slice = createSlice({
       );
 
       // There must be a <ToastContainer> on the papge to see this
-      toast.success(
-        `${action.payload.name} successfully added!`,
-        defaultToastSuccessOptions,
-      );
+      toast.success(`${action.payload.name} successfully added!`, {
+        ...defaultToastOptions,
+        toastId: action.payload.name,
+      });
     },
     removeSection(state, action: PayloadAction<Section>) {
       const indexToRemove = state.scheduledSections.indexOf(action.payload);
