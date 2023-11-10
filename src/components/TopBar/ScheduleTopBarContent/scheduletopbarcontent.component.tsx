@@ -78,7 +78,11 @@ const ScheduleTopBarContent = (): JSX.Element => {
         <span className={styles.light}>Scheduling: </span> Fall 2023
       </h2>
       <div className={styles.progress_container}>
-        <SegmentedProgressBar segments={segments} max={maxHours} />
+        <SegmentedProgressBar
+          segments={segments}
+          max={maxHours}
+          isBlankTooltipEnabled={false}
+        />
       </div>
       <div className={styles.rating_container}>
         {/* <Star className={styles.star} style={{ fontSize: "48px" }}></Star> */}
