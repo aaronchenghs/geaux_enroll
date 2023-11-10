@@ -16,11 +16,11 @@ export interface Student {
   completedCourses: Course[];
 }
 
-export const AaronCheng_INITIAL: Student = {
+export const DEFAULT_INITAL_STUDENT: Student = {
   id: v4(),
-  firstName: "Aaron",
-  middleName: "Raphael",
-  lastName: "Cheng",
+  firstName: "Mike",
+  middleName: "The",
+  lastName: "Tiger",
 
   majors: [SoftwareEngineeringDegree],
   minors: [],

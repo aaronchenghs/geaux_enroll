@@ -11,14 +11,14 @@ const BottomBar = (): JSX.Element => {
   return (
     <Fragment>
       <div className={styles.BottomBar}>
+        <IconButton className={styles.profileButton}>
+          <AccountBox />
+        </IconButton>
         <h2 className={styles.name}>
           {$student.firstName}{" "}
           {$student.middleName ? $student.middleName[0] : ""}{" "}
           {$student.lastName}{" "}
         </h2>
-        <IconButton className={styles.profileButton}>
-          <AccountBox />
-        </IconButton>
       </div>
     </Fragment>
   );
