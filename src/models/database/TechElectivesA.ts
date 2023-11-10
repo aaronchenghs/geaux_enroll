@@ -2,7 +2,7 @@ import { Course, Department } from "../course";
 
 // GROUP A ELECTIVES
 
-  export const EE2120 = new Course({
+export const EE2120 = new Course({
     name: "Circuits I",
     code: 2120,
     department: Department.EE,
@@ -545,6 +545,17 @@ export const ISDS3105 = new Course({
     credits: 3,
 });
 
+export const ISDS3120 = new Course({
+    name: "Management of the IT Function",
+    code: 3120,
+    department: Department.ISDS,
+    description: `This course focuses on the strategic and operational management of the information technology (IT) function in organizations. It covers topics such as IT governance, project management, resource allocation, and the alignment of IT with business strategies.`,
+    prereqs: [],
+    grade: null,
+    section: null,
+    credits: 3,
+});
+
 export const ISDS4010 = new Course({
     name: "Predictive Modeling and Optimization",
     code: 4010,
@@ -732,3 +743,71 @@ export const ISDS4244 = new Course({
     credits: 3,
 });
 
+export const TechElectivesA: Course[] = [
+    EE2120,
+    EE2130,
+    EE2230,
+    EE2231,
+    EE2741,
+    EE2742,
+    EE2810,
+    EE2950,
+    BE2350,
+    BE2352,
+    CHE2171,
+    CHE2172,
+    CHE2176,
+    IE2060,
+    IE2400,
+    MATH2020,
+    MATH2025,
+    MATH2030,
+    MATH2057,
+    MATH2058,
+    MATH2060,
+    MATH2065,
+    MATH2070,
+    MATH2085,
+    MATH2090,
+    MATH2203,
+    MATH3002,
+    MATH3003,
+    MATH3050,
+    MATH3355,
+    MATH3903,
+    CE2200,
+    CE2250,
+    CE2450,
+    CE2451,
+    CE2460,
+    CE2461,
+    CE2700,
+    GEOG2010,
+    GEOG2080,
+    GEOL2001,
+    GEOL2002,
+    GEOL2020,
+    GEOL2061,
+    GEOL2081,
+    GEOL2900,
+    ISDS3100,
+    ISDS3105,
+    ISDS3120,
+    ISDS4010,
+    ISDS4070,
+    ISDS4111,
+    ISDS4112,
+    ISDS4113,
+    ISDS4117,
+    ISDS4118,
+    ISDS4119,
+    ISDS4120,
+    ISDS4123,
+    ISDS4125,
+    ISDS4130,
+    ISDS4141,
+    ISDS4160,
+    ISDS4168,
+    ISDS4180,
+    ISDS4244
+]

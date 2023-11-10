@@ -7,7 +7,8 @@ import {
 } from "../course";
 import { Degree } from "../degree";
 import { ApprovedElectives } from "./ApprovedElectives";
-import { ART2050, MUS2745, TechElectivesB } from "./TechElectivesB";
+import { TechElectivesB } from "./TechElectivesB";
+import { TechElectivesA } from "./TechElectivesA";
 
 export const CSC1350 = new CoreCourse({
   name: "Intro CS1 For Majors",
@@ -350,7 +351,7 @@ export const TechElectiveA = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [MUS2745, ART2050],
+  options: [...TechElectivesA],
   optionTaken: null,
   credits: 3,
 });
@@ -368,7 +369,7 @@ export const TechElectiveAorB = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [...TechElectivesB],
+  options: [...TechElectivesA, ...TechElectivesB],
   optionTaken: null,
   credits: 3,
 });
