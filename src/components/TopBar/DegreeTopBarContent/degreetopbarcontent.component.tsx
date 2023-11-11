@@ -7,6 +7,7 @@ import styles from "./degreetopbarcontent.module.scss";
 import { COURSE_STATUS_COLORS } from "../../../pages/DegreeView/components/Flowchart/flowchart.utils";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../store/store";
+import { Grade, School } from "@mui/icons-material";
 
 const DegreeTopBarContent = (): JSX.Element => {
   const $scheduledCourses = useSelector(
@@ -86,6 +87,7 @@ const DegreeTopBarContent = (): JSX.Element => {
             max={$degreeHours}
             isBlankTooltipEnabled={true}
           />
+          <School className={styles.schoolIcon} />
         </div>
       </div>
     </Fragment>

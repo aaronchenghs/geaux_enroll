@@ -12,6 +12,8 @@
   align-items: center;
   height: 100%;
   width: 30%;
+
+  gap: 7px;
 }
 h2.semester {
   margin: 0px;
@@ -26,4 +28,8 @@ h2.semester {
 .light {
   font-weight: lighter;
   color: fade-out($color: #f4f6f8, $amount: 0.5);
+}
+
+.schoolIcon {
+  color: fade-out($color: #f4f6f8, $amount: 0.1);
 }
