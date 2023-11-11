@@ -12,15 +12,6 @@ export const getCourseBorderColor = (course: Course): string => {
   const { coursesToSchedule, scheduledSections } = semester;
   const { completedCourses } = student;
 
-  // check TO BE SCHEDULED
-  if (
-    coursesToSchedule.some((courseToSchedule) =>
-      courseToSchedule.equals(course),
-    )
-  ) {
-    return COURSE_STATUS_COLORS.TOBE_SCHEDULED;
-  }
-
   // check COMPLETED
   if (
     completedCourses.some((completedCourse) => completedCourse.equals(course))
@@ -28,9 +19,17 @@ export const getCourseBorderColor = (course: Course): string => {
     return COURSE_STATUS_COLORS.COMPLETED;
   }
 
+  // check TO BE SCHEDULED
   // check IN PROGRESS
   if (scheduledSections.some((section) => section.course.equals(course))) {
     return COURSE_STATUS_COLORS.IN_PROGRESS;
+  }
+  if (
+    coursesToSchedule.some((courseToSchedule) =>
+      courseToSchedule.equals(course),
+    )
+  ) {
+    return COURSE_STATUS_COLORS.TOBE_SCHEDULED;
   }
 
   // Check CAN SCHEDULE (for CoreCourse or CategoryCourse with no prerequisites)
