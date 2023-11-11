@@ -50,7 +50,7 @@ const DegreeTopBarContent = (): JSX.Element => {
       label: "In Progress",
       color: COURSE_STATUS_COLORS.IN_PROGRESS,
       value: totalCredits,
-      tooltip: `${totalCredits} Hours to in progress.`,
+      tooltip: `${totalCredits} Hours in progress.`,
     };
   }, [$scheduledCourses]);
 
