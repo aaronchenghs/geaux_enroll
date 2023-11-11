@@ -1,8 +1,49 @@
 import { Edge, XYPosition } from "react-flow-renderer";
 import { Course } from "../../../../models/course";
 import { Degree } from "../../../../models/degree";
-import { CourseNodeProps } from "./CourseNode/coursenode.component";
+import CourseNode, { CourseNodeProps } from "./CourseNode/coursenode.component";
 import { v4 } from "uuid";
+import {
+  ApprovedElective1,
+  ApprovedElective2,
+  AreaElective2,
+  BIOL,
+  CSC1350,
+  CSC1351,
+  CSC2000Elective,
+  CSC2000ElectiveSeg,
+  CSC2259,
+  CSC2262,
+  CSC3000Elective,
+  CSC3102,
+  CSC3200,
+  CSC3380,
+  CSC3501,
+  CSC4000Elective,
+  CSC4101,
+  CSC4103,
+  CSC4330,
+  CSC4351,
+  CSC4402,
+  ENGL1001,
+  ENGL2000,
+  GenEdArt,
+  GenEdHum,
+  GenEdHumCMST,
+  GenEdHumEnglOrHnrs,
+  GenEdSocialScience,
+  GenEdSocialScience2000,
+  IE3302,
+  MATH1550,
+  MATH1552,
+  MATH2090,
+  PhysicalScienceSequence1,
+  PhysicalScienceSequence1Lab,
+  PhysicalScienceSequence2,
+  PhysicalScienceSequence2Lab,
+  TechElectiveA,
+  TechElectiveAorB,
+} from "../../../../models/database/SWEDegree";
 
 // Im gonna change this to just take in a course object
 // and all the logic will be done in here. Just gotta
@@ -57,25 +98,59 @@ export const darkenColor = (color: string, percent: number): string => {
 };
 
 export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
-  const { requirements } = degree;
+  const { requirements, rootCourses } = degree;
+  const courseNodes: CourseNodeProps[] = [];
 
-  // Max number of columns and rows
-  const maxCols = 8;
-  const maxRows = Math.ceil(requirements.length / maxCols);
+  const rootMaxColumns = 8;
+  const rootWidthDivision = window.innerWidth / rootMaxColumns;
+  const columnSpacingMultiplier = 1.7;
 
-  // Calculate the width and height division for nodes
-  const widthDivision = window.innerWidth / maxCols;
-  const heightDivision = window.innerHeight / maxRows;
+  const columns: Course[][] = [
+    [CSC1350, MATH1550, ENGL1001, BIOL],
+    [
+      CSC1351,
+      MATH1552,
+      GenEdHumEnglOrHnrs,
+      PhysicalScienceSequence1,
+      PhysicalScienceSequence1Lab,
+    ],
+    [
+      CSC3102,
+      CSC2259,
+      MATH2090,
+      GenEdHum,
+      PhysicalScienceSequence2,
+      PhysicalScienceSequence2Lab,
+    ],
+    [CSC3380, CSC3501, CSC2262, GenEdHumCMST, ENGL2000],
+    [CSC4330, CSC4101, IE3302, CSC3200, TechElectiveA],
+    [CSC4103, CSC4351, CSC2000Elective, GenEdSocialScience, TechElectiveAorB],
+    [CSC4402, CSC2000ElectiveSeg, GenEdSocialScience2000, ApprovedElective1],
+    [
+      CSC3000Elective,
+      CSC4000Elective,
+      AreaElective2,
 
-  const courseNodes: CourseNodeProps[] = requirements.map(
-    (requirement, index) => {
-      // Determine the x and y based on index for column-first filling
-      const x = Math.floor(index / maxRows) * widthDivision;
-      const y = (index % maxRows) * heightDivision;
+      GenEdArt,
+      ApprovedElective2,
+    ],
+  ];
 
-      return buildCourseNode(requirement, { x, y });
-    },
-  );
+  const maxNodesInColumn = Math.max(...columns.map((column) => column.length));
+
+  // Calculate the vertical space between nodes, assuming equal spacing from top to bottom
+  const verticalSpacing = window.innerHeight / (maxNodesInColumn - 1);
+
+  columns.forEach((column, columnIndex) => {
+    const x = columnIndex * rootWidthDivision * columnSpacingMultiplier;
+
+    column.forEach((course, courseIndex) => {
+      // Calculate the y position based on the standardized vertical spacing
+      const y = courseIndex * verticalSpacing;
+
+      courseNodes.push(buildCourseNode(course, { x, y }));
+    });
+  });
 
   return [...courseNodes];
 };

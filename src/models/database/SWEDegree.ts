@@ -123,7 +123,7 @@ export const CSC3102 = new CoreCourse({
      as balanced trees, graphs, heaps, and hash tables. The course will also cover associated algorithms 
      and their time complexities, ensuring students understand the trade-offs involved in choosing one 
      structure over another for specific problems.`,
-  prereqs: [CSC1351, CSC2259],
+  prereqs: [CSC1351],
   courseType: [],
   grade: null,
   section: null,
@@ -176,39 +176,6 @@ export const CSC4103 = new CoreCourse({
   section: null,
   credits: 3,
 });
-export const CSC4402 = new Course({
-  name: "Database Management Systems",
-  code: 4402,
-  department: Department.CSC,
-  description: `This course introduces students to the design, 
-    implementation, and management of relational databases. Topics
-     covered include data modeling, normalization, SQL, transaction
-      management, and database recovery techniques. Students will 
-      also learn about distributed databases, NoSQL databases, and 
-      the principles of database security and integrity.`,
-  prereqs: [CSC4330], // Prerequisite is Software Sys
-  courseType: [],
-  grade: null,
-  section: null,
-  credits: 3,
-});
-export const CSC4351 = new CoreCourse({
-  name: "Compiler Construction",
-  code: 4351,
-  department: Department.CSC,
-  description: `Compiler Construction offers a detailed examination of 
-    the theory and practice of compiler design and construction. Students 
-    will learn about lexical analysis, syntax analysis, semantic analysis, 
-    optimization, and code generation. The course will also cover topics 
-    like parsing techniques, intermediate representations, and code 
-    optimization strategies. By the end of the course, students will 
-    have hands-on experience building a functional compiler.`,
-  prereqs: [CSC4103], // Prerequisite is Op Sys
-  courseType: [],
-  grade: null,
-  section: null,
-  credits: 3,
-});
 export const CSC3501 = new Course({
   name: "Computer Organization & Design",
   code: 3501,
@@ -221,6 +188,22 @@ export const CSC3501 = new Course({
       comprehensive understanding of computer system design from the 
       ground up.`,
   prereqs: [CSC2259],
+  courseType: [],
+  grade: null,
+  section: null,
+  credits: 3,
+});
+export const CSC4402 = new Course({
+  name: "Database Management Systems",
+  code: 4402,
+  department: Department.CSC,
+  description: `This course introduces students to the design, 
+    implementation, and management of relational databases. Topics
+     covered include data modeling, normalization, SQL, transaction
+      management, and database recovery techniques. Students will 
+      also learn about distributed databases, NoSQL databases, and 
+      the principles of database security and integrity.`,
+  prereqs: [CSC4330], // Prerequisite is Software Sys
   courseType: [],
   grade: null,
   section: null,
@@ -247,6 +230,24 @@ export const CSC4101 = new CoreCourse({
   section: null,
   credits: 3,
 });
+export const CSC4351 = new CoreCourse({
+  name: "Compiler Construction",
+  code: 4351,
+  department: Department.CSC,
+  description: `Compiler Construction offers a detailed examination of 
+    the theory and practice of compiler design and construction. Students 
+    will learn about lexical analysis, syntax analysis, semantic analysis, 
+    optimization, and code generation. The course will also cover topics 
+    like parsing techniques, intermediate representations, and code 
+    optimization strategies. By the end of the course, students will 
+    have hands-on experience building a functional compiler.`,
+  prereqs: [CSC4101], // Prerequisite is Op Sys
+  courseType: [],
+  grade: null,
+  section: null,
+  credits: 3,
+});
+
 export const MATH2090 = new Course({
   name: "Differential Equations & Linear Algebra",
   code: 2090,
@@ -650,5 +651,5 @@ export const SoftwareEngineeringDegree: Degree = {
   year: "2019-2020",
   requirements: SWEDegreeRequirements,
   hours: 120,
-  rootCourses: [],
+  rootCourses: [CSC1350, MATH1550, ENGL1001, BIOL],
 };

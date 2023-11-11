@@ -26,18 +26,6 @@ const FlowChart = (): JSX.Element => {
     [nodes],
   );
 
-  const testEdge: Edge = useMemo(() => {
-    console.log(nodes[0].id, " ", nodes[1].id);
-    return {
-      type: "course",
-      id: nodes[0].id + "-" + nodes[1].id,
-      source: nodes[0].id,
-      sourceHandle: "outputHandle",
-      target: nodes[5].id,
-      targetHandle: "inputHandle",
-    };
-  }, [nodes]);
-
   /**
    * Gonna be so real with you I have no idea how I'm supposed to
    * type this to work with my custom component. Call me a hypocrite
