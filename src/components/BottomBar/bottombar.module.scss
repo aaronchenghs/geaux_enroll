@@ -48,4 +48,45 @@
       color: var(--accentColor);
     }
   }
+
+  .submitButton {
+    position: absolute;
+    right: 16px;
+    height: 4vh;
+
+
+    border: 5px solid var(--toastify-color-success);
+    border-radius: 5px;
+    transition:
+      background-color 0.2s,
+      border-color 0.2s,
+      transform 0.2s;
+    background-color: transparent;
+    color: var(--surfaceColor);
+
+
+    &:hover {
+      background-color: transparent;
+      color: var(--surfaceColor);
+      scale: 97%;
+      border: 3px solid var(--toastify-color-success);
+
+    }
+
+    &:active {
+      background-color: var(--headerColor);
+      color: var(--accentColor);
+    }
+  }
+
+  .submitButton.inactive {
+    border: 3px solid var(--toastify-color-warning);
+    color: var(--primaryDisabled);
+
+    &:hover {
+      scale: 100%;
+    }
+
+
+  }
 }
