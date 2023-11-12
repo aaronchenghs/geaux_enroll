@@ -10,9 +10,6 @@
   box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
   background-color: var(--headerColor);
 
-  padding-left: 15px;
-  padding-right: 15px;
-
   transition: height 0.25s ease;
   overflow: hidden;
 
@@ -29,12 +26,18 @@
   .content {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
     color: var(--surfaceColor);
     flex: 1;
+
+    margin-top: 7px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    border-top: solid 3px var(--primaryColor);
   }
 
   &.expanded .content {
@@ -47,6 +50,9 @@
     align-items: center;
 
     width: 100%;
+
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   h2.name {
@@ -90,7 +96,6 @@
     right: 16px;
     height: 4vh;
 
-
     border: 5px solid var(--toastify-color-success);
     border-radius: 5px;
     transition:
@@ -100,13 +105,11 @@
     background-color: transparent;
     color: var(--surfaceColor);
 
-
     &:hover {
       background-color: transparent;
       color: var(--surfaceColor);
       scale: 97%;
       border: 3px solid var(--toastify-color-success);
-
     }
 
     &:active {
@@ -122,7 +125,5 @@
     &:hover {
       scale: 100%;
     }
-
-
   }
 }
