@@ -18,6 +18,7 @@ import {
   ColorLens,
   Computer,
   Gavel,
+  Grass,
   Hub,
   MusicNote,
   Power,
@@ -79,6 +80,9 @@ export const CourseTile = ({ course }: Props): JSX.Element => {
       break;
     case Department.BA:
       icon = <Work />;
+      break;
+    case Department.BE:
+      icon = <Grass />;
       break;
     case Department.BIOL:
       icon = <Biotech />;
