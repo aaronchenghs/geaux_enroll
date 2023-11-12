@@ -552,7 +552,7 @@ export const GenEdHumCMST = new CategoryCourse({
   credits: 3,
 });
 export const PhysicalScienceSequence1 = new CategoryCourse({
-  name: "Physical Sci Requirement",
+  name: "Science Sequence I Requirement",
   description: `This category represents the first course in a sequence of physical science requirements. Students will delve into foundational concepts of physical sciences such as physics or chemistry. Topics may cover basic principles, laws, and theories that explain the nature and behavior of matter and energy. These courses aim to provide a solid grounding in the core principles of physical sciences.`,
 
   prereqs: null,
