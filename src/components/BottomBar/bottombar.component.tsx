@@ -9,9 +9,23 @@ import { Button } from "@mui/material";
 import { View } from "../../store/App/slice";
 import { Tooltip } from "react-tooltip";
 
+const formatDate = (date: Date): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  };
+  return new Intl.DateTimeFormat("en-US", options).format(date);
+};
+
 const BottomBar = (): JSX.Element => {
   const [isExpanded, setIsExpanded] = useState(false);
   const $student = useSelector((state: AppState) => state.student);
+  const currentDateAndTime = formatDate(new Date());
 
   const toggleExpand = (): void => setIsExpanded(!isExpanded);
   // This is so dirty not making a differnt component and all that, but I will not be intimidated to write bad code, this is my truth
@@ -61,7 +75,48 @@ const BottomBar = (): JSX.Element => {
       </div>
       {isExpanded && (
         <div className={styles.content}>
-          <BottomBarTable />
+          <BottomBarTable
+            data={[
+              { title: "College", data: "Engineering" },
+              {
+                title: "Degree",
+                data: `Computer Science - ${$student.majors[0].concentration}`,
+              },
+              { title: "Program", data: "ENGINEERING" },
+              {
+                title: "Minor(s)",
+                data: $student.minors.length === 0 ? "N/A" : $student.minors[0],
+              },
+              { title: "Date", data: currentDateAndTime },
+              { title: "Catalog", data: "2024" },
+              { title: "Campus", data: "LSU" },
+            ]}
+          />
+
+          <BottomBarTable
+            data={[
+              {
+                title: "Cumulative Hours Required",
+                data: $student.majors[0].hours,
+              },
+              {
+                title: "LSU Hours Required",
+                data: 30,
+              },
+              {
+                title: "Carried",
+                data: `QP Calculation here`,
+              },
+              {
+                title: "Quality Points",
+                data: `QP Calculation here`,
+              },
+              {
+                title: "GPA",
+                data: `4.0`,
+              },
+            ]}
+          />
         </div>
       )}
     </div>

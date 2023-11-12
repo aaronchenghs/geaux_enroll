@@ -1,4 +1,8 @@
 .entriesContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
   padding: 5px;
   .entry {
     display: flex;
@@ -6,6 +10,11 @@
     font-size: 1.3rem;
 
     .title {
+      width: 120px;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       min-width: 120px;
     }
 
