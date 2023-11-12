@@ -56,7 +56,7 @@ export const MATH1552 = new CoreCourse({
   credits: 4,
 });
 export const ENGL1001 = new CoreCourse({
-  name: "Comp 1",
+  name: "Composition 1",
   code: 1001,
   department: Department.ENGL,
   description: `An introductory course in composition, Comp 1

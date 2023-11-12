@@ -1,0 +1,17 @@
+.entriesContainer {
+  padding: 5px;
+  .entry {
+    display: flex; // Use flexbox for alignment
+    align-items: center; // Align items vertically
+    font-size: 1.3rem;
+
+    .title {
+      min-width: 120px; // Adjust as needed to fit your longest title
+    }
+
+    .data {
+      text-align: left; // Align text to the left
+      flex-grow: 1; // Take up remaining space
+    }
+  }
+}
