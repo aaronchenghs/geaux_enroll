@@ -44,7 +44,10 @@ export const BottomBarTable = (): JSX.Element => {
           data={`Computer Science - ${$student.majors[0].concentration}`}
         />
         <Entry title="Program" data="ENGINEERING" />
-        <Entry title="Minor(s)" data="N/A" />
+        <Entry
+          title="Minor(s)"
+          data={$student.minors.length === 0 ? "N/A" : $student.minors[0]}
+        />
         <Entry title="Date" data={currentDateAndTime} />
         <Entry title="Catalog" data="2024" />
         <Entry title="Campus" data="LSU" />
