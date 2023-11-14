@@ -6,7 +6,12 @@ import { setSelectedCourseNode } from "../../../../store/Degree/degree-slice";
 //styles
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./degreemodal.module.scss";
-import { CategoryCourse, Course, Department } from "../../../../models/course";
+import {
+  CategoryCourse,
+  CoreCourse,
+  Course,
+  Department,
+} from "../../../../models/course";
 import {
   addCourseToSchedule,
   removeCourseFromSchedule,
@@ -189,78 +194,86 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
             </div>
           </Modal.Title>
         </Modal.Header>
-        <div className={styles.mainContent}>
-          <Modal.Body>
-            {chosenOption
-              ? chosenOption.description
-              : $selectedCourseNode?.description}
-          </Modal.Body>
-          {isCategory && (
-            <Modal.Body>
-              <strong>View Course Selections Information</strong>
-              <hr className={styles.divider} />{" "}
-              <div className={styles.filtersContainer}>
-                <div className={styles.filterGroup}>
-                  <label className={styles.filterLabel}>Code Range:</label>
-                  {relevantCodeRanges.map((range) => (
-                    <label key={range} className={styles.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={selectedCodeRange.includes(range)}
-                        onChange={(): void => toggleCodeRange(range)}
-                      />
-                      {range}+++
-                    </label>
-                  ))}
-                </div>
 
-                <div className={styles.filterGroup}>
-                  <label className={styles.filterLabel}>Department:</label>
-                  {relevantDepartments.map((dept) => (
-                    <label key={dept} className={styles.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={selectedDepartments.includes(dept)}
-                        onChange={(): void => toggleDepartment(dept)}
-                      />
-                      {dept}
-                    </label>
-                  ))}
+        <Modal.Body>
+          <div className={styles.mainContent}>
+            <div className={styles.descriptionContainer}>
+              {$selectedCourseNode instanceof CoreCourse && (
+                <strong style={{ color: "gray" }}>*C or above to pass</strong>
+              )}
+              {chosenOption
+                ? chosenOption.description
+                : $selectedCourseNode?.description}
+            </div>
+
+            {isCategory && (
+              <div className={styles.categoryOptionsContainer}>
+                <strong>View Course Selections Information</strong>
+                <hr className={styles.divider} />{" "}
+                <div className={styles.filtersContainer}>
+                  <div className={styles.filterGroup}>
+                    <label className={styles.filterLabel}>Code Range:</label>
+                    {relevantCodeRanges.map((range) => (
+                      <label key={range} className={styles.checkboxLabel}>
+                        <input
+                          type="checkbox"
+                          checked={selectedCodeRange.includes(range)}
+                          onChange={(): void => toggleCodeRange(range)}
+                        />
+                        {range}+++
+                      </label>
+                    ))}
+                  </div>
+
+                  <div className={styles.filterGroup}>
+                    <label className={styles.filterLabel}>Department:</label>
+                    {relevantDepartments.map((dept) => (
+                      <label key={dept} className={styles.checkboxLabel}>
+                        <input
+                          type="checkbox"
+                          checked={selectedDepartments.includes(dept)}
+                          onChange={(): void => toggleDepartment(dept)}
+                        />
+                        {dept}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.selectOptionsContainer}>
+                  <div className={styles.optionsContainer}>
+                    {sortedOptions
+                      .filter((option) =>
+                        selectedCodeRange.includes(
+                          Math.floor(option.code / 1000),
+                        ),
+                      )
+                      .filter((option) =>
+                        selectedDepartments.includes(option.department),
+                      )
+                      .map((option) => {
+                        return (
+                          <button
+                            className={`${styles.optionBox} ${
+                              chosenOption?.equals(option) ? styles.active : ""
+                            }`}
+                            key={option.name}
+                            onClick={(): void => {
+                              chosenOption?.equals(option)
+                                ? setChosenOption(null)
+                                : setChosenOption(option);
+                            }}
+                          >
+                            {option.courseAbreviation + ": " + option.name}
+                          </button>
+                        );
+                      })}
+                  </div>
                 </div>
               </div>
-              <div className={styles.selectOptionsContainer}>
-                <div className={styles.optionsContainer}>
-                  {sortedOptions
-                    .filter((option) =>
-                      selectedCodeRange.includes(
-                        Math.floor(option.code / 1000),
-                      ),
-                    )
-                    .filter((option) =>
-                      selectedDepartments.includes(option.department),
-                    )
-                    .map((option) => {
-                      return (
-                        <button
-                          className={`${styles.optionBox} ${
-                            chosenOption?.equals(option) ? styles.active : ""
-                          }`}
-                          key={option.name}
-                          onClick={(): void => {
-                            chosenOption?.equals(option)
-                              ? setChosenOption(null)
-                              : setChosenOption(option);
-                          }}
-                        >
-                          {option.courseAbreviation + ": " + option.name}
-                        </button>
-                      );
-                    })}
-                </div>
-              </div>
-            </Modal.Body>
-          )}
-        </div>
+            )}
+          </div>
+        </Modal.Body>
+
         <Modal.Footer>
           {renderCloseButton}
           {!requirementsMet
