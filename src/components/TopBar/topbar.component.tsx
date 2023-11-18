@@ -33,7 +33,6 @@ const TopBar = (): JSX.Element => {
   );
 
   const handleIconClick = (): void => {
-    dispatch(setCoursesToSchedule(dummy_courses));
     dispatch(changeView(toggleView()));
   };
 

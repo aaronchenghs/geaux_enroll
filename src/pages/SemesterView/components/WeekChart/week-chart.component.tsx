@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
-import { ReactNode } from "react";
-import React from "react";
-import { useState } from "react";
 import styles from "./week-chart.module.scss";
-import { start } from "repl";
 import {
   ScheduledSection,
   ScheduledSectionProps,
@@ -13,10 +9,6 @@ import {
   HoveredSection,
   HoveredSectionProps,
 } from "./ScheduledSection/HoveredSection";
-import { selectCourse } from "../../../../store/Semester/semester-slice";
-import { CategoryCourse, Course, Department } from "../../../../models/course";
-import { Section } from "../../../../models/section";
-import { DAYS_IN_LIST, Days } from "../../../../models/weeklySchedule";
 
 // This is the first hour displayed on the schedule
 const startHour = 7;

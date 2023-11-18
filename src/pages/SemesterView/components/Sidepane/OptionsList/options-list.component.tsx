@@ -1,13 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../../store/store";
-import { Dispatch, ReactNode } from "react";
-import React from "react";
-import { Button } from "@mui/material";
-
-import {
-  returnFromCurrentSelection,
-  selectCourse,
-} from "../../../../../store/Semester/semester-slice";
+import { ReactNode } from "react";
 
 // Modular style inshallah
 import styles from "./options-list.module.scss";
