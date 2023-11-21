@@ -5,7 +5,7 @@ import DegreeView from "./pages/DegreeView/degree-view.component";
 import SemesterView from "./pages/SemesterView/semester-view.component";
 import BottomBar from "./components/BottomBar/bottombar.component";
 import TopBar from "./components/TopBar/topbar.component";
-import { Slide, ToastContainer, Zoom } from "react-toastify";
+import { ToastContainer, Zoom } from "react-toastify";
 
 const App = (): JSX.Element => {
   return (

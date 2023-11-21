@@ -31,43 +31,6 @@ interface SemesterState {
   scheduledSections: Section[]; // This will store the human readable version
 }
 
-const genDummyCourses = (): Course[] => {
-  const output = [];
-
-  for (let i = 0; i < 5; i++) {
-    const factory = new CourseFactory();
-
-    factory.name = "Course " + i;
-    factory.code = i * 1000;
-    factory.department = Department.CSC;
-
-    output.push(factory.createCourse());
-  }
-
-  const factory = new CourseFactory();
-  factory.name = "Category Course";
-  factory.code = 1111;
-  factory.department = Department.BIOL;
-
-  const options = [];
-
-  for (let i = 0; i < 5; i++) {
-    const factory = new CourseFactory();
-
-    factory.name = "Course " + i;
-    factory.code = i * 1000;
-    factory.department = Department.BIOL;
-
-    options.push(factory.createCourse());
-  }
-
-  factory.setOptions(options, null);
-
-  output.push(factory.createCourse());
-
-  return output;
-};
-
 // export const dummy_courses = genDummyCourses();
 export const dummy_courses = [CSC1350, MATH1550, ENGL1001, BIOL, TechElectiveA];
 

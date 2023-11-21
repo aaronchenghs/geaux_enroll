@@ -438,7 +438,6 @@ export const TechElectivesB: Course[] = [
   ART7250,
   ART7255,
   ARTH4480,
-  ARTH4482,
   ARTH4484,
   MC2035,
   MC3031,

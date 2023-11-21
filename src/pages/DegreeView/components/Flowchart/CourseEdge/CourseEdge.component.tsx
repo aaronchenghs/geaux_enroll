@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   EdgeProps,
   MarkerType,
@@ -7,6 +7,8 @@ import {
 } from "react-flow-renderer";
 
 import "./CourseEdge.scss";
+import { useSelector } from "react-redux";
+import { AppState } from "../../../../../store/store";
 
 export interface CourseEdgeProps extends EdgeProps {
   arrowHeadType: MarkerType;
@@ -14,6 +16,20 @@ export interface CourseEdgeProps extends EdgeProps {
 }
 
 const CourseEdge: React.FC<CourseEdgeProps> = (props: CourseEdgeProps) => {
+  const { source, target } = props;
+
+  const $hoveredCourseNode = useSelector(
+    (state: AppState) => state.degree.hoveredCourseNodeID,
+  );
+
+  const visible = useMemo(() => {
+    return (
+      $hoveredCourseNode === null ||
+      $hoveredCourseNode === source ||
+      $hoveredCourseNode === target
+    );
+  }, [$hoveredCourseNode]);
+
   const {
     sourceX,
     sourceY,
@@ -25,7 +41,6 @@ const CourseEdge: React.FC<CourseEdgeProps> = (props: CourseEdgeProps) => {
     id,
   } = props;
 
-  // Calculate the path of the edge
   const edgePath = getBezierPath({
     sourceX,
     sourceY,
@@ -35,8 +50,10 @@ const CourseEdge: React.FC<CourseEdgeProps> = (props: CourseEdgeProps) => {
     targetPosition,
   });
 
-  // Define the arrow marker
   const markerEnd = getMarkerEnd(arrowHeadType, `end-${id}`);
+
+  // Determine the opacity based on the visibility
+  const edgeOpacity = visible ? 1 : 0.1;
 
   return (
     <>
@@ -50,7 +67,7 @@ const CourseEdge: React.FC<CourseEdgeProps> = (props: CourseEdgeProps) => {
           markerHeight="12"
           orient="auto-start-reverse"
         >
-          <path d="M0,-10 L20,0 L0,10" fill="#222" />{" "}
+          <path d="M0,-10 L20,0 L0,10" fill="#222" />
         </marker>
       </defs>
 
@@ -62,6 +79,10 @@ const CourseEdge: React.FC<CourseEdgeProps> = (props: CourseEdgeProps) => {
         stroke="#000000"
         strokeWidth={3}
         color="#000000"
+        style={{
+          opacity: edgeOpacity,
+          transition: "opacity 0.1s ease-in-out",
+        }}
       />
     </>
   );

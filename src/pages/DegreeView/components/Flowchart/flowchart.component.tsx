@@ -1,30 +1,33 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import styles from "./flowchart.module.scss";
 
 import { buildDegreeNodes, buildEdges } from "./flowchart.utils";
-import ReactFlow, { Background, Controls, Edge } from "react-flow-renderer";
+import ReactFlow, { Background, Controls } from "react-flow-renderer";
 import CourseModal from "../DegreeModal/degreemodal.component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
 import { CourseNode } from "./CourseNode/coursenode.component";
 import { SoftwareEngineeringDegree } from "../../../../models/database/SWEDegree";
 import CourseEdge from "./CourseEdge/CourseEdge.component";
+import { setEdges } from "../../../../store/Degree/degree-slice";
 
 const FlowChart = (): JSX.Element => {
+  const dispatch = useDispatch();
   const $selectedCourseNode = useSelector(
     (state: AppState) => state.degree.selectedCourseNode,
   );
+  const $edges = useSelector((state: AppState) => state.degree.edges);
   const nodes = useMemo(() => buildDegreeNodes(SoftwareEngineeringDegree), []);
-  const edges = useMemo(
-    () =>
-      buildEdges(nodes).map((edge) => ({
-        ...edge,
-        type: "course",
-        sourceHandle: "outputHandle",
-        targetHandle: "inputHandle",
-      })),
-    [nodes],
-  );
+
+  useEffect(() => {
+    const edges = buildEdges(nodes).map((edge) => ({
+      ...edge,
+      type: "course",
+      sourceHandle: "outputHandle",
+      targetHandle: "inputHandle",
+    }));
+    dispatch(setEdges(edges));
+  }, [nodes]);
 
   /**
    * Gonna be so real with you I have no idea how I'm supposed to
@@ -43,7 +46,7 @@ const FlowChart = (): JSX.Element => {
       <div className={styles.Flowchart}>
         <ReactFlow
           nodes={[...nodes]}
-          edges={[...edges]}
+          edges={[...$edges]}
           nodeTypes={nodeTypes}
           edgeTypes={edgeTypes}
           fitView

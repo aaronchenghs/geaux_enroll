@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { CourseList } from "./components/Sidepane/CourseList/course-list.component";
+import { useEffect, useState } from "react";
 import { AppState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -7,10 +6,7 @@ import { View } from "../../store/App/slice";
 
 import styles from "./semester-view.module.scss";
 import { WeekChart } from "./components/WeekChart/week-chart.component";
-import { Course } from "../../models/course";
-import { SectionList } from "./components/Sidepane/SectionList/section-list.component";
 import Sidepane from "./components/Sidepane/sidepane.module";
-import { ToastContainer, toast } from "react-toastify";
 
 const SemesterView = (): JSX.Element => {
   const navigate = useNavigate();
