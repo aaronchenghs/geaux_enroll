@@ -10,6 +10,7 @@ import { CourseNode } from "./CourseNode/coursenode.component";
 import { SoftwareEngineeringDegree } from "../../../../models/database/SWEDegree";
 import CourseEdge from "./CourseEdge/CourseEdge.component";
 import { setEdges } from "../../../../store/Degree/degree-slice";
+import { InfoOutlined } from "@mui/icons-material";
 
 const FlowChart = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -40,7 +41,6 @@ const FlowChart = (): JSX.Element => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     course: CourseEdge as any,
   };
-
   return (
     <Fragment>
       <div className={styles.Flowchart}>
@@ -54,6 +54,11 @@ const FlowChart = (): JSX.Element => {
           <Background />
           <Controls />
         </ReactFlow>
+        {/* Add your info icon here */}
+        <div className={styles.infoIcon}>
+          <InfoOutlined style={{ fontSize: "2.75rem" }} />
+          {/* If using a different method to render the icon, adjust this part */}
+        </div>
       </div>
       {<CourseModal openCondition={$selectedCourseNode !== null} />}
     </Fragment>
