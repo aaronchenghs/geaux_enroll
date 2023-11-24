@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import styles from "./flowchart.module.scss";
 
 import { buildDegreeNodes, buildEdges } from "./flowchart.utils";
@@ -11,6 +11,7 @@ import { SoftwareEngineeringDegree } from "../../../../models/database/SWEDegree
 import CourseEdge from "./CourseEdge/CourseEdge.component";
 import { setEdges } from "../../../../store/Degree/degree-slice";
 import { InfoOutlined } from "@mui/icons-material";
+import Helper from "./Helper/helper.component";
 
 const FlowChart = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ const FlowChart = (): JSX.Element => {
     (state: AppState) => state.degree.selectedCourseNode,
   );
   const $edges = useSelector((state: AppState) => state.degree.edges);
+
+  const [showHelper, setShowHelper] = useState<boolean>(false);
+
   const nodes = useMemo(() => buildDegreeNodes(SoftwareEngineeringDegree), []);
 
   useEffect(() => {
@@ -54,11 +58,18 @@ const FlowChart = (): JSX.Element => {
           <Background />
           <Controls />
         </ReactFlow>
-        {/* Add your info icon here */}
-        <div className={styles.infoIcon}>
+        <div
+          className={styles.infoIcon}
+          onPointerOver={(): void => {
+            setShowHelper(true);
+          }}
+          onPointerLeave={(): void => {
+            setShowHelper(false);
+          }}
+        >
           <InfoOutlined style={{ fontSize: "2.75rem" }} />
-          {/* If using a different method to render the icon, adjust this part */}
         </div>
+        {showHelper && <Helper />}
       </div>
       {<CourseModal openCondition={$selectedCourseNode !== null} />}
     </Fragment>
