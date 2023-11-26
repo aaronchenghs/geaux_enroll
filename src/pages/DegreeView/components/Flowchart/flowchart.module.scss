@@ -9,6 +9,12 @@
   }
 }
 
+.Flowchart .Helper {
+  position: absolute;
+  bottom: 100%; 
+  right: 100%; 
+}
+
 .Node {
   width: calc(100vw / 8);
   height: calc(100vh / 4.5);

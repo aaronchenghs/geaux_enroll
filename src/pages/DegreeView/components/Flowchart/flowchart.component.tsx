@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import styles from "./flowchart.module.scss";
 
 import { buildDegreeNodes, buildEdges } from "./flowchart.utils";
@@ -21,6 +21,8 @@ const FlowChart = (): JSX.Element => {
   const $edges = useSelector((state: AppState) => state.degree.edges);
 
   const [showHelper, setShowHelper] = useState<boolean>(false);
+
+  const infoIconRef = useRef<HTMLDivElement>(null);
 
   const nodes = useMemo(() => buildDegreeNodes(SoftwareEngineeringDegree), []);
 
@@ -59,17 +61,25 @@ const FlowChart = (): JSX.Element => {
           <Controls />
         </ReactFlow>
         <div
+          ref={infoIconRef}
           className={styles.infoIcon}
-          onPointerOver={(): void => {
-            setShowHelper(true);
-          }}
-          onPointerLeave={(): void => {
-            setShowHelper(false);
-          }}
+          onPointerOver={(): void => setShowHelper(true)}
+          onPointerLeave={(): void => setShowHelper(false)}
         >
           <InfoOutlined style={{ fontSize: "2.75rem" }} />
         </div>
-        {showHelper && <Helper />}
+        {showHelper && (
+          <div
+            style={{
+              position: "absolute",
+              top: `${infoIconRef.current?.offsetTop}px`,
+              left: `${infoIconRef.current?.offsetLeft}px`,
+              transform: "translate(-100%, -100%)",
+            }}
+          >
+            <Helper />
+          </div>
+        )}
       </div>
       {<CourseModal openCondition={$selectedCourseNode !== null} />}
     </Fragment>
