@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
@@ -29,6 +29,9 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
 
   const $coursesToSchedule = useSelector(
     (state: AppState) => state.semester.coursesToSchedule,
+  );
+  const $scheduledSections = useSelector(
+    (state: AppState) => state.semester.scheduledSections,
   );
   const $selectedCourseNode = useSelector(
     (state: AppState) => state.degree.selectedCourseNode,
@@ -168,9 +171,33 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const renderRemoveButton = (
-    <Button variant="danger" onClick={handleRemove}>
-      Remove
-    </Button>
+    <div
+      onMouseOver={(e: React.MouseEvent<HTMLDivElement>): void => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setTooltipPos({ x: rect.x, y: rect.bottom });
+        setTooltipVisible(true);
+      }}
+      onMouseOut={(): void => setTooltipVisible(false)}
+    >
+      <Button
+        variant="danger"
+        onClick={handleRemove}
+        disabled={
+          $selectedCourseNode
+            ? $scheduledSections.some((section) =>
+                section.course.equals($selectedCourseNode),
+              )
+            : false
+        }
+      >
+        Remove
+      </Button>
+      <ToolTip
+        content="Section chosen for this requirement"
+        position={tooltipPos || { x: 0, y: 0 }}
+        isVisible={tooltipVisible}
+      />
+    </div>
   );
 
   return (
