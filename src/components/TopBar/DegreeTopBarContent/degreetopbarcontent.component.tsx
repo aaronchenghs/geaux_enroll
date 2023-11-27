@@ -7,7 +7,7 @@ import styles from "./degreetopbarcontent.module.scss";
 import { COURSE_STATUS_COLORS } from "../../../pages/DegreeView/components/Flowchart/flowchart.utils";
 import { useSelector } from "react-redux";
 import { AppState } from "../../../store/store";
-import { Grade, School } from "@mui/icons-material";
+import { School } from "@mui/icons-material";
 
 const DegreeTopBarContent = (): JSX.Element => {
   const $scheduledCourses = useSelector(
@@ -26,15 +26,19 @@ const DegreeTopBarContent = (): JSX.Element => {
 
   const toBeScheduledSegment: segment = useMemo(() => {
     // Use reduce to sum up the credits from scheduledCourses
-    const totalCredits = $scheduledCourses.reduce(
-      (acc, course) => acc + (course.credits ?? 0),
-      0,
-    );
+    const totalCredits = $scheduledCourses
+      .filter(
+        (scheduledCourse) =>
+          !$inProgressSections.some((inProgressCourse) =>
+            inProgressCourse.course.equals(scheduledCourse),
+          ),
+      )
+      .reduce((acc, course) => acc + (course.credits ?? 0), 0);
 
     return {
       id: "TBS",
       label: "To Be Scheduled",
-      color: COURSE_STATUS_COLORS.TOBE_SCHEDULED,
+      color: COURSE_STATUS_COLORS.TO_BE_SCHEDULED,
       value: totalCredits,
       tooltip: `${totalCredits} Hours to be scheduled, choose a section(s).`,
     };

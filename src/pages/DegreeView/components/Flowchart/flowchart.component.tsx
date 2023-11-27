@@ -68,20 +68,20 @@ const FlowChart = (): JSX.Element => {
         >
           <InfoOutlined style={{ fontSize: "2.75rem" }} />
         </div>
-        {showHelper && (
-          <div
-            style={{
-              position: "absolute",
-              top: `${infoIconRef.current?.offsetTop}px`,
-              left: `${infoIconRef.current?.offsetLeft}px`,
-              transform: "translate(-100%, -100%)",
-            }}
-          >
-            <Helper />
-          </div>
-        )}
       </div>
       {<CourseModal openCondition={$selectedCourseNode !== null} />}
+      {showHelper && (
+        <div
+          style={{
+            position: "absolute",
+            top: `${infoIconRef.current?.offsetTop}px`,
+            left: `${infoIconRef.current?.offsetLeft}px`,
+            transform: "translate(-100%, -100%)",
+          }}
+        >
+          <Helper />
+        </div>
+      )}
     </Fragment>
   );
 };

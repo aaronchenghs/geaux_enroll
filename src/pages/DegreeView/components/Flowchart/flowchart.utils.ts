@@ -66,10 +66,10 @@ export const buildCourseNode = (
 
 export enum COURSE_STATUS_COLORS {
   COMPLETED = "#008000",
-  IN_PROGRESS = "#FFD300",
   CAN_SCHEDULE = "#2196F3",
+  TO_BE_SCHEDULED = "#6A5ACD",
+  IN_PROGRESS = "#FFD300",
   CANNOT_SCHEDULE = "#000000",
-  TOBE_SCHEDULED = "#6A5ACD",
 }
 
 /**

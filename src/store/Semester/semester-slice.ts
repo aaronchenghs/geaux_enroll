@@ -54,10 +54,7 @@ const semester_slice = createSlice({
       state.coursesToSchedule = action.payload;
     },
     addCourseToSchedule(state, action: PayloadAction<Course>) {
-      toast.success(
-        `${action.payload.name} scheduled - choose a section`,
-        defaultToastOptions,
-      );
+      toast.success(`${action.payload.name} scheduled.`, defaultToastOptions);
       state.coursesToSchedule = [...state.coursesToSchedule, action.payload];
     },
     // pass course.courseAbreviation + course.code
