@@ -38,7 +38,7 @@
 }
 
 .timeGrid{
-  margin-left: -0.4%;
+  margin-left: -0.75%;
   height: 100%;
   display: grid;
   border-left: solid white;
@@ -99,15 +99,75 @@
     border-right-style: dashed;
     border-right-color: darkslategray;
   }
-  .noonItem{
-    grid-row: span 1;
-    grid-column: span 1;
+
+  .eightItem{
+    grid-row: 5;
+    grid-column: span 5;
     border-top: 2px;
     border-top-style: dashed;
     border-top-color: gray;
     // margin-left: 2px;
     // margin-right: 2px;
-    border-right: 2px;
+    border-right-style: dashed;
+    border-right-color: darkslategray;
+  }
+
+  .tenItem{
+    grid-row: 13;
+    grid-column: span 5;
+    border-top: 2px;
+    border-top-style: dashed;
+    border-top-color: gray;
+    // margin-left: 2px;
+    // margin-right: 2px;
+    border-right-style: dashed;
+    border-right-color: darkslategray;
+  }
+
+  .noonItem{
+    grid-row: 21;
+    grid-column: span 5;
+    border-top: 2px;
+    border-top-style: dashed;
+    border-top-color: gray;
+    // margin-left: 2px;
+    // margin-right: 2px;
+    border-right-style: dashed;
+    border-right-color: darkslategray;
+  }
+
+  .twoItem{
+    grid-row: 29;
+    grid-column: span 5;
+    border-top: 2px;
+    border-top-style: dashed;
+    border-top-color: gray;
+    // margin-left: 2px;
+    // margin-right: 2px;
+    border-right-style: dashed;
+    border-right-color: darkslategray;
+  }
+
+  .fourItem{
+    grid-row: 37;
+    grid-column: span 5;
+    border-top: 2px;
+    border-top-style: dashed;
+    border-top-color: gray;
+    // margin-left: 2px;
+    // margin-right: 2px;
+    border-right-style: dashed;
+    border-right-color: darkslategray;
+  }
+
+  .sixItem{
+    grid-row: 45;
+    grid-column: span 5;
+    border-top: 2px;
+    border-top-style: dashed;
+    border-top-color: gray;
+    // margin-left: 2px;
+    // margin-right: 2px;
     border-right-style: dashed;
     border-right-color: darkslategray;
   }

@@ -119,6 +119,9 @@ export const WeekChart = (): JSX.Element => {
         </div>
         <div className={styles.gridLayerer}>
           <div className={styles.grid}>
+            <div className={styles.noonItem}></div>
+          </div>
+          <div className={styles.grid}>
             {hoveredProps.map((timeslot) => (
               <HoveredSection
                 key={timeslot.key}
