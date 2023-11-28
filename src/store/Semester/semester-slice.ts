@@ -1,10 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {
-  CategoryCourse,
-  Course,
-  CourseFactory,
-  Department,
-} from "../../models/course";
+import { CategoryCourse, Course } from "../../models/course";
 import { Section } from "../../models/section";
 import { getCurrentSections } from "../../pages/SemesterView/section-service";
 import { WeeklySchedule } from "../../models/weeklySchedule";
@@ -56,6 +51,25 @@ const semester_slice = createSlice({
     addCourseToSchedule(state, action: PayloadAction<Course>) {
       toast.success(`${action.payload.name} scheduled.`, defaultToastOptions);
       state.coursesToSchedule = [...state.coursesToSchedule, action.payload];
+    },
+    clearCoursesToSchedule(state) {
+      state.coursesToSchedule = [];
+    },
+    clearScheduledSections(state) {
+      // Create an array of courses from the scheduled sections
+      const scheduledCourses = state.scheduledSections.map(
+        (section) => section.course,
+      );
+
+      // Filter out the courses from coursesToSchedule that are in the scheduledCourses array
+      state.coursesToSchedule = state.coursesToSchedule.filter(
+        (courseToSchedule) =>
+          !scheduledCourses.some((scheduledCourse) =>
+            scheduledCourse.equals(courseToSchedule as Course),
+          ),
+      );
+
+      state.scheduledSections = [];
     },
     // pass course.courseAbreviation + course.code
     removeCourseFromSchedule(state, action: PayloadAction<string>) {
@@ -206,4 +220,6 @@ export const {
   removeCourseFromSchedule,
   hoverSection,
   unhoverSection,
+  clearScheduledSections,
+  clearCoursesToSchedule,
 } = semester_slice.actions;

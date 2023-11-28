@@ -10,18 +10,28 @@ export const getCourseBorderColor = (course: Course): string => {
   // Get the entire state once and destructure it to get the needed parts.
   const { semester, student } = store.getState();
   const { coursesToSchedule, scheduledSections } = semester;
-  const { completedCourses } = student;
+  const { scheduledCourses: scheduledCourses } = student;
 
   // check COMPLETED
   if (
-    completedCourses.some((completedCourse) => completedCourse.equals(course))
+    scheduledCourses.some(
+      (scheduledSection) =>
+        scheduledSection.course.equals(course) && scheduledSection.course.grade,
+    )
   ) {
     return COURSE_STATUS_COLORS.COMPLETED;
   }
 
   // check TO BE SCHEDULED
   // check IN PROGRESS
-  if (scheduledSections.some((section) => section.course.equals(course))) {
+  if (
+    scheduledCourses.some(
+      (scheduledSection) =>
+        scheduledSection.course.equals(course) &&
+        !scheduledSection.course.grade,
+    )
+  ) {
+    console.log(scheduledCourses);
     return COURSE_STATUS_COLORS.IN_PROGRESS;
   }
   if (
@@ -37,7 +47,9 @@ export const getCourseBorderColor = (course: Course): string => {
     (course instanceof CoreCourse && !course.hasPrereqs()) ||
     (course instanceof CategoryCourse &&
       course.options.some((option) => !option.hasPrereqs())) ||
-    completedCourses.some((completedCourse) => completedCourse.equals(course))
+    scheduledCourses.some((completedSection) =>
+      completedSection.course.equals(course),
+    )
   ) {
     return COURSE_STATUS_COLORS.CAN_SCHEDULE;
   }

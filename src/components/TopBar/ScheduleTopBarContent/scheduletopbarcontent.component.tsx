@@ -1,25 +1,19 @@
-import React, { Fragment } from "react";
+import { useMemo } from "react";
 import styles from "./scheduletopbarcontent.module.scss";
 import SegmentedProgressBar, {
   segment,
 } from "../ProgressBar/segmentedprogressbar.component";
-import { Star } from "@mui/icons-material";
+
 import { useSelector } from "react-redux";
 import { AppState } from "../../../store/store";
-import StarRating from "./star-bar/star-rating.component";
-import StarBar from "./star-bar/star-bar.component";
 
-const sampleSegments: segment[] = [
-  {
-    id: "1",
-    label: "wow",
-    color: "#008000",
-    value: 30,
-    tooltip: "Hours Scheduled",
-  },
-];
+import StarBar from "./star-bar/star-bar.component";
+import { Section } from "../../../models/section";
 
 const ScheduleTopBarContent = (): JSX.Element => {
+  const scheduledSections: Section[] = useSelector((state: AppState) => {
+    return state.semester.scheduledSections;
+  });
   const rating: number | null = useSelector((state: AppState) => {
     if (state.semester.coursesToSchedule.length < 1) {
       return null;
@@ -46,21 +40,24 @@ const ScheduleTopBarContent = (): JSX.Element => {
     return avgRating;
   });
 
-  const hoursScheduled: number = useSelector((state: AppState) => {
-    return state.semester.scheduledSections.reduce((hoursTotal, section) => {
+  const hours = useMemo(() => {
+    return scheduledSections.reduce((hoursTotal, section) => {
       return (section.course.credits ?? 0) + hoursTotal;
     }, 0);
-  });
+  }, [scheduledSections]);
 
-  const segments: segment[] = [
-    {
-      id: "1",
-      label: "Hour Scheduled",
-      color: "#008000",
-      value: hoursScheduled,
-      tooltip: hoursScheduled + " Hours Scheduled",
-    },
-  ];
+  const segments: segment[] = useMemo(() => {
+    if (hours === 0) return [];
+    return [
+      {
+        id: "1",
+        label: "Hour Scheduled",
+        color: "#008000",
+        value: hours,
+        tooltip: hours + " Hours Scheduled",
+      },
+    ];
+  }, [hours]);
 
   const maxHours: number = useSelector((state: AppState) => {
     return state.semester.coursesToSchedule.reduce((a, course) => {
@@ -77,7 +74,7 @@ const ScheduleTopBarContent = (): JSX.Element => {
       <div className={styles.progress_container}>
         <h4>
           <span className={styles.light}>HOURS SCHEDULED: </span>
-          <b>{hoursScheduled}</b>
+          <b>{hours}</b>
         </h4>
         <SegmentedProgressBar
           segments={segments}

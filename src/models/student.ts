@@ -1,7 +1,8 @@
 import { v4 } from "uuid";
-import { Course, Department } from "./course";
+import { Department } from "./course";
 import { Degree } from "./degree";
 import { SoftwareEngineeringDegree } from "./database/SWEDegree";
+import { Section } from "./section";
 
 export interface Student {
   id: string;
@@ -13,7 +14,7 @@ export interface Student {
   minors: Department[];
 
   gpa: number;
-  completedCourses: Course[];
+  scheduledCourses: Section[];
 }
 
 export const DEFAULT_INITAL_STUDENT: Student = {
@@ -26,5 +27,5 @@ export const DEFAULT_INITAL_STUDENT: Student = {
   minors: [],
 
   gpa: 4.0,
-  completedCourses: [],
+  scheduledCourses: [],
 };

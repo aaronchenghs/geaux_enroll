@@ -48,7 +48,7 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
   }, [$hoveredCourseNode, $edges, id]);
 
   const $completedCourses = useSelector(
-    (state: AppState) => state.student.completedCourses,
+    (state: AppState) => state.student.scheduledCourses,
   );
   const $coursesToSchedule = useSelector(
     (state: AppState) => state.semester.coursesToSchedule,

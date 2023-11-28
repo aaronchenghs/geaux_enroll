@@ -56,7 +56,7 @@ const TopBar = (): JSX.Element => {
 
       const timer = setTimeout(() => {
         setShowTooltip(false);
-      }, 3000);
+      }, 2800);
 
       return () => {
         clearTimeout(timer);
@@ -116,16 +116,26 @@ const TopBar = (): JSX.Element => {
         >
           {toggleView() === View.Degree ? <Share /> : <CalendarToday />}
         </Button>
-        <Overlay target={target} show={showTooltip} placement="bottom">
-          {(props: OverlayInjectedProps): JSX.Element => (
-            <Tooltip id="button-tooltip" {...props}>
-              Schedule a section for{" "}
-              {
-                $coursesToSchedule[$coursesToSchedule.length - 1]
-                  .courseAbreviation
-              }
-            </Tooltip>
-          )}
+        <Overlay
+          target={target}
+          show={
+            showTooltip && !!$coursesToSchedule[$coursesToSchedule.length - 1]
+          }
+          placement="bottom"
+        >
+          {(props: OverlayInjectedProps): JSX.Element => {
+            const lastCourse =
+              $coursesToSchedule[$coursesToSchedule.length - 1];
+            const tooltipContent = lastCourse
+              ? `Schedule a section for ${lastCourse.courseAbreviation}`
+              : "";
+
+            return (
+              <Tooltip id="button-tooltip" {...props}>
+                {tooltipContent}
+              </Tooltip>
+            );
+          }}
         </Overlay>
 
         <div

@@ -314,7 +314,7 @@ export enum Department {
   BE = "BE",
   CE = "CE",
   GEOG = "GEOG",
-  GEOL = "GEOL"
+  GEOL = "GEOL",
 }
 
 export enum CourseType {

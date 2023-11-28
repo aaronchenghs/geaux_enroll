@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Course } from "../../models/course";
-import { CourseNodeProps } from "../../pages/DegreeView/components/Flowchart/CourseNode/coursenode.component";
 import { Edge } from "react-flow-renderer";
 
 interface DegreeState {

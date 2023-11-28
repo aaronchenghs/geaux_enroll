@@ -19,6 +19,7 @@ import {
 import { getCourseBorderColor } from "../Flowchart/CourseNode/nodeUtils";
 import { COURSE_STATUS_COLORS } from "../Flowchart/flowchart.utils";
 import ToolTip from "../../../../components/ToolTip/ToolTip.component";
+import { dropCourse } from "../../../../store/Student/slice";
 
 export type ModalProps = {
   openCondition: boolean;
@@ -37,7 +38,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     (state: AppState) => state.degree.selectedCourseNode,
   );
   const $completedCourses = useSelector(
-    (state: AppState) => state.student.completedCourses,
+    (state: AppState) => state.student.scheduledCourses,
   );
 
   const [chosenOption, setChosenOption] = useState<Course | null>(null);
@@ -57,6 +58,14 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
       !$coursesToSchedule.some((course) => course.equals($selectedCourseNode))
     );
   }, [$selectedCourseNode, $coursesToSchedule]);
+
+  const showDropButton = useMemo(() => {
+    if (!$selectedCourseNode) return false;
+    return $completedCourses.some(
+      (section) =>
+        section.course.equals($selectedCourseNode) && !section.course.grade,
+    );
+  }, [$completedCourses, $selectedCourseNode]);
 
   const requirementsMet = useMemo(() => {
     if (!$selectedCourseNode) return false;
@@ -100,6 +109,11 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
         $selectedCourseNode.courseAbreviation + $selectedCourseNode.code,
       ),
     );
+  };
+  const handleDrop = (): void => {
+    if (!$selectedCourseNode) return;
+
+    dispatch(dropCourse($selectedCourseNode));
   };
 
   const toggleCodeRange = (codeStart: number): void => {
@@ -198,6 +212,12 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
         isVisible={tooltipVisible}
       />
     </div>
+  );
+
+  const renderDropButton = (
+    <Button variant="danger" onClick={handleDrop}>
+      Drop
+    </Button>
   );
 
   return (
@@ -303,10 +323,11 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
 
         <Modal.Footer>
           {renderCloseButton}
-          {!requirementsMet
+          {showDropButton
+            ? renderDropButton
+            : !requirementsMet
             ? renderCannotScheduleButton
-            : // TODO: account for category courses
-            courseIsRegistered
+            : courseIsRegistered
             ? renderScheduleButton
             : renderRemoveButton}
         </Modal.Footer>

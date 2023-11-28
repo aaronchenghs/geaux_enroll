@@ -17,23 +17,22 @@ const DegreeTopBarContent = (): JSX.Element => {
     (state: AppState) => state.semester.scheduledSections,
   );
   const $completedCourses = useSelector(
-    (state: AppState) => state.student.completedCourses,
+    (state: AppState) => state.student.scheduledCourses,
   );
   const $degreeHours = useSelector(
     (state: AppState) => state.student.majors[0].hours,
+  );
+  const $scheduledSections = useSelector(
+    (state: AppState) => state.student.scheduledCourses,
   );
   const $degree = useSelector((state: AppState) => state.student.majors[0]);
 
   const toBeScheduledSegment: segment = useMemo(() => {
     // Use reduce to sum up the credits from scheduledCourses
-    const totalCredits = $scheduledCourses
-      .filter(
-        (scheduledCourse) =>
-          !$inProgressSections.some((inProgressCourse) =>
-            inProgressCourse.course.equals(scheduledCourse),
-          ),
-      )
-      .reduce((acc, course) => acc + (course.credits ?? 0), 0);
+    const totalCredits = $scheduledCourses.reduce(
+      (acc, course) => acc + (course.credits ?? 0),
+      0,
+    );
 
     return {
       id: "TBS",
@@ -45,10 +44,10 @@ const DegreeTopBarContent = (): JSX.Element => {
   }, [$scheduledCourses]);
 
   const inProgressSegment: segment = useMemo(() => {
-    // Use reduce to sum up the credits from scheduledCourses
-    const totalCredits = $inProgressSections
-      .map((section) => section.course)
-      .reduce((acc, course) => acc + (course.credits ?? 0), 0);
+    // Filter $scheduledSections to include only courses with an undefined 'grade' and sum their credits
+    const totalCredits = $scheduledSections
+      .filter((section) => !section.course.grade)
+      .reduce((acc, section) => acc + (section.course.credits ?? 0), 0);
 
     return {
       id: "IP",
@@ -57,14 +56,13 @@ const DegreeTopBarContent = (): JSX.Element => {
       value: totalCredits,
       tooltip: `${totalCredits} Hours in progress.`,
     };
-  }, [$scheduledCourses]);
+  }, [$scheduledSections]); // Dependency should be $scheduledSections
 
   const completedSegment: segment = useMemo(() => {
     // Use reduce to sum up the credits from scheduledCourses
-    const totalCredits = $completedCourses.reduce(
-      (acc, course) => acc + (course.credits ?? 0),
-      0,
-    );
+    const totalCredits = $scheduledSections
+      .filter((section) => section.course.grade)
+      .reduce((acc, section) => acc + (section.course.credits ?? 0), 0);
 
     return {
       id: "C",
