@@ -9,6 +9,11 @@ import { Degree } from "../degree";
 import { ApprovedElectives } from "./ApprovedElectives";
 import { TechElectivesB } from "./TechElectivesB";
 import { TechElectivesA } from "./TechElectivesA";
+import { GenEdSocialSciences } from "./GenEdSocialScience";
+import { GenEdArts } from "./GenEdArt";
+import { GenEdHums } from "./GenEdHum";
+import { GenEdCMST } from "./GenEdCMST";
+import { GenEdHumEnglOrHnrses } from "./GenEdHumEnglOrHnrs";
 
 export const CSC1350 = new CoreCourse({
   name: "Intro CS1 For Majors",
@@ -487,7 +492,7 @@ export const GenEdSocialScience = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...GenEdSocialSciences],
   optionTaken: null,
   credits: 3,
 });
@@ -511,7 +516,7 @@ export const GenEdArt = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...GenEdArts],
   optionTaken: null,
   credits: 3,
 });
@@ -523,7 +528,7 @@ export const GenEdHumEnglOrHnrs = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...GenEdHums, ...GenEdHumEnglOrHnrses],
   optionTaken: null,
   credits: 3,
 });
@@ -535,7 +540,7 @@ export const GenEdHum = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...GenEdHums],
   optionTaken: null,
   credits: 3,
 });
@@ -547,7 +552,7 @@ export const GenEdHumCMST = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...GenEdCMST],
   optionTaken: null,
   credits: 3,
 });
@@ -567,7 +572,7 @@ export const PhysicalScienceSequence2 = new CategoryCourse({
   name: "Science Sequence II Requirement",
   description: `As a continuation of the first sequence, this category offers advanced topics in the realm of physical sciences. Building upon the foundational knowledge from the previous course, students will explore more intricate concepts, applications, and phenomena within physics, chemistry, or other related disciplines. Emphasis is placed on understanding the underlying principles and their real-world applications.`,
 
-  prereqs: null,
+  prereqs: [PhysicalScienceSequence1],
   courseType: [],
   grade: null,
   section: null,

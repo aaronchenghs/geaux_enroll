@@ -315,6 +315,19 @@ export enum Department {
   CE = "CE",
   GEOG = "GEOG",
   GEOL = "GEOL",
+  CMST = "CMST",
+  ARCH = "ARCH",
+  LA = "LA",
+  ID = "ID",
+  PHI = "PHI",
+  THTR = "THTR",
+  HNRS = "HNRS",
+  AAAS = "AAAS",
+  ARAB = "ARAB",
+  AGEC = "AGEC",
+  ANTH = "ANTH",
+  ECON = "ECON",
+  PSYC = "PSYC",
 }
 
 export enum CourseType {
