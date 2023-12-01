@@ -36,6 +36,17 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
 
   const $force = useSelector((state: AppState) => state.app.forceRerender);
 
+  const $completedCourses = useSelector(
+    (state: AppState) => state.student.scheduledCourses,
+  );
+  const $coursesToSchedule = useSelector(
+    (state: AppState) => state.semester.coursesToSchedule,
+  );
+
+  const $scheduledSections = useSelector(
+    (state: AppState) => state.semester.scheduledSections,
+  );
+
   const visible = useMemo(() => {
     const isHoveredNode =
       $hoveredCourseNode === null || $hoveredCourseNode === id;
@@ -48,17 +59,6 @@ export const CourseNode: React.FC<CourseNodeProps> = ({
 
     return isHoveredNode || isConnectedToHoveredNode;
   }, [$hoveredCourseNode, $edges, id]);
-
-  const $completedCourses = useSelector(
-    (state: AppState) => state.student.scheduledCourses,
-  );
-  const $coursesToSchedule = useSelector(
-    (state: AppState) => state.semester.coursesToSchedule,
-  );
-
-  const $scheduledSections = useSelector(
-    (state: AppState) => state.semester.scheduledSections,
-  );
 
   const borderColor: string = useMemo(() => {
     return getCourseBorderColor(course);

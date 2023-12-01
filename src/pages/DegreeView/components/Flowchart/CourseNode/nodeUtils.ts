@@ -40,14 +40,19 @@ export const getCourseBorderColor = (course: Course): string => {
   ) {
     return COURSE_STATUS_COLORS.TO_BE_SCHEDULED;
   }
-
+  console.log(scheduledCourses);
+  // Check CAN SCHEDULE (for CoreCourse or CategoryCourse with no prerequisites)
   // Check CAN SCHEDULE (for CoreCourse or CategoryCourse with no prerequisites)
   if (
     (course instanceof CoreCourse && !course.hasPrereqs()) ||
     (course instanceof CategoryCourse &&
       course.options.some((option) => !option.hasPrereqs())) ||
-    scheduledCourses.some((completedSection) =>
-      completedSection.course.equals(course),
+    course.prereqs.every((prereq) =>
+      scheduledCourses.some(
+        (scheduledSection) =>
+          scheduledSection.course.equals(prereq) &&
+          scheduledSection.course.grade != null,
+      ),
     )
   ) {
     return COURSE_STATUS_COLORS.CAN_SCHEDULE;
