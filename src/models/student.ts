@@ -17,7 +17,7 @@ export interface Student {
   scheduledCourses: Section[];
 }
 
-export const DEFAULT_INITAL_STUDENT: Student = {
+export const DEFAULT_INITIAL_STUDENT: Student = {
   id: v4(),
   firstName: "Mike",
   middleName: "The",

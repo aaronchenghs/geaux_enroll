@@ -40,7 +40,6 @@ export const getCourseBorderColor = (course: Course): string => {
   ) {
     return COURSE_STATUS_COLORS.TO_BE_SCHEDULED;
   }
-  console.log(scheduledCourses);
   // Check CAN SCHEDULE (for CoreCourse or CategoryCourse with no prerequisites)
   // Check CAN SCHEDULE (for CoreCourse or CategoryCourse with no prerequisites)
   if (
