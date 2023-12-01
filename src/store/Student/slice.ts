@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { DEFAULT_INITAL_STUDENT } from "../../models/student";
 import { Section } from "../../models/section";
-import { Course } from "../../models/course";
+import { Course, Grade } from "../../models/course";
 
 const slice = createSlice({
   name: "student",
@@ -30,10 +30,22 @@ const slice = createSlice({
       // Concatenate the new courses with the existing ones
       state.scheduledCourses = [...state.scheduledCourses, ...newCourses];
     },
+    adminPassAllInProgressClasses(state) {
+      state.scheduledCourses.forEach((section) => {
+        if (section.course.grade === null) {
+          section.course.grade = Grade.A;
+        }
+      });
+    },
   },
   extraReducers: () => {},
 });
 
 export const reducer = slice.reducer;
 
-export const { changeName, addScheduledSections, dropCourse } = slice.actions;
+export const {
+  changeName,
+  addScheduledSections,
+  dropCourse,
+  adminPassAllInProgressClasses,
+} = slice.actions;

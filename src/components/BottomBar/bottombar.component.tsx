@@ -12,7 +12,10 @@ import {
   clearScheduledSections,
   returnFromCurrentSelection,
 } from "../../store/Semester/semester-slice";
-import { addScheduledSections } from "../../store/Student/slice";
+import {
+  addScheduledSections,
+  adminPassAllInProgressClasses,
+} from "../../store/Student/slice";
 
 const formatDate = (date: Date): string => {
   const options: Intl.DateTimeFormatOptions = {
@@ -38,8 +41,17 @@ const BottomBar = (): JSX.Element => {
   const $scheduledSections = useSelector(
     (state: AppState) => state.semester.scheduledSections,
   );
+  const $studentScheduledSections = useSelector(
+    (state: AppState) => state.student.scheduledCourses,
+  );
 
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const inProgressClasses: boolean = useMemo(() => {
+    return $studentScheduledSections.some((section) => {
+      return !section.course.grade;
+    });
+  }, [$studentScheduledSections]);
 
   const currentDateAndTime = formatDate(new Date());
 
@@ -97,6 +109,17 @@ const BottomBar = (): JSX.Element => {
         </h2>
         {completeSchedulingButton}
       </div>
+
+      <Button
+        className={`${styles.adminPassClassesButton}`}
+        hidden={!inProgressClasses}
+        onClick={(): void => {
+          dispatch(adminPassAllInProgressClasses());
+        }}
+      >
+        Pass IP Classes
+      </Button>
+
       {isExpanded && (
         <div className={styles.content}>
           <BottomBarTable

@@ -31,7 +31,6 @@ export const getCourseBorderColor = (course: Course): string => {
         !scheduledSection.course.grade,
     )
   ) {
-    console.log(scheduledCourses);
     return COURSE_STATUS_COLORS.IN_PROGRESS;
   }
   if (

@@ -110,7 +110,6 @@
     &:hover {
       background-color: transparent;
       color: var(--surfaceColor);
-      scale: 97%;
       border: 3px solid var(--toastify-color-success);
     }
 
@@ -126,6 +125,14 @@
 
     &:hover {
       scale: 100%;
+    }
+  }
+
+  .adminPassClassesButton {
+    @extend .submitButton;
+    border: 1px solid gray;
+    &:hover {
+      border: 1px solid var(--toastify-color-success);
     }
   }
 }

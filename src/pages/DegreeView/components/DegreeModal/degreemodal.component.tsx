@@ -50,7 +50,6 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const isCategory = $selectedCourseNode instanceof CategoryCourse;
-
   // This is an outdated memo that only works for core courses
   const courseIsRegistered = useMemo(() => {
     return (
@@ -206,11 +205,6 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
       >
         Remove
       </Button>
-      <ToolTip
-        content="Section chosen for this requirement"
-        position={tooltipPos || { x: 0, y: 0 }}
-        isVisible={tooltipVisible}
-      />
     </div>
   );
 

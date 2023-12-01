@@ -21,7 +21,9 @@ const FlowChart = (): JSX.Element => {
   const $edges = useSelector((state: AppState) => state.degree.edges);
 
   const [showHelper, setShowHelper] = useState<boolean>(false);
-
+  const $studentScheduledSections = useSelector(
+    (state: AppState) => state.student.scheduledCourses,
+  );
   const infoIconRef = useRef<HTMLDivElement>(null);
 
   const nodes = useMemo(() => buildDegreeNodes(SoftwareEngineeringDegree), []);
@@ -41,8 +43,12 @@ const FlowChart = (): JSX.Element => {
    * type this to work with my custom component. Call me a hypocrite
    * but I'm using any here because i'm over it.
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const nodeTypes = useMemo(() => ({ course: CourseNode as any }), []);
+
+  const nodeTypes = useMemo(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    () => ({ course: CourseNode as any }),
+    [$studentScheduledSections],
+  );
   const edgeTypes = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     course: CourseEdge as any,
