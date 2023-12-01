@@ -317,13 +317,27 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
 
         <Modal.Footer>
           {renderCloseButton}
-          {showDropButton
-            ? renderDropButton
-            : !requirementsMet
-            ? renderCannotScheduleButton
-            : courseIsRegistered
-            ? renderScheduleButton
-            : renderRemoveButton}
+          {$selectedCourseNode &&
+          getCourseBorderColor($selectedCourseNode) !==
+            COURSE_STATUS_COLORS.COMPLETED ? (
+            showDropButton ? (
+              renderDropButton
+            ) : !requirementsMet ? (
+              renderCannotScheduleButton
+            ) : courseIsRegistered ? (
+              renderScheduleButton
+            ) : (
+              renderRemoveButton
+            )
+          ) : (
+            <>
+              <div className={styles.gradeContainer}>Grade: A</div>
+              <div className={styles.gradeContainer}>
+                Quality Points:{" "}
+                {$selectedCourseNode ? $selectedCourseNode?.credits * 4 : 0}
+              </div>
+            </>
+          )}
         </Modal.Footer>
       </Modal>
     </>

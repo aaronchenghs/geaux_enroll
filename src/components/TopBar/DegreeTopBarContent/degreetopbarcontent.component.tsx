@@ -10,6 +10,7 @@ import { AppState } from "../../../store/store";
 import { School } from "@mui/icons-material";
 
 const DegreeTopBarContent = (): JSX.Element => {
+  const $force = useSelector((state: AppState) => state.app.forceRerender);
   const $scheduledCourses = useSelector(
     (state: AppState) => state.semester.coursesToSchedule,
   );
@@ -41,7 +42,7 @@ const DegreeTopBarContent = (): JSX.Element => {
       value: totalCredits,
       tooltip: `${totalCredits} Hours to be scheduled, choose a section(s).`,
     };
-  }, [$scheduledCourses]);
+  }, [$scheduledCourses, $force]);
 
   const inProgressSegment: segment = useMemo(() => {
     // Filter $scheduledSections to include only courses with an undefined 'grade' and sum their credits
@@ -56,7 +57,7 @@ const DegreeTopBarContent = (): JSX.Element => {
       value: totalCredits,
       tooltip: `${totalCredits} Hours in progress.`,
     };
-  }, [$scheduledSections]); // Dependency should be $scheduledSections
+  }, [$scheduledSections, $force]); // Dependency should be $scheduledSections
 
   const completedSegment: segment = useMemo(() => {
     // Use reduce to sum up the credits from scheduledCourses
@@ -71,7 +72,7 @@ const DegreeTopBarContent = (): JSX.Element => {
       value: totalCredits,
       tooltip: `${totalCredits} Hours completed.`,
     };
-  }, [$scheduledCourses]);
+  }, [$scheduledCourses, $force]);
 
   return (
     <Fragment>

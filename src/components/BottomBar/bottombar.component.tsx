@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../store/store";
 import BottomBarTable from "./BottomBarTable/bottombartable.component";
 import { Button } from "@mui/material";
-import { View, changeView } from "../../store/App/slice";
+import { View, changeView, forceRerender } from "../../store/App/slice";
 import { Tooltip } from "react-tooltip";
 import {
   clearScheduledSections,
@@ -33,6 +33,7 @@ const formatDate = (date: Date): string => {
 const BottomBar = (): JSX.Element => {
   const dispatch = useDispatch();
 
+  const $force = useSelector((state: AppState) => state.app.forceRerender);
   const $student = useSelector((state: AppState) => state.student);
   const $view = useSelector((state: AppState) => state.app.view);
   const $coursesToSchedule = useSelector(
@@ -51,7 +52,7 @@ const BottomBar = (): JSX.Element => {
     return $studentScheduledSections.some((section) => {
       return !section.course.grade;
     });
-  }, [$studentScheduledSections]);
+  }, [$studentScheduledSections, $force]);
 
   const currentDateAndTime = formatDate(new Date());
 
@@ -112,9 +113,10 @@ const BottomBar = (): JSX.Element => {
 
       <Button
         className={`${styles.adminPassClassesButton}`}
-        hidden={!inProgressClasses}
+        hidden={!inProgressClasses || $view !== View.Degree}
         onClick={(): void => {
           dispatch(adminPassAllInProgressClasses());
+          dispatch(forceRerender());
         }}
       >
         Pass IP Classes
