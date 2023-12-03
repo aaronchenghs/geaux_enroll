@@ -14,6 +14,13 @@ import { GenEdArts } from "./GenEdArt";
 import { GenEdHums } from "./GenEdHum";
 import { GenEdCMST } from "./GenEdCMST";
 import { GenEdHumEnglOrHnrses } from "./GenEdHumEnglOrHnrs";
+import {
+  PHYS1201,
+  PhysicalScienceSequence1Options,
+} from "./PhysicalScienceSequence1";
+import { PhysicalScienceSequence2Options } from "./PhysicalScienceSequence2";
+import { PhysicalScienceSequence1LabOptions } from "./PhysicalScienceSequence1Lab";
+import { PhysicalScienceSequence2LabOptions } from "./PhysicalScienceSequence2Lab";
 
 export const CSC1350 = new CoreCourse({
   name: "Intro CS1 For Majors",
@@ -564,7 +571,7 @@ export const PhysicalScienceSequence1 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...PhysicalScienceSequence1Options],
   optionTaken: null,
   credits: 3,
 });
@@ -576,7 +583,7 @@ export const PhysicalScienceSequence2 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...PhysicalScienceSequence2Options],
   optionTaken: null,
   credits: 3,
 });
@@ -588,7 +595,7 @@ export const PhysicalScienceSequence1Lab = new CategoryCourse({
   courseType: [CourseType.LAB],
   grade: null,
   section: null,
-  options: [],
+  options: [...PhysicalScienceSequence1LabOptions],
   optionTaken: null,
   credits: 1,
 });
@@ -600,7 +607,7 @@ export const PhysicalScienceSequence2Lab = new CategoryCourse({
   courseType: [CourseType.LAB],
   grade: null,
   section: null,
-  options: [],
+  options: [...PhysicalScienceSequence2LabOptions],
   optionTaken: null,
   credits: 1,
 });

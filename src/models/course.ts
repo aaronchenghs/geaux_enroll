@@ -295,8 +295,10 @@ export class CourseFactory {
 export enum Department {
   CSC = "CSC",
   MATH = "MATH",
+  PHYS = "PHYS",
   BIOL = "BIOL",
   CHE = "CHE",
+  CHEM = "CHEM",
   ECE = "ECE",
   HIST = "HIST",
   ENGL = "ENGL",
