@@ -14,6 +14,10 @@ import { GenEdArts } from "./GenEdArt";
 import { GenEdHums } from "./GenEdHum";
 import { GenEdCMST } from "./GenEdCMST";
 import { GenEdHumEnglOrHnrses } from "./GenEdHumEnglOrHnrs";
+import { CSC2000Electives } from "./CSC2000Elective";
+import { CSC3000Electives } from "./CSC3000Electives"; 
+import { CSC4000Electives } from "./CSC4000Electives";
+
 import {
   PHYS1201,
   PhysicalScienceSequence1Options,
@@ -399,7 +403,7 @@ export const CSC2000Elective = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...CSC2000Electives],
   optionTaken: null,
   credits: 3,
 });
@@ -415,7 +419,7 @@ export const CSC2000ElectiveSeg = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...CSC2000Electives],
   optionTaken: null,
   credits: 3,
 });
@@ -427,7 +431,7 @@ export const CSC3000Elective = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...CSC3000Electives],
   optionTaken: null,
   credits: 3,
 });
@@ -439,7 +443,7 @@ export const CSC4000Elective = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...CSC4000Electives],
   optionTaken: null,
   credits: 3,
 });

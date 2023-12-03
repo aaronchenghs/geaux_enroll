@@ -33,7 +33,7 @@ export const CSC2463 = new Course({
     credits: 3,
   });
 
-  export const CSC2000Elective: Course[] = [
+  export const CSC2000Electives: Course[] = [
     CSC2362,
     CSC2463,
     CSC2610
