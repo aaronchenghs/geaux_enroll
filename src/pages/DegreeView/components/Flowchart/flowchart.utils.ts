@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import {
   ApprovedElective1,
   ApprovedElective2,
+  AreaElective1,
   AreaElective2,
   BIOL,
   CSC1350,
@@ -125,7 +126,13 @@ export const buildDegreeNodes = (degree: Degree): CourseNodeProps[] => {
     [CSC3380, CSC3501, CSC2262, GenEdHumCMST, ENGL2000],
     [CSC4330, CSC4101, IE3302, CSC3200, TechElectiveA],
     [CSC4103, CSC4351, CSC2000Elective, GenEdSocialScience, TechElectiveAorB],
-    [CSC4402, CSC2000ElectiveSeg, GenEdSocialScience2000, ApprovedElective1],
+    [
+      CSC4402,
+      CSC2000ElectiveSeg,
+      GenEdSocialScience2000,
+      AreaElective1,
+      ApprovedElective1,
+    ],
     [
       CSC3000Elective,
       CSC4000Elective,

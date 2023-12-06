@@ -13,6 +13,7 @@ export interface Student {
   majors: Degree[];
   minors: Department[];
 
+  hoursCanSchedule: number;
   gpa: number;
   scheduledCourses: Section[];
 }
@@ -26,6 +27,7 @@ export const DEFAULT_INITIAL_STUDENT: Student = {
   majors: [SoftwareEngineeringDegree],
   minors: [],
 
+  hoursCanSchedule: 15,
   gpa: 4.0,
   scheduledCourses: [],
 };

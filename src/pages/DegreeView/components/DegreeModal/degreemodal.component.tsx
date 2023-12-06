@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../../../store/store";
 import { setSelectedCourseNode } from "../../../../store/Degree/degree-slice";
@@ -18,7 +18,6 @@ import {
 } from "../../../../store/Semester/semester-slice";
 import { getCourseBorderColor } from "../Flowchart/CourseNode/nodeUtils";
 import { COURSE_STATUS_COLORS } from "../Flowchart/flowchart.utils";
-import ToolTip from "../../../../components/ToolTip/ToolTip.component";
 import { dropCourse } from "../../../../store/Student/slice";
 
 export type ModalProps = {
@@ -40,6 +39,10 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   const $completedCourses = useSelector(
     (state: AppState) => state.student.scheduledCourses,
   );
+  const $hoursCanSchedule = useSelector(
+    (state: AppState) => state.student.hoursCanSchedule,
+  );
+  const $force = useSelector((state: AppState) => state.app.forceRerender);
 
   const [chosenOption, setChosenOption] = useState<Course | null>(null);
   const [selectedCodeRange, setSelectedCodeRange] = useState<number[]>([
@@ -50,30 +53,25 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const isCategory = $selectedCourseNode instanceof CategoryCourse;
+
+  const noSpaceAvailableForThisCourse = useMemo(() => {
+    if (!$selectedCourseNode) return false;
+
+    const scheduledTotalCredits = $scheduledSections
+      .filter((section) => !section.course.grade)
+      .reduce((acc, section) => acc + (section.course.credits ?? 0), 0);
+
+    const sectionsScheduledTotalCredits = $coursesToSchedule.reduce(
+      (acc, course) => acc + (course.credits ?? 0),
+      0,
+    );
+
+    const reducedHoursCanSchedule =
+      $hoursCanSchedule - sectionsScheduledTotalCredits - scheduledTotalCredits;
+
+    return !(reducedHoursCanSchedule >= $selectedCourseNode.credits);
+  }, [$selectedCourseNode, $scheduledSections, $coursesToSchedule, $force]);
   // This is an outdated memo that only works for core courses
-  const courseIsRegistered = useMemo(() => {
-    return (
-      $selectedCourseNode &&
-      !$coursesToSchedule.some((course) => course.equals($selectedCourseNode))
-    );
-  }, [$selectedCourseNode, $coursesToSchedule]);
-
-  const showDropButton = useMemo(() => {
-    if (!$selectedCourseNode) return false;
-    return $completedCourses.some(
-      (section) =>
-        section.course.equals($selectedCourseNode) && !section.course.grade,
-    );
-  }, [$completedCourses, $selectedCourseNode]);
-
-  const requirementsMet = useMemo(() => {
-    if (!$selectedCourseNode) return false;
-
-    return getCourseBorderColor($selectedCourseNode!) ===
-      COURSE_STATUS_COLORS.CANNOT_SCHEDULE
-      ? false
-      : true;
-  }, [$completedCourses, $selectedCourseNode]);
 
   const relevantCodeRanges = isCategory
     ? Array.from(
@@ -152,29 +150,22 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
     </Button>
   );
 
-  const [tooltipVisible, setTooltipVisible] = useState(false);
-  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
-    null,
-  );
-
   const renderCannotScheduleButton = (
-    <div
-      onMouseOver={(e: React.MouseEvent<HTMLDivElement>): void => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setTooltipPos({ x: rect.x, y: rect.bottom });
-        setTooltipVisible(true);
-      }}
-      onMouseOut={(): void => setTooltipVisible(false)}
+    <OverlayTrigger
+      key="cannotScheduleTooltip"
+      placement="bottom"
+      overlay={
+        <Tooltip id={`tooltip-cannot-schedule`}>
+          {noSpaceAvailableForThisCourse
+            ? "Insufficient Scheduling Hours Remaining"
+            : "Requirements Not Met"}
+        </Tooltip>
+      }
     >
-      <Button variant="secondary" onClick={handleAdd} disabled>
+      <Button variant="secondary" disabled>
         Cannot Schedule
       </Button>
-      <ToolTip
-        content="Requirements not met"
-        position={tooltipPos || { x: 0, y: 0 }}
-        isVisible={tooltipVisible}
-      />
-    </div>
+    </OverlayTrigger>
   );
 
   const renderScheduleButton = (
@@ -184,28 +175,19 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
   );
 
   const renderRemoveButton = (
-    <div
-      onMouseOver={(e: React.MouseEvent<HTMLDivElement>): void => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        setTooltipPos({ x: rect.x, y: rect.bottom });
-        setTooltipVisible(true);
-      }}
-      onMouseOut={(): void => setTooltipVisible(false)}
+    <Button
+      variant="danger"
+      onClick={handleRemove}
+      disabled={
+        $selectedCourseNode
+          ? $scheduledSections.some((section) =>
+              section.course.equals($selectedCourseNode),
+            )
+          : false
+      }
     >
-      <Button
-        variant="danger"
-        onClick={handleRemove}
-        disabled={
-          $selectedCourseNode
-            ? $scheduledSections.some((section) =>
-                section.course.equals($selectedCourseNode),
-              )
-            : false
-        }
-      >
-        Remove
-      </Button>
-    </div>
+      Remove
+    </Button>
   );
 
   const renderDropButton = (
@@ -213,6 +195,33 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
       Drop
     </Button>
   );
+
+  const buttonToRender = useMemo(() => {
+    if (!$selectedCourseNode) return <></>;
+
+    const borderColor = getCourseBorderColor($selectedCourseNode);
+
+    switch (borderColor) {
+      case COURSE_STATUS_COLORS.CAN_SCHEDULE:
+        return noSpaceAvailableForThisCourse
+          ? renderCannotScheduleButton
+          : renderScheduleButton;
+      case COURSE_STATUS_COLORS.CANNOT_SCHEDULE:
+        return renderCannotScheduleButton;
+      case COURSE_STATUS_COLORS.TO_BE_SCHEDULED:
+        return renderRemoveButton;
+      case COURSE_STATUS_COLORS.IN_PROGRESS:
+        return renderDropButton;
+      default:
+        return <></>;
+    }
+  }, [
+    $selectedCourseNode,
+    $selectedCourseNode,
+    $coursesToSchedule,
+    $completedCourses,
+    $force,
+  ]);
 
   return (
     <>
@@ -320,15 +329,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
           {$selectedCourseNode &&
           getCourseBorderColor($selectedCourseNode) !==
             COURSE_STATUS_COLORS.COMPLETED ? (
-            showDropButton ? (
-              renderDropButton
-            ) : !requirementsMet ? (
-              renderCannotScheduleButton
-            ) : courseIsRegistered ? (
-              renderScheduleButton
-            ) : (
-              renderRemoveButton
-            )
+            buttonToRender
           ) : (
             <>
               <div className={styles.gradeContainer}>Grade: A</div>

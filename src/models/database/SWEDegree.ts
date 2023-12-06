@@ -15,7 +15,7 @@ import { GenEdHums } from "./GenEdHum";
 import { GenEdCMST } from "./GenEdCMST";
 import { GenEdHumEnglOrHnrses } from "./GenEdHumEnglOrHnrs";
 import { CSC2000Electives } from "./CSC2000Elective";
-import { CSC3000Electives } from "./CSC3000Electives"; 
+import { CSC3000Electives } from "./CSC3000Electives";
 import { CSC4000Electives } from "./CSC4000Electives";
 
 import {
@@ -455,7 +455,7 @@ export const AreaElective1 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...ApprovedElectives],
   optionTaken: null,
   credits: 3,
 });
@@ -467,7 +467,7 @@ export const AreaElective2 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...ApprovedElectives],
   optionTaken: null,
   credits: 3,
 });
@@ -515,7 +515,7 @@ export const GenEdSocialScience2000 = new CategoryCourse({
   courseType: [],
   grade: null,
   section: null,
-  options: [],
+  options: [...GenEdSocialSciences],
   optionTaken: null,
   credits: 3,
 });

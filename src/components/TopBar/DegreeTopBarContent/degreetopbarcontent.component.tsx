@@ -14,11 +14,8 @@ const DegreeTopBarContent = (): JSX.Element => {
   const $scheduledCourses = useSelector(
     (state: AppState) => state.semester.coursesToSchedule,
   );
-  const $inProgressSections = useSelector(
-    (state: AppState) => state.semester.scheduledSections,
-  );
-  const $completedCourses = useSelector(
-    (state: AppState) => state.student.scheduledCourses,
+  const $hoursCanSchedule = useSelector(
+    (state: AppState) => state.student.hoursCanSchedule,
   );
   const $degreeHours = useSelector(
     (state: AppState) => state.student.majors[0].hours,
@@ -27,6 +24,28 @@ const DegreeTopBarContent = (): JSX.Element => {
     (state: AppState) => state.student.scheduledCourses,
   );
   const $degree = useSelector((state: AppState) => state.student.majors[0]);
+
+  const hoursCanScheduleSegment: segment = useMemo(() => {
+    const scheduledTotalCredits = $scheduledSections
+      .filter((section) => !section.course.grade)
+      .reduce((acc, section) => acc + (section.course.credits ?? 0), 0);
+
+    const sectionsScheduledTotalCredits = $scheduledCourses.reduce(
+      (acc, course) => acc + (course.credits ?? 0),
+      0,
+    );
+
+    const reducedHoursCanSchedule =
+      $hoursCanSchedule - sectionsScheduledTotalCredits - scheduledTotalCredits;
+
+    return {
+      id: "HCS",
+      label: "Hours Can Schedule",
+      color: "gray",
+      value: reducedHoursCanSchedule,
+      tooltip: `${reducedHoursCanSchedule} Credit Hours Available to Schedule`,
+    };
+  }, [$hoursCanSchedule, $scheduledCourses, $scheduledSections, $force]);
 
   const toBeScheduledSegment: segment = useMemo(() => {
     // Use reduce to sum up the credits from scheduledCourses
@@ -86,6 +105,7 @@ const DegreeTopBarContent = (): JSX.Element => {
               completedSegment,
               inProgressSegment,
               toBeScheduledSegment,
+              hoursCanScheduleSegment,
             ]}
             max={$degreeHours}
             isBlankTooltipEnabled={true}
