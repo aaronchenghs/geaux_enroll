@@ -27,7 +27,7 @@ export const DEFAULT_INITIAL_STUDENT: Student = {
   majors: [SoftwareEngineeringDegree],
   minors: [],
 
-  hoursCanSchedule: 15,
+  hoursCanSchedule: 18,
   gpa: 4.0,
   scheduledCourses: [],
 };

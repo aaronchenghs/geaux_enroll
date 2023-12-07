@@ -1,4 +1,5 @@
 import { Course, Department } from "../course";
+import { dummyCourse } from "./PhysicalScienceSequence2";
 
 export const CSC4243 = new Course({
   name: "Interface Design and Technology",
@@ -6,6 +7,7 @@ export const CSC4243 = new Course({
   department: Department.CSC,
   description: `CSC 4243 focuses on the principles and practices of effective interface design and technology. This course covers a range of topics, including user experience (UX) design, user interface (UI) design, interaction design, and usability testing. Students will learn about the psychology of human-computer interaction, design methodologies, and the application of these principles to create user-friendly, accessible, and aesthetically pleasing interfaces. The course includes hands-on projects where students will design and prototype interfaces for various platforms, including web, mobile, and desktop applications. Emphasis is placed on creating intuitive user experiences, understanding user needs, and utilizing technology and design principles to meet those needs effectively.`,
   credits: 3,
+  prereqs: [dummyCourse],
 });
 
 export const CSC4263 = new Course({
@@ -14,6 +16,7 @@ export const CSC4263 = new Course({
   department: Department.CSC,
   description: `CSC 4263 is an immersive course that introduces students to the fundamentals of video game design. This course explores various aspects of game development including storyboarding, character development, level design, gameplay mechanics, and audio-visual elements. Students will learn about different game genres and platforms, and how to design games that are engaging, balanced, and fun. The course also covers the use of game engines and programming languages relevant to game development. Through practical assignments, students will have the opportunity to create their own game prototypes, applying the theories and techniques learned to produce original, interactive gaming experiences. The course aims to provide a comprehensive understanding of the video game design process, from conceptualization to implementation.`,
   credits: 3,
+  prereqs: [dummyCourse],
 });
 
 export const CSC4332 = new Course({

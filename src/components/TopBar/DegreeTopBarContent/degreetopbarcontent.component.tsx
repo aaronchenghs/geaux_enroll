@@ -41,7 +41,7 @@ const DegreeTopBarContent = (): JSX.Element => {
     return {
       id: "HCS",
       label: "Hours Can Schedule",
-      color: "gray",
+      color: "#A9A9A9",
       value: reducedHoursCanSchedule,
       tooltip: `${reducedHoursCanSchedule} Credit Hours Available to Schedule`,
     };

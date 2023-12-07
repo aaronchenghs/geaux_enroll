@@ -162,7 +162,7 @@ const CourseModal = ({ openCondition }: ModalProps): JSX.Element => {
         </Tooltip>
       }
     >
-      <Button variant="secondary" disabled>
+      <Button variant="secondary" className={styles.disabledButton}>
         Cannot Schedule
       </Button>
     </OverlayTrigger>

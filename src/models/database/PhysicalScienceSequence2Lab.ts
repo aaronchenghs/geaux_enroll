@@ -1,11 +1,12 @@
 import { Course, Department } from "../course";
+import { dummyCourse } from "./PhysicalScienceSequence2";
 
 export const PHYS1209 = new Course({
   name: "General Physics Laboratory for Physics Majors",
   code: 1209,
   department: Department.PHYS,
   description: `Laboratory to accompany PHYS 1202.`,
-  prereqs: [],
+  prereqs: [dummyCourse],
   grade: null,
   section: null,
   credits: 1,
@@ -16,7 +17,7 @@ export const PHYS2109 = new Course({
   code: 2109,
   department: Department.PHYS,
   description: `Electricity, magnetism, geometrical and physical optics and other topics in modern physics.`,
-  prereqs: [],
+  prereqs: [dummyCourse],
   grade: null,
   section: null,
   credits: 1,
@@ -27,7 +28,7 @@ export const CHEM1213 = new Course({
   code: 1213,
   department: Department.CHEM,
   description: `Basic laboratory operations including selected experiments and introductory inorganic qualitative analysis.`,
-  prereqs: [],
+  prereqs: [dummyCourse],
   grade: null,
   section: null,
   credits: 1,

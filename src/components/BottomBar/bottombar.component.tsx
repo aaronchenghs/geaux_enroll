@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import { View, changeView, forceRerender } from "../../store/App/slice";
 import { Tooltip } from "react-tooltip";
 import {
+  clearCoursesToSchedule,
   clearScheduledSections,
   returnFromCurrentSelection,
 } from "../../store/Semester/semester-slice";
@@ -70,8 +71,11 @@ const BottomBar = (): JSX.Element => {
     const submitSections = (): void => {
       if (!shouldAllowSubmit) return;
       dispatch(returnFromCurrentSelection());
+      dispatch(returnFromCurrentSelection());
+
       dispatch(addScheduledSections($scheduledSections));
       dispatch(clearScheduledSections());
+      dispatch(clearCoursesToSchedule());
 
       setTimeout(() => {
         dispatch(changeView(View.Degree));

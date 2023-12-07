@@ -116,3 +116,19 @@
   height: 100%;
   font-weight: bold;
 }
+
+.disabledButton {
+  color: #6c757d;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+  cursor: not-allowed;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: #6c757d;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    cursor: not-allowed;
+  }
+}
